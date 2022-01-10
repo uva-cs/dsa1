@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: 05-sorting slide set</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../slides/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../slides/reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../slides/css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../slides/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../slides/reveal.js/css/print/pdf.css' : '../slides/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../slides/reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../slides/js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../slides/js/canvas.js"></script>
+    <script src="node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true,
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../slides/css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Sorting
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Comparable and Sorting in Java](#/intro)  <br />
+[Bubble Sort](#/bubble) <br />
+[Insertion Sort](#/insertion) <br />
+[Best of a Breed?](#/lb1)  <br />
+[Mergesort](#/merge)  <br />
+[Quicksort](#/quick)  <br />
+[Lower Bound Proof](#/lb2)  <br />
+[Other Sorting Algorithms](#/other)  <br />
+</script></section>
+
+<section>
+<section id="intro" data-markdown class="center"><script type="text/template">
+## Introduction
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Sorting
+- __Problem:__ Given a list (usually an array but could be vector or linked list) of things, sort the list.
+- __Input:__ An array of things (objects, primitives, whatever...).
+- __Output:__ A list of the same things, but in sorted order.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Sorting: Other Requirements
+- __Requirement:__ The "things" in the list must have, at a minimum, the less than (<) operator defined.
+  - i.e., I can't sort things if I can't tell which are less than others.
+  - In reality, we usually can utilize less than, greater than, and equals to operators.
+  - Java does this through the __Comparable__ interface, which we will see soon.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Sorting: Other Vocabulary
+- __Comparison Sorts:__ Algorithms that sort by making use of direct comparisons (i.e., <= operator) and swapping elements.
+- __Adjacent Sorts:__ Algorithms that sort by only swapping adjacent elements in the list
+  - e.g., bubble sort and insertion sort
+  - ...these are a subset of comparison sorts.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Sorting: More Vocabulary
+- __Stable Sort:__ A sorting algorithm is __stable__ if when two items x and y occur in the relative order x,y in the original list AND x==y, then x and y appear in the same relative order x,y in the final sorted list.
+  - Why would we want this? 
+- __In-Place Sort:__ A sorting algorithm is __in-place__ if the algorithm uses at most Big-Theta(1) extra space.
+  - e.g., allocating another array of size __n__ is NOT allowed.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Sorting in Java
+- How does __Java__ handle sorting?
+- There are a couple of ways, but we will see it using Collections.sort().
+
+<pre><code class="hljs" data-trim contenteditable>
+public static< T > void sort(List< T > list);
+
+/* Call the method like this: */
+ArrayList< Integer > a = new ArrayList< Integer >();
+/* FILL ARRAY WITH LOTS OF STUFF */
+Collections.sort(a); //sort it
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Requirements for Sorting
+- Two requirements for Collections.sort()
+- __R1:__ The list (the parameter) must implement Java's List< T > interface. The List will definitely be a collection of of things.
+- __R2:__ The items in the List must implement Java's __Comparable__ interface. This ensures they can be compared to each other.
+  - Comparable means that we can always use the compareTo(Object other) method to do the actual sorting.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Example: Sorting People by Height
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Person implements Comparable< Person >{
+  private int age;
+  private double height;
+
+  // Forced to have this method (by interface)
+  // Determines the ordering of Persons
+  public int compareTo(Person other){
+    return this.height - other.height;
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Example: Sorting People by Height
+
+<pre><code class="hljs" data-trim contenteditable>
+ArrayList< Person > p = new ArrayList < Person >();
+/* Add a bunch of people objects */
+
+//height is used to sort the objects
+Collections.sort(p);
+</code></pre>
+</script></section>
+
+</section>
+
+<section>
+<section id="bubble" data-markdown class="center"><script type="text/template">
+## Bubble Sort
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Bubble Sort
+
+- First sorting algorithm
+- __NOT__ a good choice. 
+- Only showing as an introduction / most basic approach.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Bubble Sort: Overall
+
+- __Overall Idea:__ For each pair of adjacent elements, swap the bigger one up one position if necessary so that the largest item "bubbles" to the highest index in the list. Repeat __n__ times.
+
+![Bubble](https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Bubble Sort: Psuedocode
+
+<pre><code class="hljs" data-trim contenteditable>
+bubbleSort(List list):
+  for each i from 0 to n-2
+    for each j from 0 to n-i-1
+      if list[j] > list[j+1]
+        swap list[j] and list[j+1]
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Bubble Sort: Analysis
+
+- Bubble sort is __&Theta;(n<sup>2</sup>)__. Why?
+- Even worse: Bubble sort will ALWAYS do the most amount of work possible.
+  - Why? Because the outer and inner loops ALWAYS run completely through. Are never cut short for any reason.
+  - This is primarily why bubble sort is __a very bad choice for sorting__.
+</script></section>
+
+</section>
+
+
+<section>
+<section id="insertion" data-markdown class="center"><script type="text/template">
+## Insertion Sort
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Insertion Sort
+
+- Similar to __bubble sort__, except some slight improvements.
+- Most notably, insertion sort will __terminate the inner loop__ when there is no need to continue (i.e., this element already in correct position.)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Insertion Sort: Overall Idea
+
+- __Idea:__ At any point during sorting, elements 0 through i-1 are sorted and element i onward are not.
+- Take element __i__, and slide it down the list until in position, then stop and move onto i+1
+- Once __i__ finds its correct spot, no need to continue moving down the list.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Insertion Sort: Psuedocode
+
+<pre><code class="hljs" data-trim contenteditable>
+insertionSort(List list):
+  for each i from 1 to n-1
+    val = list[i]
+    for each j from i-1 to 0
+      if val < list[j]
+        list[j+1] = list[j] //slide j up one
+    list[j+1] = val //insert val in correct spot
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Insertion Sort: Analysis
+
+- Worst-Case is same as bubble sort. __&Theta;(n<sup>2</sup>)__
+- BUT, if the inner loop only has to shift a few elements out of the way each time, then it terminates early, which makes insertion sort __very fast__ in some situations.
+  - List is "almost sorted"
+  - List is very small
+</script></section>
+
+</section>
+
+<section>
+<section id="lb1" data-markdown class="center"><script type="text/template">
+## Best of a Breed?
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Lower Bounds Proof
+
+- __Question:__ bubble and insertion sort are __adjacent sorts__. Is it possible to develop an adjacent sort that is __o(n<sup>2</sup>)__?
+- __Claim:__ Sorting a list by only swapping adjacent elements is __&Omega;(n<sup>2</sup>)__
+- __Proof:__ See next slide...
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Lower Bounds Proof
+
+- Overall Approach: Count the minimum amount of work necessary to sort the list and divide by how much of the list can be fixed in a single operation.
+- __Inversion:__ An inversion is a pair of elements in the list x and y that are not in relatively correct sorted order.
+  - Observation: A sorted list has 0 inversions. Thus "sorting" a list means removing all inversions.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Lower Bounds Proof
+
+- __Min Inversions:__ 0 (a sorted list)
+- __Max Inversions:__ ((n)(n-1)) / 2 = &Theta;(n<sup>2</sup>) (i.e., a reverse sorted list)
+- __Fixes per swap:__ Swapping adjacent items can fix at most one inversion.
+- __Conclusion:__ Worse case is always &Omega;(n<sup>2</sup>)
+</script></section>
+
+</section>
+
+<section>
+<section id="merge" data-markdown class="center"><script type="text/template">
+## Mergesort
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Intro
+
+- General sorting algorithm
+- is recursive
+- example of a __divide-and-conquer__ algorithm
+- is o(n<sup>2</sup>)
+- is faster than the adjacent sorts in most situations
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Aside: Divide-and-conquer
+
+- A divide-and conquer algorithm usually has the following structure
+- Runtime is equal to time to divide + recurse + time to merge
+
+<pre><code class="hljs" data-trim contenteditable>
+solveProblem(input)
+  if input is small, then brute-force
+  else if input is big
+    divide problem into n smaller problems
+    recursively invoke solveProblem on smaller problems
+    merge solutions to small problems into bigger solution
+    return bigger solution
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort: Overall Idea
+
+- If list is one element, then already sorted so just return
+- Otherwise, divide into two halves left and right
+- recursively sort left and right
+- merge the two sorted lists into one sorted list
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort: Overall Idea
+
+![Merge](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort: Acting it Out
+
+- Let's act it out and sort a list
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Merge: Pseudo-code
+
+- Most of the work done in merge
+- Most implementations use a "scratch array"
+  - An extra array of size n which is then copied back into
+
+<pre><code class="hljs" data-trim contenteditable>
+merge(left, right)
+  l = 0, r = 0
+  pos = 0
+  while(pos < left.len + right.len)
+    if(l < left.len AND (r >= right.len OR left[l] < right[r]))
+      merged[pos] = left[l]
+      l++
+    else
+      merged[pos] = right[r]
+      r++
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Analysis
+
+- What is the runtime?
+  - Divide the list (constant)
+  - Two recursive sorts
+  - Merge (linear)
+- Total: __T(n) = 2*T(n/2) + n = &Theta;(n*log(n))__
+  - Uhhhhh...why?
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Analysis
+
+- How to tell that this is true?
+- __T(n) = 2*T(n/2) + n = &Theta;(n*log(n))__
+  - Solve for a closed form (will see in dsa2)
+  - Draw out tree and count (do on board)
+  - Master theorem (nice...will see in dsa2)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Method Signature
+
+- Typically mergesort is done like this instead:
+
+```
+//Sort the list between indices i and j
+public void mergeSort(T[] list, int i, int j);
+```
+
+- And recursive calls done like this
+  - Doesn't make new arrays when dividing
+  - Just ask mergesort to only work on one portion of interest
+  - merge() still uses scratch array, copies back to list
+
+```
+int mid = (j+i)/2;
+mergeSort(list, i, mid);
+mergeSort(list, mid+1, j);
+```
+</script></section>
+
+</section>
+
+<section>
+<section id="quick" data-markdown class="center"><script type="text/template">
+## Quicksort
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Introduction
+
+- Similar to __mergesort__, except the "work" is done during the dividing instead of in the merging.
+- Still recursive
+- Still divide-and-conquer
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Overall Idea
+
+- __Idea:__ Select an item in the list to be a __pivot__ value. 
+- Divide the list into two halves
+  - Items less than pivot and recursively sort
+  - Items greater than pivot and recursively sort
+- "merge" by concatenating lessList,pivot,greaterList
+- return
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort
+
+![Proof](https://upload.wikimedia.org/wikipedia/commons/a/af/Quicksort-diagram.svg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Psuedo-code
+
+<pre><code class="hljs" data-trim contenteditable>
+quickSort(list, i, j)
+  /* BASE CASE GOES HERE */
+
+  //partition list and return index of pivot
+  int pivot = partition(list, i, j);
+  quickSort(list, i, pivot-1)
+  quickSort(list, pivot+1, j)
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Partition
+
+- Partition is responsible for:
+  - Selecting a pivot value
+  - re-arranging list so that
+    - pivot in correct place
+    - items less than pivot are below
+    - likewise for items greater than pivot
+- Two appraoches:
+  - Hoare's Partition
+  - Lomuto's Partition
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Lomuto's Partition
+
+![lom](./images/05-sorting/lomuto.png)
+
+- __Strategy:__
+  - Increment k, look at A[k]
+  - If A[k] > pivot, all is well
+  - Otherwise, h++ and swap k and h
+  - When done, swap h and pivot to place pivot in correct spot
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Hoare's Partition
+
+![lom](./images/05-sorting/hoare.png)
+
+- __Strategy:__
+  - move low up until something > pivot found
+  - move high down until something <= pivot found
+  - swap items at low and high
+  - when done, swap items at high and pivot to put pivot in place
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Analysis of Quicksort
+
+- is __in-place__ (if you don't count the recursive bookkeeping)
+  - doesn't use scratch array like mergesort usually does
+- Same runtime analysis as mergesort
+  - T(n) = 2*T(n/2)+n = &Theta;(n*log(n))
+  - Caveat to this: See next slide
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Analysis of Quicksort: Worst case
+
+- Technically, we could pick a very bad __pivot__ every time.
+  - bad pivot means list not split in half. Worst case split into sizes 0 and n-1
+- So T(n) = T(n-1) + n = &Theta;(n<sup>2</sup>)
+- This is NOT VERY LIKELY
+  - In addition, some advanced techniques can be used to ensure it never happens.
+</script></section>
+
+</section>
+
+<section>
+<section id="lb2" data-markdown class="center"><script type="text/template">
+## Lower Bound Proof
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Best sorting algorithm: decision tree
+
+![Proof](https://www2.hawaii.edu/~nodari/teaching/s17/Notes/Topic-10/decision-tree-insertion-sort.jpg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Best sorting algorithm: decision tree
+
+- The "best" decision tree must exist (i.e., there is SOME best algorithm)
+- The number of leaves __L >= n!__
+  - Because list has n! permutations
+- So, the height of the "best" decision tree is the best possible runtime for a sorting algorithm.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Best sorting algorithm: decision tree
+
+- For a binary tree, __L <= 2<sup>h</sup>__
+  - L is number of leaves
+  - h is height of tree
+- Solve for h:
+  - h >= log<sub>2</sub>(n!)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Getting rid of that factorial
+
+- For now, just trust me...but:
+  - log(n!) = &Theta;(n*log(n))
+- Thus, any algorithm that sorts by comparing keys must be &Omega;(n*log(n))
+</script></section>
+
+</section>
+
+<section>
+<section id="other" data-markdown class="center"><script type="text/template">
+## Other Sorting Algorithms
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Hybrid Sorts
+
+- Some sorting algorithms (like Java's internal one) will look at properties of the list and call different algorithms depending on the situation.
+- For example:
+  - Insertion sort is faster than merge/quick on smaller lists
+  - Insertion faster on almost sorted lists
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Hybrid Sorts
+
+- Thus,
+  - Switch to insertion once recursive calls get small (~100-150 elements)
+  - Or don't recurse all the way in quicksort and use insertion at the end on the almost sorted list
+  - Usually leads to speedup
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Other sorting algorithms
+
+- __Heap Sort:__ We haven't seen this data structure, so we will study this a little later
+- __Radix Sort:__ Uses values of digits to sort numbers very quickly.
+- __TimSort:__ What Java Collections.sort() uses
+- ...and many others.
+</script></section>
+
+</section>
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

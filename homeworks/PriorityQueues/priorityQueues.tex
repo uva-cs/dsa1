@@ -1,0 +1,195 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Priority Queues - Heap and Heap Sort \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Summary
+%----------------------------------------------------------------------------------------
+
+\section{Summary}
+
+For this homework, you will be building a custom MinHeap class as discussed in class. You will use this heap to implement an efficient HeapSort algorithm. 
+
+\begin{enumerate}
+	\item Download the provided \href{https://markfloryan.github.io/dsa1/homeworks/PriorityQueues/code/heaps.zip}{starter code}.
+	\item Implement the MinHeap.java class.
+	\item Implement the heapSort() method.
+	\item Test the correctness of your hash table using the provided tester.
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/homeworks/PriorityQueues/code/heaps.zip}{heaps.zip}
+	\item \textbf{FILES TO SUBMIT:} heaps.zip
+\end{enumerate}
+
+%------------------------------------------------
+
+\subsection{MinHeap.java}
+
+First, you will be implementing the MinHeap.java class, which implements the following PriorityQueue interface:
+
+\begin{lstlisting}
+public interface PriorityQueue<T extends Comparable<T>> {
+	
+	/* places the value T onto the heap */
+	public void push(T data);
+
+	/* removes and returns the item with next priority
+     * (i.e., lowest value)
+	 */
+	public T poll();
+
+	/* returns the next item to be polled, without removing */
+	public T peek();
+
+	/* returns number of elements on the heap */
+	public int size();
+	
+}
+
+\end{lstlisting}
+
+Your MinHeap class will also have a few extra supporting methods necessary to make it work. You heap MUST be a heap implementation, as discussed in class, using an array (no linked list / tree like implementations). The other methods necessary are: 
+
+\begin{lstlisting}
+// Constructs a heap from the given array
+// pre-filled with the data in the heap
+// data may need to be restructured
+public MinHeap(ArrayList<T> data);
+
+// Turns the internal array without
+// heap ordering property into the
+// equivalent heap with the ordering property
+private void heapify();
+
+// Percolate the item at index up until
+// the ordering property is restored
+private void percolateUp(int index);
+
+// Percolate the item at index down until
+// the ordering property is restored.
+private void percolateDown(int index);
+\end{lstlisting}
+
+Once you are done, you can test your implementation using the provided tester. Remember that the tester is NOT meant to be a thorough check of your implementation. You should still write your own tests to make sure that it works. Also note that not all the tests will pass at this point, because you haven't implemented HeapSort yet (see next section).
+
+\subsection{Heap Sort}
+
+Heap Sort is an algorithm that sorts a list using the methods from a MinHeap or MaxHeap. In the provided tester file, you'll find a method called heapSort(). Implement this method so that it uses the MinHeap you built to sort the provided list of numbers. Once you are done, you can re-run the provided tester to confirm that it seems to work.
+%------------------------------------------------
+
+
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

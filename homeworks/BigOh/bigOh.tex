@@ -1,0 +1,214 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Big Oh - Analyzing Scalability of Algorithms \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Scalability of Algorithms
+%----------------------------------------------------------------------------------------
+
+\section{Summary}
+
+For this homework, you will work to understand the scalability of algorithms, and the differences between common runtimes. You will also continue practicing your programming by implementing some (but not all) of the methods you will be analyzing.
+
+\begin{enumerate}
+	\item Download the starter code and import the project into Eclipse.
+	\item Implement the missing methods from BigOh.java
+	\item Run each method on increasing array sizes. Use completion times to fill out the BigOh chart.
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/homeworks/BigOh/code/BigOh.zip}{BigOh.zip}
+	\item \textbf{FILES TO SUBMIT:} BigOh.zip (includes BigOh.pdf with chart)
+\end{enumerate}
+
+%------------------------------------------------
+
+\subsection{Download Starter Code and Implement Three Methods}
+
+You can download the starter code for this homework from the course repository \href{https://markfloryan.github.io/dsa1/homeworks/BigOh/code/BigOh.zip}{here}. Once you have done so, you should import the project into Eclipse.
+
+This project contains one Java file (BigOh.java). The file contains the following methods (some of which are not yet implemented):
+
+\begin{lstlisting}
+// Searches for item in sorted array a.
+// Returns true iff item is found in a
+// Should run in Theta(logn) time
+public static binarySearch(int[] a, int item);
+
+// Finds the largest item in a (a might not be sorted)
+// Should run in Theta(n) time
+public static int max(int[] a);
+
+// Invokes binarySearch() with a.length random numbers
+// Returns how many times those random numbers were found in a
+// Should run in Theta(nlogn) time
+public static int multipleBinarySearch(int[] a);
+
+// Counts how many pairs of items in a sum to a multiple of 5
+// Should run in Theta(n^2) time
+public static int allPairs(int[] a);
+
+// Counts how many a,b,c combinations there are in a such that a+b=c
+// Should run in Theta(n^3) time
+public static int allTriads(int[] a);
+
+// loops through all the subsets of array a
+// e..g, {1,2,3} would print {},{1},{2},{3},{1,2},{1,3},{2,3},{1,2,3}
+// Should run in Theta(2^n) time
+public static int allSubsets(int[] a);
+\end{lstlisting}
+
+Your first task is to implement the first five of these methods. The allSubsets() method is provided as it is much more tricky than the others.
+
+Many of you have probably not seen \textbf{binary search} before. Binary search is an efficient method of searching through sorted data. Because the data is sorted, we can efficiently search by looking in the middle of the data and reducing our search to the half that is guaranteed to contain the item. We do this continuously until the search narrows all the way down to one item. This is similar to looking up a word efficiently in a dictionary. First, we look in the middle of the book. If our word is in the lower half we open halfway in that direction, and so on until we narrow in on the word we are searching for. Some psuedo-code for binary search can be found below:
+
+\begin{lstlisting}
+binarySearch(int[] a, int item){
+	set variables min=0 and max=a.length-1
+	continue while min is less than max
+		look at the middle between min and max
+		if that element is item, then found!
+		if item is less than middle element
+			repeat search between min and cur
+		if item is more than middle element
+			repeat search between cur+1 and max
+
+	if this loop exits, then the item was not found
+}
+\end{lstlisting}
+
+The other methods should be self-explanatory from the comments above. Let course staff know if you have any confusion about these. Make sure to write small tests to ensure your code is working correctly. We are not providing tests for this assignment.
+
+%------------------------------------------------
+
+\subsection{Analyzing Scalability}
+
+Your second task is to analyze how large inputs can reasonable get at each runtime. We have provided a main function to you that asks for two inputs: The method you would like to execute, and how large you'd like the input size (array) to be. The method also provides some code that times how long the operation takes and reports the time to you.
+
+Run the code multiple times and fill out the chart below. Submit the chart along with your code as BigOh.pdf. As your filling out this chart, think about how much larger the input can get as your code becomes more and more efficient. If a time takes more than 1 minute, don't wait for the code to finish, just report that the code took more than 60000 ms. Please report all times in ms (a time of 0 ms is fine if the code finishes quickly). 
+
+\renewcommand{\arraystretch}{2.0}
+\begin{tabular}{|r|l|l|l|l|l|l|l|l|l|}
+\hline
+Input Size:                        & 1 & 10 & 100 & 1,000 & 10,000 & 10\textasciicircum{}5 & 10\textasciicircum{}6 & 10\textasciicircum{}7 & 10\textasciicircum{}8 \\ \hline
+Binary Search (logn)               &   &    &     &       &        &                       &                       &                       &                       \\ \hline
+Max (n)                            &   &    &     &       &        &                       &                       &                       &                       \\ \hline
+Multi Binary Search (nlogn)        &   &    &     &       &        &                       &                       &                       &                       \\ \hline
+All Pairs (n\textasciicircum{}2)   &   &    &     &       &        &                       &                       &                       &                       \\ \hline
+All Triads (n\textasciicircum{}3)  &   &    &     &       &        &                       &                       &                       &                       \\ \hline
+All Subsets (2\textasciicircum{}n) &   &    &     &       &        &                       &                       &                       &                       \\ \hline
+\end{tabular}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

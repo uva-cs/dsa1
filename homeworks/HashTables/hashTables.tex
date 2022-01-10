@@ -1,0 +1,193 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Hash Tables - Implementation and Word Puzzle Search \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Summary
+%----------------------------------------------------------------------------------------
+
+\section{Summary}
+
+For this homework, you will be building a custom hash table class, and using it to perform a word search. The overview of this homework is as follows:
+
+\begin{enumerate}
+	\item Download the provided \href{https://markfloryan.github.io/dsa1/homeworks/HashTables/code/HashTables.zip}{starter code}.
+	\item Implement the HashTable.java class.
+	\item Test the correctness of your hash table using the provided tester.
+	\item Implement the word search solver by using your hash table implementation.
+	\item Optimize your hash table to run as quickly as possible on the large word search grids provided
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/homeworks/HashTables/code/HashTables.zip}{HashTables.zip}
+	\item \textbf{FILES TO SUBMIT:} HashTables.zip
+\end{enumerate}
+
+%------------------------------------------------
+
+\subsection{HashTable.java}
+
+First, you will implement a hash table class. This class has two generic arguments K (the key) and V (the value). To handle these, we will have our table internally store HashNode objects. This code is provided to you and a summary is shown below:
+
+\begin{lstlisting}
+public class HashNode<K,V> {
+	private K key; private V value;
+	
+	//Constructor
+	public HashNode(K key, V value);
+	
+	//HashNodes are "equal" if both keys are equal
+	public boolean equals(Object other) {
+		return this.key.equals(((HashNode<K,V>)other).key);
+	}
+	
+	public K getKey() {return this.key;}
+	public V getValue() {return this.value;}
+	public void setValue(V newValue) { this.value = newValue; }
+}
+\end{lstlisting}
+
+Notice that two HashNode objects are considered to be "equal" to each other if the key in each is equal. Thus, you can use the provided HashNode.equals() method to examine equality between HashNode objects directly.
+
+Using this object, you will implement the HashTable.java class which implements the Map interface shown below. You may use \emph{any collision resolution strategy} you would like when implementing this class. 
+
+\begin{lstlisting}
+public interface Map<K,V> {
+
+	public void insert(K key, V value);
+	public V retrieve(K key);
+	public boolean contains(K key);
+	public void remove(K key);
+}
+\end{lstlisting}
+
+Once you have implemented your HashTable class, there is a provided tester that will test some of the operations of the table to ensure they work. \textbf{This tester IS NOT a thorough test, but rather a sanity check that the table seems to be working}. You should write your own tests as well to ensure your table is working correctly.
+
+\subsection{Word Search Solver}
+
+Next, you will be writing some code within the WordPuzzleSolver.java class. This class reads in a two-dimensional array of characters, and looks for valid English words within the puzzle. (see \href{https://en.wikipedia.org/wiki/Word_search}{Wikipedia} for more details). You will be provided with two input files, a \textbf{dictionary text file} and a \textbf{grid text file}. The dictionary file enumerates a list of valid English words. Your goal is thus to find each of these words in the word puzzle. The grid text file specifies the number of rows and cols in the grid and then enumerates the characters of the grid all on a single line.
+
+Some other notes / requirements about this part of the homework:
+
+\begin{enumerate}
+	\item You should instantiate your hash table and insert each of the words from the dictionary. In order to this, you will need to read input from a file. See the course \href{https://markfloryan.github.io/dsa1/java/javaCheatSheet/javaCheatSheet.pdf}{java cheat sheet} for an example of how to read from a file.
+	\item You need to check words that start at ANY starting location in the grid, moving in any of the eight directions (North, NorthWest, etc.), and check any words of length $3 \leq n \leq 22$. Make sure you do not move off the end of the grid when looking up words.
+	\item Your output should match the format shown in the provided starter project under \emph{input/3x3.out.txt}. The order the words are printed is not important, but would be nice to make grading easier.
+	\item the \emph{input/} folder provides several grids and dictionaries to test your code with. Your code should be correct for all combinations and also be reasonably fast (less than 10 seconds on the largest grids). How fast can you make it?
+\end{enumerate}
+%------------------------------------------------
+
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

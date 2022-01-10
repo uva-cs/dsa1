@@ -1,0 +1,1899 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: 01-java slide set</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../slides/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../slides/reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../slides/css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../slides/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../slides/reveal.js/css/print/pdf.css' : '../slides/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../slides/reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../slides/js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../slides/js/canvas.js"></script>
+    <script src="node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../slides/css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Introduction to Java
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Introduction to Java](#/intro) <br />
+[Data Types](#/dataTypes) <br />
+[Basic Functions](#/basicFuncs) <br />
+[Arrays](#/arrays) <br />
+[Control Flow](#/controlFlow) <br />
+[Example](#/example) <br />
+[References](#/references) <br />
+[Methods and Parameters](#/methodsAndParams) <br />
+[Classes](#/classes) <br />
+[The JVM](#/jvm) <br />
+[The Java API](#/javaAPI) <br />
+	</script></section>
+
+<!-- INTRO TO JAVA -->
+	<section> 
+
+<section data-markdown id="intro" class="center"><script type="text/template">
+### Introduction to Java
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Hello World in Java
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class HelloWorld{
+  
+  public static void main(String[] args){
+    System.out.println("Hello World");
+  }
+}
+</code></pre>
+
+```
+Output:
+
+Hello World
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Hello World in Java (w/ comments)
+
+<pre><code class="hljs" data-trim contenteditable>
+/* This is an import statement */
+/* It is used if you want to use code from other packages */
+/* Java.io.* is all of java's input/output stuff */
+import java.io.*;
+
+/* This is a class declaration, more on that later */
+public class HelloWorld{
+  
+  /* This is called the main method */
+  public static void main(String[] args){
+    /* This is how you print to the console */
+    System.out.println("Hello World");
+  }
+}
+          </code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Notes on System.out.println();
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class HelloWorld{
+  public static void main(String[] args){
+    
+    /* if you use println, Java puts a new line at the end */
+    System.out.println("Hello");
+
+    /* And starts the next output on a new line */
+    System.out.println("There.");
+
+    /* If you use just print(), no newline after printing */
+    System.out.print("How are ");
+    System.out.print("you.");
+  }
+}
+</code></pre>
+
+```
+Output:
+
+Hello
+There.
+How are you.
+```
+</script></section>
+
+	</section>
+
+<!---------------------------------------------- -->
+
+<!-- Data Types -->
+
+<section> 
+
+<section data-markdown id="dataTypes"  class="center"><script type="text/template">
+### Data Types
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Primitive Types
+
+- Java has 8 primitive types
+  - Space noted below allocated in memory
+  - Variable name used to access this memory
+
+<pre><code class="hljs" data-trim contenteditable>
+/* What you see below is ALL of Java's primitive types */
+/* various types of integers */
+byte  var1  = 10;   //1 byte [-128, 127]
+short var2  = 12;   //2 bytes [-32768, 32767]
+int   var3  = 90;   //4 bytes [-2^31, 2^31 - 1]
+long  var4  = 14;   //8 bytes [-2^63, 2^63 - 1]
+
+/* various floating point types */
+float   fp1 = 1.34;   //4 byte IEEE 754 number
+double  fp2 = 5.4;    //8 byte IEEE 754 number
+
+/* other */
+boolean b = true;     //can have values true and false
+char    c = 'd'       //2 bytes, stores a single character
+</code></pre>
+
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Objects
+
+- All other variables in Java are objects
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.sql.Date;
+import java.io.*;
+
+public class ObjectsExample{
+  public static void main(String[] args){
+    /* Strings in java are objects */
+    String s1 = "Hi There";
+
+    /* Many other objects exist, here's one example */
+    /* Note new variables use new keyword to create */
+    Date someDate = new Date(2018, 6, 14);
+
+    System.out.println(s1);
+    System.out.println(someDate);
+  }
+}
+</code></pre>
+
+```
+Output:
+Hi There
+2018-06-14
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on Objects
+
+- All other variables in Java are objects
+  - Object data allocatted in memory, variable name is a reference to it (more on this later)
+  - Objects contain fields and methods (again, more on this in just a moment)
+  - You can develop your own objects (agaaaain, more on this in a moment)
+  - The [Java API](https://docs.oracle.com/javase/10/docs/api/overview-summary.html#JavaSE) can tell you all of the objects Java has built in.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Example Object: Scanner
+
+- Java provides a set of object types for reading input from the user
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.util.Scanner;
+ 
+public class InputExample {
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+ 
+        int x1 = in.nextInt();
+        int x2 = in.nextInt();
+        if(x1 > x2) System.out.println("First one is bigger!");
+        else if(x2 > x1) System.out.println("Second is bigger!");
+        else System.out.println("They are the same!");
+ 
+        /* Scanner also contains nextFloat(), nextLine(), etc. for other types */
+    }}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Methods
+
+- nextInt() below is called a __method__
+  - Like a function, but operates on a specific instance of that type.
+  - In this case, get the nextInt() specifically from the object 'in'
+  - How do you know what methods are available?
+    - See the [java api](https://docs.oracle.com/javase/7/docs/api/index.html?java/util/Scanner.html)
+- More on methods soon!
+
+<pre><code class="hljs" data-trim contenteditable>
+  /* ...From previous slide */
+  int x1 = in.nextInt();
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java is strongly typed
+
+- Strongly typed languages force the types stored in variables to be what is expected
+
+<pre><code class="hljs" data-trim contenteditable>
+# variables in python are not strongly typed
+# I can reassign a double to a variable that was a string
+x = "hello there"
+x = 5.2
+</code></pre>
+
+<pre><code class="hljs" data-trim contenteditable>
+//In Java, most of these are invalid
+int x = 5.23;   //Error: cannot convert from double to int
+String s1 = 9;  //Error: cannot convert from int to String
+double d1 = 5.2 //This one looks fine
+d1 = 'e'        //Error: cannot convert from char to double
+</code></pre>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Casting
+
+- In some situations, Java can force the conversion between types
+  - This is called casting, let's see some examples
+
+<pre><code class="hljs" data-trim contenteditable>
+/* Ask java to make an int. Will set x to 5 */
+int x = (int)5.23;
+
+/* Error: cannot cast from int to String */
+/* Sometimes Java does not know how to force the conversion */
+String s1 = (String)9;
+</code></pre>
+
+</script></section>
+
+</section>
+
+
+<!---------------------------------------------- -->
+  
+
+
+<!-- Simple functions -->
+
+<section> 
+
+<section data-markdown id="basicFuncs" class="center"><script type="text/template">
+### Basic Functions
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Functions
+
+- functions use the *static* syntax
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+public class ArrayExample{
+
+  public static int add(int x, int y){
+    return x + y;
+  }
+
+  public static void main(String[] args){
+    int a = 5;
+    int b = 7;
+    System.out.println("the sum is: " + add(a,b));
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Notes on Functions
+
+- for now, you can ignore the *public* and *static* qualifiers
+- return type can be **void** if nothing is returned by the function
+- formal parameters (e.g., x,y) must have a declared type (e.g., int)
+  - actual parameters (e.g., a,b) must much that declared type
+- *add* is actually called a **method**, but being casual with the nomenclature for right now.
+
+</script></section>
+
+</section>
+
+
+<!---------------------------------------------- -->
+	
+
+
+<!-- Arrays -->
+
+<section> 
+
+<section data-markdown id="arrays" class="center"><script type="text/template">
+### Arrays
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Arrays
+
+- Arrays in Java use the [] syntax
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class ArrayExample{
+  public static void main(String[] args){
+    /* several ways to create Arrays */
+    int[] a1 = new int[5];
+    double[] a2 = {1.3, 5.4, 2.33};
+    
+    int x = 5;
+    String a3[] = new String[x];
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Arrays
+
+- You can access elements in array using [] as well
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class ArrayExample{
+  public static void main(String[] args){
+    /* continues from previous slide */
+    ...
+    System.out.println(a1[0]);
+    System.out.println(a2[2]);
+    System.out.println(a3.length);
+  }
+}
+</code></pre>
+
+```
+Output:
+0
+2.33
+5
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on Arrays
+
+- Arrays have a fixed length. Cannot grow and shrink.
+  - If you want this, need to allocate new larger array and manually move things over.
+- Arrays store one type (e.g., all integers, all Strings)
+- If not specified, contents of array are all set to default value (0 for integers, "" for Strings, etc.)
+- If you access outside the range of the array (e.g., a1[100]), Java throws an ArrayIndexOutOfBoundsException
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- Control Flow -->
+
+<section> 
+
+<section data-markdown id="controlFlow" class="center"><script type="text/template">
+### Control Flow
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Types of Control Flow
+
+- If Statements:
+  - Standard if statements
+  - Switch statements
+- Loops
+  - For loop
+  - For each loop
+  - While loop
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Assignment vs. Comparison
+
+- A quick note on the difference between = and ==
+
+<pre><code class="hljs" data-trim contenteditable>
+public class CompareExample{
+  public static void main(String[] args){
+    /* = is assignment. Evaluate right side and set to left */
+    int x = (5*3);
+
+    /* == is compare. Whole expression evaluates to true/false */
+    x == 5;
+
+    System.out.println((x = 5*3)); //seems weird
+    System.out.println((x == 5));
+  }
+}
+</code></pre>
+
+```
+Output:
+15    //x=5*3 evaluates to 15, the value x was set to
+false //15 not equal to 5
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Comparing Objects
+
+- Objects cannot be compared with ==, <, >, etc.
+
+<pre><code class="hljs" data-trim contenteditable>
+public class IfExamples{
+  public static void main(String[] args){
+    
+    String s1 = new String("Hey");
+    String s2 = new String("Hey");
+
+    if(s1 == s2){ System.out.println("EQUAL!"); }
+    else { System.out.println("NOPE!"); }
+  }
+}
+</code></pre>
+
+```
+Output:
+NOPE     //We will see why very soon
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Standard If Statement
+
+<pre><code class="hljs" data-trim contenteditable>
+int x = 5;
+String out = "";
+
+if(x > 10){ 
+  out = "x is big!";
+}
+else if(x>5){
+  out = "x is not that big";
+}
+else{
+  out = "x is tiny!";
+}
+
+System.out.println(out);
+</code></pre>
+
+```
+Output:
+x is tiny!
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Notes about if statements
+
+- Can have as many else if blocks as you'd like
+- Content within the if() MUST evaluate to a boolean
+  - i.e., true or false
+- You can leave off the curly braces {}
+  - BUT, if no braces, then only the very next line of code is considered inside the if block
+  - Probably a good habit to always put the curly braces for now
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Switch statement
+
+- switch statements check several equalities
+
+<pre><code class="hljs" data-trim contenteditable>
+String month = "February";
+
+switch(month) {
+  case "January":
+    System.out.println("It is COLD outside!");
+    break;
+  case "February":
+    System.out.println("Now it's REALLY cold!");
+  /* ...More cases here removed for space */
+  default:
+    System.out.println("That is not a valid month!");
+    break;
+}
+</code></pre>
+
+```
+Output:
+Now it's REALLY cold!
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### For loop
+
+- A classic!
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LoopExamples{
+  public static void main(String[] args){
+
+    int[] stuff = {3,5,7,9};
+    int total = 0;
+
+    for(int i=0; i < stuff.length; i++){
+      total += stuff[i];
+    }
+    
+    System.out.println("Sum is " + total);
+  }
+}
+</code></pre>
+
+```
+Output:
+Sum is 24
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### For-Each loop
+
+- A nice compact way to do a standard for-loop
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LoopExamples{
+  public static void main(String[] args){
+
+    int[] stuff = {3,5,7,9};
+    int total = 0;
+
+    for(int x : stuff){
+      total += x;
+    }
+    
+    System.out.println("Sum is " + total);
+  }
+}
+</code></pre>
+
+```
+Output:
+Sum is 24
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### While loop
+
+- Another type of loop, sometimes easier to write
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LoopExamples{
+  public static void main(String[] args){
+
+    int[] stuff = {3,5,7,9};
+    int total = 0;
+    int i = 0;
+
+    while(i < stuff.length){
+      total += x;
+      i++;
+    }
+    
+    System.out.println("Sum is " + total);
+  }
+}
+</code></pre>
+
+```
+Output:
+Sum is 24
+```
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- Example -->
+  <section> 
+
+<section data-markdown id="example" class="center"><script type="text/template">
+### Example
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### An Example
+
+- Let's put all of this together in one program.
+- __Challenge__: FIZZ-BUZZ is a common interview question. Write a program that plays Fizz-Buzz perfectly.
+- __Fizz-Buzz__: Count up from 1 to 1000. Print out each number but:
+  - If number divisible by 3, say Fizz instead of the number
+  - If number divisible by 5, say Buzz instead of the number
+  - If both, say Fizz Buzz
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Let's Code it!!
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+//Let's finish it together
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Solution
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class FizzBuzz{
+  public static void main(String[] args){
+
+    for(int i=1; i<=1000; i++){
+      if(i % 3 == 0)
+        System.out.print("Fizz ");
+      if(i % 5 == 0)
+        System.out.print("Buzz ");
+      if(i % 3 != 0 && i % 5 != 0)
+        System.out.print(i);
+
+      System.out.print("\n"); //new line
+    }
+  }  
+}
+</code></pre>
+</script></section>
+
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- References -->
+
+<section> 
+
+<section data-markdown id="references" class="center"><script type="text/template">
+### References
+</script></section>
+
+<section data-markdown><script type="text/template">
+### References
+
+- Primitives in Java (e.g., int, double, etc):
+  - Store a value directly in memory
+  - Variable refers directly to that memory address
+
+- Objects in Java are stored as References:
+  - Stores a memory address of another variable
+  - When program refers to variable, automatically dereferenced
+  - Makes parameter passing and equality tricky (examples coming).
+</script></section>
+
+<section class="diagram-slide">
+<h3>References Example</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* This is a primitive */
+int x = 127;
+
+/* This is a reference */
+String s = new String("Hello");
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[x: 127]
+    B[s] --> C("Hello")
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Arrays are Reference Types</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* This is an array */
+int[] x = {5,7,8};
+</code></pre>
+<span class="diagram-data" style="display:none;">
+    graph LR
+    B[x] --> C(5,7,8)
+</span><div class="diagram-display"></div>
+</section>
+
+<section>
+<h3>Using == on references</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* What do you think this does? */
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 6, 14);
+
+if(date1 == date2){
+  System.out.println("They are the same!");
+}
+</code></pre>
+
+</section>
+
+<section class="diagram-slide">
+<h3>Using == on references</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* These two vars are NOT == */
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 6, 14);
+
+if(date1 == date2){
+  System.out.println("They are the same!");
+}
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph LR
+    A[date1] --> B(6-14-2018)
+    C[date2] --> D(6-14-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Comparing references</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* These two vars are NOT == */
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 6, 14);
+
+/* Use .equals() to compare references */
+if(date1.equals(date2)){
+  System.out.println("They are the same!");
+}
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph LR
+  A[date1] --> B(6-14-2018)
+  C[date2] --> D(6-14-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section>
+<h3>Assignment of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 7, 18);
+
+date1 = date2;
+
+System.out.println(date1);
+</code></pre>
+</section>
+
+<section class="diagram-slide">
+<h3>Assignment of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 7, 18);
+
+date1 = date2;
+
+System.out.println(date1);
+</code></pre>
+<h4>Before the assignment</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[date1] --> B(6-14-2018)
+    C[date2] --> D(7-18-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Assignment of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 7, 18);
+
+date1 = date2;
+
+System.out.println(date1);
+</code></pre>
+<h4>AFTER the assignment</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    B(6-14-2018)
+    A[date1] --> D
+    C[date2] --> D(7-18-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Shared References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* From previous slide */
+/* Note that BOTH date1 and date2 are changed */
+date1.setYear(2017)
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    B(6-14-2018)
+    A[date1] --> D
+    C[date2] --> D(7-18-2017)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Another Example of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* From previous slide */
+/* Note that date1 is not affected here */
+date2 = new Date(2013, 10, 28);
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    B(6-14-2018)
+    A[date1] --> D(7-18-2017)
+    C[date2] --> E(10-28-2013)
+  </span><div class="diagram-display"></div>
+</section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- Methods / Parameter Passing -->
+
+<section> 
+
+<section data-markdown id="methodsAndParams" class="center"><script type="text/template">
+### Methods and Parameters
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Methods: Overview
+
+- Java: any code you write __MUST__ be within class
+  - More on classes, what they are, etc. soon!
+- You can write functions in Java, and they behave more or less like functions in other languages:
+  - Can take parameters
+  - Have return values
+- However, since all functions are within classes, Java calls them methods because they are associated with a single class definition
+  - Note that in languages like C++, you can write functions and methods.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### A simple method
+
+- Notice the static keyword
+  - Will talk more about this later
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.util.Scanner;
+public class MethodExample {
+    /**
+      * This is a method
+      * takes in two parameters and returns the larger
+      */
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int x1 = in.nextInt();
+        int x2 = in.nextInt();
+
+        System.out.println("The bigger number is " + getMax(x1, x2));
+    }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on methods
+- Scope
+  - Public: Anyone can invoke this method
+  - Private: Method can only be invoked from within this class
+  - Protected: Method can be invoked by inheriting classes and ones in the same package
+  - More on this later...
+- Static
+  - Basically means the class only has one shared instance of this method
+  - Again, more on this later...
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on methods (cont.)
+
+- Return value
+  - Can be void if no return value necessary
+  - If not void, function MUST contain a return statement
+- Parameters,
+  - Can pass as many parameters as you want, but must declare the types
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Overloading methods
+
+- Overloaded methods have the same name, but different numbers / types of parameters
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.util.Scanner;
+public class MethodExample {
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+
+    public static int getMax(int num1, int num2, int num3){
+      return getMax(getMax(num1,num2), num3);
+    }
+
+    public static double getMax(double num1, double num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Parameter Passing
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+    public static void main(String args[]) {
+        /* Read in the numbers from Scanner (Omitted) */
+
+        System.out.println("The bigger number is " + getMax(x1, x2));
+    }
+</code></pre>
+
+  - __Actual Parameter:__ The variable(s) that are given to the function
+    - e.g., x1 and x2 in main() above
+  - __Formal Parameter:__ The variable(s) the method uses
+    - e.g., num1 and num2 in getMax() above
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Parameter Passing
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+    public static void main(String args[]) {
+        /* Read in the numbers from Scanner (Omitted) */
+
+        System.out.println("The bigger number is " + getMax(x1, x2));
+    }
+</code></pre>
+
+  - Java uses __Pass by Value__
+    - This means that a copy of the actual parameter is made into the formal parameter, and the method operates on the copy of that. Let's see some examples...
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Parameter Passing Examples: Swap
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2);
+    }
+</code></pre>
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2); //<--Code is here
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1; //<--Code is here
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2);
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+    subgraph swap
+    E(num1 = 5)
+    F(num2 = 7)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp; //<--Code is here
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2); 
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+    subgraph swap
+    E(num1 = 7)
+    F(num2 = 5)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2); //<--Code returns here
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Swapping Objects (e.g., References)
+
+- Be careful when passing a reference type by value
+  - Will the following work?
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+      Point temp = p1;
+      p1 = p2;
+      p2 = temp;
+    }
+    public static void main(String args[]) {
+        Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+        swap(x1,x2);
+    }
+</code></pre>
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2);
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+      Point temp = p1;  //CODE IS HERE
+      p1 = p2;
+      p2 = temp;                               }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+    subgraph swap
+    G(p1)
+    H(p2)
+    end
+    G --> D
+    H --> E
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+      Point temp = p1;
+      p1 = p2;
+      p2 = temp;  //CODE IS HERE               }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+    subgraph swap
+    G(p1)
+    H(p2)
+    end
+    G --> E
+    H --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2); //Method returns, no change in x1 or x2
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Another Example!
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+        Point temp = (Point)p1.clone(); //Deep Copy
+        p1.x = p2.x; p1.y = p2.y;
+        p2.x = temp.x; p2.y = temp.y;
+    }
+
+    public static void main(String args[]) {
+        Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+        swap(x1,x2);
+    }
+</code></pre>
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2); //About to invoke swap
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); //Deep Copy
+      p1.x = p2.x; p1.y = p2.y;
+      p2.x = temp.x; p2.y = temp.y;
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(1,2)
+    C(x2) --> D(5,6)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); //<-- This line Executed
+      p1.x = p2.x; p1.y = p2.y;
+      p2.x = temp.x; p2.y = temp.y;          
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(1,2)
+    C(x2) --> D(5,6)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    G(temp) --> H(1,2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); 
+      p1.x = p2.x; p1.y = p2.y;  //<-- This line Executed
+      p2.x = temp.x; p2.y = temp.y;
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(5,6)
+    C(x2) --> D(5,6)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    G(temp) --> H(1,2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); 
+      p1.x = p2.x; p1.y = p2.y;
+      p2.x = temp.x; p2.y = temp.y; //<-- This line Executed
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(5,6)
+    C(x2) --> D(1,2)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    G(temp) --> H(1,2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2); //Swap has returned
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(5,6)
+    C(x2) --> D(1,2)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Parameters Summary
+
+- When methods are called, a __copy__ of the actual parameter is made into the formal parameter
+  - For primitives, a copy of the data itself
+  - For references, a copy of the memory address
+    - Be careful with references
+    - Reassigning the reference will not change the actual parameter, but altering what the reference points to will. This is an important distinction!
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+
+<!-- Classes -->
+
+<section> 
+
+<section data-markdown id="classes" class="center"><script type="text/template">
+### Classes and Enums
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Putting it all together!
+
+- Last __big__ thing you need to understand is __classes__
+- __Class:__ A template for defining new objects, including the object's name, state, and behavior.
+- In short, when a programmer wants to create a new type of variable, they create a class to describe that type of variable's internal state and behavior.
+- __Example:__ Suppose I'd like to write code for playing card games. It would be nice to have variables of type Card, Deck, etc. to make this easier.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Example Class: Playing Cards
+
+<pre><code class="hljs" data-trim contenteditable>
+/* Class definition, must be in a file called Card.java */
+public class Card {
+  
+  /* These are called fields: data specific to this card */
+  int rank; //1 (Ace) through 13 (King)
+  String suit; //"Spades", "Hearts", "Clubs", "Diamonds"
+
+  /* Default constructor. Ace of Sp. is default card */
+  public Card() {
+    this.rank = 1;
+    this.suit = "Spades";
+  }
+  
+  /*
+   * Constructor. Allows you to set the cards data when
+   * creating it. This is called overloading a method
+   */
+  public Card(int rank, String suit) {
+    this.rank = rank;
+    this.suit = suit;
+  }
+  
+  /**
+   * This is a method, will return a description
+   * of this card as a String 
+   */
+  public String toString() {
+    String rank = "";
+    switch(this.rank) {
+      case 1:
+        rank = "Ace";
+        break;
+      case 11:
+        rank = "Jack";
+        break;
+      case 12:
+        rank = "Queen";
+        break;
+      case 13:
+        rank = "King";
+        break;
+      default:
+        rank = "" + this.rank; //number and rank the same
+        break;
+    }
+    
+    return rank + " of " + this.suit;   
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Using the Card Class
+
+<pre><code class="hljs" data-trim contenteditable>
+public static void main(String args[]) {
+    Card c1 = new Card(); //Ace of spades by default
+    Card c2 = new Card(3, "Diamonds"); //3 of diamonds
+    System.out.println(c1.toString());
+    System.out.println(c2.toString());
+  }
+</code></pre>
+```
+Output:
+Ace of Spades
+3 of Diamonds
+```
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Card c1 = new Card(); //Ace of spades by default
+    Card c2 = new Card(3, "Diamonds"); //3 of diamonds
+    System.out.println(c1.toString());
+    System.out.println(c2.toString());
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 1 suit = "Spades"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Accessing Fields</h3>
+<pre><code class="hljs" data-trim contenteditable>
+    Card c1 = new Card(); //Ace of spades by default
+    Card c2 = new Card(3, "Diamonds"); //3 of diamonds
+    c1.rank = 3; //just changed card into rank 3
+    c1.suit = "Diamonds"; //now c1 is a diamond
+    System.out.println(c1.toString());
+    System.out.println(c2.toString());
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 3 suit = "Diamonds"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Checking Equality</h3>
+<pre><code class="hljs" data-trim contenteditable>
+    /* Code from previous slide(s) */
+    if(c1 == c2)
+      System.out.println("This won't happen!");
+
+    /* Won't work because Card class needs an equals() method */
+    if(c1.equals(c2))
+      System.out.println("This should happen, but won't")
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 3 suit = "Diamonds"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Equality of cards</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public class Card{
+  /* From previous slide Card class slide */
+
+  /* Checks for equality of two cards */ 
+  public boolean equals(Object other) {
+    Card otherC = (Card)other;
+    return    otherC.rank == this.rank
+           && otherC.suit.equals(this.suit);
+  }
+}
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 3 suit = "Diamonds"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Summary so far
+
+- __Card class__ looks pretty good so far
+  - Has a rank and suit, can check for equality, can print
+- __Next improvements:__
+  - The suit can be ANY string (e.g., "BLAHBLAH")
+  - Rank can be any integer (e.g., -168)
+- We can accomplish this in a couple ways:
+  - __Enums__: Useful when a variable has a small, finite number of possible values (e.g., suit)
+</script></section>
+
+<section class="diagram-slide">
+<h3>Enums</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+/* An Enum is a variable type that has a finite set of values */
+/* Let's use one for the suit of a card */
+public enum Suit{
+    Hearts, Diamonds, Spades, Clubs; 
+  }
+</code></pre>
+</section>
+
+<section class="diagram-slide">
+<h3>Using the enum in the Card class</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public class Card{
+  int rank; //1 (Ace) through 13 (King)
+  Suit suit; //"Spades", "Hearts", "Clubs", "Diamonds"
+
+  /* Default constructor. Ace of Sp. is default card */
+  public Card() {
+    this.rank = 1;
+    this.suit = Suit.Spades;
+  }
+  
+  /*
+   * Constructor. Allows you to set the cards data when
+   * creating it. This is called overloading a method
+   */
+  public Card(int rank, Suit suit) {
+    this.rank = rank;
+    this.suit = suit;
+  }
+  
+  /**
+   * This is a method, will return a description
+   * of this card as a String 
+   */
+  public String toString() {
+    String rank = "";
+    switch(this.rank) {
+      case 1:
+        rank = "Ace";
+        break;
+      case 11:
+        rank = "Jack";
+        break;
+      case 12:
+        rank = "Queen";
+        break;
+      case 13:
+        rank = "King";
+        break;
+      default:
+        rank = "" + this.rank; //number and rank the same
+        break;
+    }
+    
+    return rank + " of " + this.suit;   
+  }
+  
+  @Override
+  public boolean equals(Object other) {
+    Card otherC = (Card)other;
+    return otherC.rank == this.rank && otherC.suit == this.suit;
+  }
+}
+</code></pre>
+</section>
+
+<section data-markdown><script type="text/template">
+### Enums
+
+- __Enum__ is just a variable type that can take on a specified set of values. Otherwise, acts like any other variable.
+- Now suit can only be one of the four proper suits.
+- What about rank?
+  - We want it it be an int so we can compare it easily with other card ranks (can do this with enums, but a bit of a pain)
+  - Another option is to use getters / setters, so let's see an example
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Scope
+
+- In Java, we can declare a variable or method to have __scope__
+  - __public:__ Anybody can access the field. implied public if not specified
+  - __private:__ Can only access from within the class definition
+  - __protected:__ Can access from within same package or inheritance line
+    - Won't use this one for a little while
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Protecting our fields
+
+- __Problem:__ We don't want other programmers messing with the fields of our Card class and changing the values to unexpected things or illegal things (e.g., rank = -168)
+- __Solution:__ Make the fields have private scope, then no one can mess with them.
+  - Fields are set initially in the constructor only, can't be accessed afterwards
+  - Provide methods to access and/or set the fields if necessary.
+</script></section>
+
+<section class="diagram-slide">
+<h3>Updating the Card class</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public Class Card{ 
+  private int rank; //1 (Ace) through 13 (King)
+  private Suit suit; //"Spades", "Hearts", "Clubs", "Diamonds"
+
+  /* Default constructor. Ace of Sp. is default card */
+  public Card() {
+    this.rank = 1;
+    this.suit = suit.Spades;
+  }
+  
+  /*
+   * Constructor. Allows you to set the cards data when
+   * creating it. This is called overloading a method
+   */
+  public Card(int rank, Suit suit) {
+    this.rank = 1; // in case setRank fails
+    this.setRank(rank);
+    this.suit = suit;
+  }
+  
+  public int getRank() { return this.rank; }
+  public Suit getSuit() { return this.suit; }
+  
+  public void setRank(int newRank) {
+    /* Ignore if trying to set to illegal value */
+    if(newRank < 1 || newRank > 13) return;
+    
+    /* Otherwise, set it */
+    this.rank = newRank;
+  }
+  public void setSuit(Suit newSuit) {
+    /* No stress, enum already must have valid value */
+    this.suit = newSuit;
+  }
+
+  /* Other stuff here */
+}
+</code></pre>
+</section>
+
+<section data-markdown><script type="text/template">
+### Summary
+
+- Getters and Setters let us have control over how much other programmers can alter the fields in our class
+- Maybe we don't want to be able to change a Card's suit and rank once it is instantiated
+  - Solution: Remove the setters from the class
+  - Now programmers can see the variables (through the getters) but not change them.
+</script></section>
+
+
+<section class="diagram-slide">
+<h3>A more advanced class</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public class Deck {
+  
+  /*private: Others cannot change the deck directly*/
+  private Card[] deck;
+  private int top = 0; //Top of the deck
+  
+  public Deck() {
+    deck = new Card[52]; //deck has 52 cards
+    
+    /* Instantiate each individual card */
+    int i = 0;
+    for(int r = 1; r <= 13; r++) {
+      for(Suit s : Suit.values()) {
+        deck[i] = new Card(r, s);
+        i++;
+      }
+    }
+    
+    /*Shuffle the deck*/
+    shuffle();
+  }
+  
+  /**
+   * Shuffles the deck
+   */
+  public void shuffle() {
+    top = 0;
+    
+    for(int i = 0; i < 51; i++) {
+      /*Get a random position between i and 51*/
+      int r = (int)(Math.random()*(52-i))+i;
+      
+      /* Swap card i with that card */
+      Card temp = deck[i];
+      deck[i] = deck[r];
+      deck[r] = temp;
+    }
+  }
+  
+  /* Deals the top card, indices < top are not in the deck */
+  /* Simulates this by moving the top pointer */
+  public Card dealTopCard() {
+    if(top <= 51) {
+      top++;
+      return deck[top-1];
+    }
+    else {
+      System.out.println("ERROR: DEALING FROM AN EMPTY DECK");
+      return null;
+    }
+    
+  }
+}
+</code></pre>
+</section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- Java Virtual Machine -->
+
+<section> 
+
+<section data-markdown id="jvm" class="center"><script type="text/template">
+### The Java Virtual Machine (JVM)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java Virtual Machine (JVM)
+
+- Java runs code on the Java Virtual Machine
+  - The JVM is a piece of software (i.e., a program) that simulates a computer and runs Java ByteCode (other programs).
+  - Thus, Java code does not run directly on your machine
+- __Advantages__: Code runs on any machine as long as JVM version the same
+- __Disadvantage__: Slower than running code on hardware directly
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Compiler
+
+- A __compiler__ is a program that converts a higher level language into a lower level one.
+- The java compiler turns java code into java bytecode
+- Other languages (such as C++) will convert code into machine code that runs on a computer's specific architercture.
+</script></section>
+
+<section class="diagram-slide">
+<span class="diagram-data" style="display:none;">
+  graph LR
+    subgraph c++
+    A("C++ source code") --> B("C++ Compiler")
+    B --> C("Assembly Code")
+    C --> D("Linker")
+    D --> E(Machine Code)
+    E -->|executes on| F(Computer)
+    end
+    subgraph java
+    G("Java source code") --> H("Java Compiler")
+    H --> K("Java ByteCode")
+    K -->|simulated on| I("Java Virtual Machine")
+    I -->|executes on| J("Computer")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- Java API -->
+
+<section> 
+
+<section data-markdown id="javaAPI" class="center"><script type="text/template">
+### Using the Java API
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java API
+
+- Documentation of Java classes, methods, etc.
+  - VERY useful for discovering what functionality already exists in Java and how to use it.
+- Some examples:
+  - __[Object](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html)__
+  - __[Date](https://docs.oracle.com/javase/8/docs/api/java/util/Date.html)__
+  - __[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)__
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

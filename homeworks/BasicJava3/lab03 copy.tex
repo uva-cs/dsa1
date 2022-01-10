@@ -1,0 +1,318 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Lab 03 - Blackjack \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Pre-Lab
+%----------------------------------------------------------------------------------------
+
+\section{Pre-Lab}
+
+This week, you will be writing some code to play the game \href{https://en.wikipedia.org/wiki/Blackjack}{blackjack}. You will write one class, and also a blackjack playing bot that tries to win as many chips as possible. Your summary:
+
+\begin{enumerate}
+	\item Download the starter code and import the project into Eclipse.
+	\item Implement the DeckStack.java class.
+	\item Implement the MyBlackjackPlayer.java class.
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/labs/lab03%20-%20Blackjack/code/blackjack.zip}{blackjack.zip}
+	\item \textbf{FILES TO SUBMIT:} DeckStack.java, MyBlackjackPlayer.java
+\end{enumerate}
+
+%------------------------------------------------
+
+\subsection{DeckStack.java}
+
+Your first task is to implement the DeckStack class. Casinos will sometimes use multiple decks to make cheating harder, and to increase the house odds. For our simulation, we want the dealer to be able to deal cards from a shuffled stack of multiple decks. To simulate this, you will use the Deck.java class from lecture, but write another class that uses it. This class will be called DeckStack.java and it will contain the following fields / methods:
+
+\begin{lstlisting}
+//An array of decks of cards that comprise this multi-deck.
+private Deck[] decks;
+
+//Constructor: instantiates the number of decks specified and
+//adds them to the list of decks
+DeckStack(int numDecks);
+
+//Deals the top card from the stack of decks and returns that Card.
+//You can implement this several ways, as long as it correctly
+//deals a card from on of the decks.
+public Card dealTopCard();
+
+//Reshuffles all of the decks.
+protected void restoreDecks();
+
+//returns the number of cards left to be dealt in the
+//entire stack of cards.
+public int cardsLeft();
+\end{lstlisting}
+
+Once you implement this class, the rest of the blackjack simulator has been written for you and should work. You can run the project and see if the simple player we provided plays blackjack (\emph{More detail on the simple player below}).
+
+%------------------------------------------------
+
+\subsection{Implement a Blackjack Player}
+
+Your second task is to implement a basic blackjack player. This involves writing two required (and one optional) methods:
+
+\begin{lstlisting}
+/* Returns the number of chips you'd like to bet this hand */
+public int getBet();
+
+/* Returns the Move this player would like to do right now */
+/* Make move is called until the player returns Move.STAY */
+public Move getMove();
+
+/* The dealer will call this method to show you their entire */
+/* set of cards once the hand is completely over. You may use */
+/* this information if you'd like. */
+public void handOver(Card[] dealerHand);
+
+/* The Move enum looks like this */
+public enum Move{
+	STAY, HIT, DOUBLE;
+}
+\end{lstlisting}
+
+Your job is thus to implement getBet() and getMove() methods such that you maximize your final chip count after 1000 games (the simulator automatically plays 1000 hands). Your player will begin with 1000 chips. In order to reason about your best move, you can access the following variables from within your methods:
+
+\begin{lstlisting}
+/* Returns the number of chips the player has */
+public int getChips();
+
+/* A list the players cards */
+/* Access using this.cards */
+protected ArrarList<Card> cards;
+
+/* Example of how to see the dealer's face-up card */
+this.dealer.getVisibleCard(); //returns a Card object
+\end{lstlisting}
+
+Your goal, as stated earlier, is to maximize your profit after 1000 games. Good luck!
+
+%----------------------------------------------------------------------------------------
+%	In-Lab
+%----------------------------------------------------------------------------------------
+\newpage
+\section{In-Lab}
+
+The goal of this in-lab is to practice doing object oriented code design. The TA will lead you through these exercises.
+
+\begin{enumerate}
+	\item Get into small groups of two
+	\item The TAs will present you with some programming challenges. These will not be graded, but you are required to attend and to participate.
+	\item You may think about the challenges before lab below if you'd like, but we highly recommend that you not solve them ahead of time.
+	\item The TAs will give you time to solve each problem and lead you in sharing solutions with one another.
+\end{enumerate}
+
+\subsection{Object Oriented Code Design}
+
+One skill that employers are interested in is object oriented code design. That is, given a set of requirements, how might you structure the classes, fields, and methods within your code to model that situation. For the following scenarios, list out the classes that you would likely write. In addition, for each class write out the fields and methods contained within. Describe how each class relates to one another as well.
+
+You will do this exercise for the following scenarios.
+
+\begin{enumerate}
+	\item You are designing a system that handles flight bookings for customers. Design a set of objects / classes / methods / fields to model this situation. Some of the requirements include:
+	\begin{enumerate}
+		\item A flight has a starting airport, a destination airport, a capacity, a price and possibly other features.
+		\item The system needs to handle searching for flights, purchasing flights, viewing booked upcoming flights, etc.
+		\item The system needs to support user accounts, logins, purchasing information, etc.
+		\item Feel free to make other assumptions about useful features as long as you can justify your decisions.
+	\end{enumerate}
+
+	\item Design some object oriented code that supports a ride sharing service such as Uber or Lyft. Some requirements:
+	\begin{enumerate}
+		\item There are driver accounts and rider accounts (some folks might be both)
+		\item A user can enter payment info
+		\item A user can request rides, a driver can accept rides (or can they? Should they have a choice? You design it.)
+		\item A user's fare needs to be calculated depending on various factors.
+		\item A driver can deliver food from local restaurants for people if they'd like to.
+		\item Include all features you can think of from using these services yourself.
+		\item Feel free to make other assumptions about useful features as long as you can justify your decisions.
+	\end{enumerate}
+
+	\item Design an object oriented codebase for SIS. Don't forget the following:
+	\begin{enumerate}
+		\item You need to account for different user types (e.g., student, professor, admin, etc.)
+		\item Students should not be able to accomplish professor tasks and vice versa.
+		\item Remember that SIS also handles things such as grade entry, advisor relationships / advisor holds, etc.
+		\item As before, feel free to make other assumptions as long as you can justify those decisions.
+	\end{enumerate}
+\end{enumerate}
+
+
+%------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	Post-Lab
+%----------------------------------------------------------------------------------------
+\newpage
+\section{Post-Lab}
+
+The goal of this post-lab is to write a report comparing two distinct strategies for your blackjack player. The requirements for this post-lab are VERY simular to last week.
+
+\begin{enumerate}
+	\item Construct at least two distinct strategies for player.
+	\item Run an experiment comparing how well each strategy plays blackjack.
+	\item Write a report summarizing and analyzing your findings.
+	\item \textbf{FILES TO DOWNLOAD:} None
+	\item \textbf{FILES TO SUBMIT:} PostLabThree.pdf
+\end{enumerate}
+
+\subsection{Performing an Experiment}
+
+Your first task is to write (if you haven't already) \textbf{two unique} blackjack players that incorporate different strategies. You should be able to argue that the two strategies are significantly different AND that it is not obvious to you which is better. You should be geniuinely curious which approach will succeed.
+
+You should then do the following:
+
+\begin{itemize}
+	\item Run each of your two players for 10000 hands in the simulator. Run this simulation 10 times, and calculate the average and standard deviation of the results.
+	\item Which bot does better? Why do you think this is? Does one have a higher average but also higher standard deviation? If so, why?
+\end{itemize}
+
+\subsection{Report}
+
+Summarize your experiment and your findings in a report. Make sure to adhere to these general guidelines:
+
+\begin{itemize}
+	\item Your submission MUST BE a pdf document. You will receive a zero if it is not.
+	\item Your document MUST be presented as if submitted to a professional publication outlet. You can use the \href{https://github.com/markfloryan/dsa1/blob/master/labs/WordPaperTemplate.zip}{template} posted in the course repository or follow \href{https://www.springer.com/us/computer-science/lncs/conference-proceedings-guidelines}{Springer's guidelines for conference proceedings}.
+	\item You should write your report as if it is original novel research.
+	\item The grammar / spelling / professionalism of this document should be sound.
+	\item When possible, do not use the first person. Instead of "I ran the code 60 times", use "The code was executed 60 times...".
+\end{itemize}
+
+In addition to the general guidelines above, please follow the following rough outline for your paper:
+
+\begin{itemize}
+	\item \textbf{Abstract}: Summarize the entire document in a single paragraph
+	\item \textbf{Introduction}: Present the problem, and provide details regarding the two strategies you implemented.
+	\item \textbf{Methods}: Describe your methodology for collecting data. How many hands, how many executions, how you averaged things, etc.
+	\item \textbf{Results}: Describe your results from your execution runs.
+	\item \textbf{Conclusion}: Interpret your results. Which strategy was better? Why was it better? Were you surprised? Was one strategy better in some situations and not in others? Why do you think that is? Notice that I'm not looking for a particular answer here. Show me that you can interpret what happened when you ran your code.
+\end{itemize}
+
+Lastly, your paper MUST contain the following things:
+
+\begin{itemize}
+	\item A table (methods section) summarizing the different experimental groups and how many execution runs were done in each group.
+	\item A table (results section) summarizing each experimental group and the averages / std. dev. for each (as well as any other data you decided to collect).
+	\item Some kind of graph visualizing the results of the table from the previous bullet.
+\end{itemize}
+
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

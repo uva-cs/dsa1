@@ -1,0 +1,317 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+%\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+ 
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Java Cheat Sheet \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+
+\section{Java: General Things to Remember}
+
+\begin{enumerate}
+	\item All code must be inside of a class definition (except import and package statements).
+	\item Every line of code must end with a semi-colon. This excludes lines that formulate "blocks", like if(), while(), or class declarations.
+	\item The name of the class in a file must match the name of the file. For example, "public class LinkedList" must be in a file called "LinkedList.java"
+	\item Classes can contain a method "public static void main(String[] args)" as an entry point to the whole program.
+	\item Whitespace does NOT matter in java. The compiler will completely ignore all whitespace.
+\end{enumerate}
+%------------------------------------------------
+
+\section{Primitive Data Types}
+
+The primitive variable types are:
+
+\begin{lstlisting}
+int x = 5; //integers
+double d = 3.4; //decimal values
+char c = 'h'; //characters. Use single quotes.
+boolean b = false; //true or false
+
+/* Other much less commonly used */
+byte b = 24b;
+short s = -8s;
+long l = 2000000;
+float = 4.567;
+\end{lstlisting}
+
+Some examples of using these data types include:
+
+\begin{lstlisting}
+int x; 		//automatically set to 0 by default
+x++; 		//increment integer by 1
+x--; 		//decrement integer by 1
+
+int z = 14;
+
+int total = (x + z) * x; 	//expressions
+int remainder = x % z; 		//remainder after x / z
+
+/* Boolean operators */
+boolean b1 = false;
+boolean b2 = true;
+boolean result;
+
+result = b1 && b2; 	//logical AND
+result = b1 || b2; 	//logical OR
+result = !b1; 		//logical negation
+\end{lstlisting}
+
+
+
+\section{Input Output}
+
+Input from the keyboard can be done like this:
+
+\begin{lstlisting}
+Scanner in = new Scanner(System.in); 	//make a scanner object
+int x = in.nextInt();					//read int from keyboard
+double y = in.nextDouble();				//read double from keyboard
+float f = in.nextFloat();				//read float from keyboard
+boolean b = in.nextBoolean();			//read bool from keyboard
+long l = in.nextLong();					//read long from keyboard
+String s = in.next();					//read string from keyboard
+\end{lstlisting}
+
+Input from a file can be done like this:
+
+\begin{lstlisting}
+BufferedReader in =
+				new BufferedReader(new FileReader("inputfile.txt")); 
+String text = in.readLine(); 	//reads the next line
+in.close();
+\end{lstlisting}
+
+Output to the console is done like this:
+
+\begin{lstlisting}
+//prints text concatenated with x
+System.out.print("The answer is " + x);
+
+//prints and moves cursor to next line
+System.out.println("something else");
+\end{lstlisting}
+
+Output to a file can be done like this:
+
+\begin{lstlisting}
+PrintWriter outFile =
+				new PrintWriter(new FileWriter("outputfile.txt"))); 
+outFile.print("Hello "); 
+outFile.println("world"); 
+outFile.close();
+\end{lstlisting}
+
+
+\section{Strings}
+
+Strings are reference types in Java (so they are NOT primitives).
+
+\begin{lstlisting}
+String s1 = "Hello";			//example string
+String s2;						//"" empty string by default
+String s3 = new String("Hi");	//Also makes a string
+\end{lstlisting}
+
+Common operators on strings include:
+
+\begin{lstlisting}
+String result;
+
+result = s1 + s2; 	//"hi " + "there" = "hi there"
+s1.length();		//returns length of string
+s1.charAt(2);		//accesses the char at position 2 (indexed from 0)
+s1.substring(1,3);	//part of string from index 1 to 3 (exclusive)
+s1.equals(s2);		//compare strings using this structure
+s1.toUpperCase();	//returns the string as all uppercase
+s1.toLowerCase();	//returns the string as all lowercase
+\end{lstlisting}
+
+\section{Converting Between Data Types}
+
+In Java, we often need to convert between different types of variables. Here are some common conversions:
+
+\begin{lstlisting}
+/* int (or any other primitive) to string */
+int x = 5;
+String s = "" + x;	//"" + variable concatenates as a string
+
+/* String version of number to int or double */
+int i = Integer.parseInt("123");		//converts string "123" into integer 123
+double d = Double.parseDouble("3.14")	//converts string "3.14" into double 3.14
+
+/* dividing integers does integer division */
+int x1 = 3;
+int x2 = 5;
+double result = x1 / x2; 			// 3/5=(int)0.6 = 0
+result = (double)x1 / (double)x2;	//0.6
+
+/* double to int */
+double x = 3.467;
+int y = (int)x;		//y is 3, decimal truncated
+\end{lstlisting}
+
+
+\section{Arrays}
+
+Three primary ways to instantiate arrays:
+
+\begin{lstlisting}
+double[] dArray = new double[5];	//know the size, but not contents
+int[] oddNumbers = {1,3,5,7,9};		//know the contents already
+
+int x;
+/* Stuff here */
+String[] sArray = new String[x];	//use variable to intialize array
+
+int[][] = new int[5][4];			//two-dimensional array
+\end{lstlisting}
+
+Some common things we do with arrays include:
+
+\begin{lstlisting}
+x[3] = 5;	//Access array at position 3, set to 5.
+x.length;	//get the number of elements in array
+
+/* How to loop through an array */
+for(int i=0; i<x.length; i++){
+	System.out.println(x[i]);
+}
+\end{lstlisting}
+
+\section{Java Math Library}
+
+Java contains several functions inside the Math class that are useful. Among them:
+
+\begin{lstlisting}
+Math.abs(x);			//absolute value of x
+Math.max(a,b);			//larger of a and b
+Math.min(a,b);			//smaller of a and b
+Math.sin(theta);		//sin trig function
+Math.cos(theta);		//cos trig function
+Math.tan(theta);		//tangent trig function
+Math.toRadians(deg);	//convert deg to radians
+Math.toDegrees(rad);	//convert rad to degrees
+Math.exp(x);			//raises e^x
+Math.log(x);			//natural logarithm
+Math.pow(a,b);			//raise a to power of b
+Math.sqrt(a);			//square root of a
+Math.E;					//value of constant e
+Math.PI;				//pi
+\end{lstlisting}
+
+
+
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

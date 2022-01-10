@@ -1,0 +1,215 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Linked Lists - Linked List Analysis \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+
+
+%----------------------------------------------------------------------------------------
+%	Analysis
+%----------------------------------------------------------------------------------------
+\section{Summary}
+
+The goal of this homework is to write a report comparing the runtimes of the various methods of your LinkedList class. The requirements for this report are VERY simular to the previous reports.
+
+\begin{enumerate}
+	\item Write some test code to time the various methods of your Linked List
+	\item Run a small experiment timing each method
+	\item Write a report summarizing and analyzing your findings
+	\item \textbf{FILES TO DOWNLOAD:} None
+	\item \textbf{FILES TO SUBMIT:} LinkedListAnalysis.pdf
+\end{enumerate}
+
+\subsection{Timing Your Code}
+
+For this homework, we'd like you to write a tester that executes each of your methods in your Linked List and times how long each takes. We are doing this to gain some intuition about which operations are slow and which operations are fast. You should consider the following when timing your code:
+
+\begin{itemize}
+	\item Each method, if invoked only once, will run VERY quickly. Thus, instead we are going to invoke each method of our Linked List many times (you can adjust this number) to get a better measurement. We want the total time for each operation to be at least 1 second.
+	\item Likewise, if methods are invoked on very small lists (e.g., finding an element in a list of size 5), then the operations will be VERY fast. Thus, make sure to make the lists large enough until you start to see a slowdown. Part of your investigation involves figuring out how big these lists must be before a slowdown is observed.
+	\item Make sure you are ONLY invoking the method of interest when testing that method. Don't inadvertantly invoke find() while testing insertAtTail() as that will throw off your measurement.
+\end{itemize}
+
+To actually time the code itself, Java provides a system call that returns the number of milliseconds between now and January 1, 1970. The line of code is:
+
+\begin{lstlisting}
+/* In java.lang.System */
+public static long currentTimeMillis();
+\end{lstlisting}
+
+To use this in order to time some code, one can make this method call to get a timestamp, then run some code, then take another timestamp (using currentTimeMillis). The difference between the two timestamps is the number of milliseconds that have passed between the two method calls. So, you can test a method by doing something like:
+
+\begin{lstlisting}
+import java.lang.System;
+
+//Ready to begin measuring
+int t1 = System.currentTimeMillis();
+
+/* Lot's of code that runs a method on my list a bunch of times here */
+
+//Difference in now and first time stamp is total time taken
+int time = System.currentTimeMillis() - t1;
+\end{lstlisting}
+
+For this experiment, you should time your Linked List calling each method $i$ times on a list of size $n$. You may play around with $i$ and $n$ until you find numbers that work well, but they should be the same for each method. You should test the following methods:
+
+\begin{lstlisting}
+/* You will test these methods: */
+
+public void insertAtTail(T data);
+public void insertAtHead(T data);
+public void insertAt(int index, T data);
+public void insert(ListIterator<T> it, T data);
+public T removeAtTail();
+public T removeAtHead();
+public T remove(ListIterator<T> it);
+public int find(T data);
+public T get(int index);
+\end{lstlisting}
+
+\subsection{Report}
+
+Summarize your experiment and your findings in a report. Make sure to adhere to these general guidelines:
+
+\begin{itemize}
+	\item Your submission MUST BE a pdf document. You will receive a zero if it is not.
+	\item Your document MUST be presented as if submitted to a professional publication outlet. You can use the \href{https://markfloryan.github.io/dsa1/homeworks/WordPaperTemplate.zip}{template} posted in the course repository or follow \href{https://www.springer.com/us/computer-science/lncs/conference-proceedings-guidelines}{Springer's guidelines for conference proceedings}.
+	\item You should write your report as if it is original novel research.
+	\item The grammar / spelling / professionalism of this document should be sound.
+	\item When possible, do not use the first person. Instead of "I ran the code 60 times", use "The code was executed 60 times...".
+\end{itemize}
+
+In addition to the general guidelines above, please follow the following rough outline for your paper:
+
+\begin{itemize}
+	\item \textbf{Abstract}: Summarize the entire document in a single paragraph
+	\item \textbf{Introduction}: Present the problem, and provide details regarding the two strategies you implemented.
+	\item \textbf{Methods}: Describe your methodology for collecting data. How many hands, how many executions, how you averaged things, etc.
+	\item \textbf{Results}: Describe your results from your execution runs.
+	\item \textbf{Conclusion}: Interpret your results. Which methods were fast and which were slow? Did this surprise you? Does this align with the theoretical runtimes of those methods? How large did the lists need to get before you witnessed a slowdown?
+\end{itemize}
+
+Lastly, your paper MUST contain the following things:
+
+\begin{itemize}
+	\item A table (methods section) summarizing the different experimental groups and how many execution runs were done in each group.
+	\item A table (results section) summarizing each experimental group and the averages / std. dev. for each (as well as any other data you decided to collect).
+	\item Some kind of graph visualizing the results of the table from the previous bullet.
+\end{itemize}
+
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

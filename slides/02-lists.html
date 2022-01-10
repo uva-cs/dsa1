@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: 02-lists slide set</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../slides/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../slides/reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../slides/css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../slides/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../slides/reveal.js/css/print/pdf.css' : '../slides/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../slides/reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../slides/js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../slides/js/canvas.js"></script>
+    <script src="node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true,
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../slides/css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Lists
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[What is a list?](#/intro) <br />
+[Abstract Data Types & Interfaces](#/adt) <br />
+[Polymorphism](#/polymorphism) <br />
+[Vectors](#/vectors) <br />
+[Java Generics](#/generics) <br />
+[Linked Lists](#/linkedlists) <br />
+[Stacks](#/stacks) <br />
+[Queues](#/queues) <br />
+	</script></section>
+
+<!-- NEW SECTION -->
+	<section> 
+
+<section data-markdown id="intro" class="center"><script type="text/template">
+### What is a list?
+</script></section>
+
+<section data-markdown><script type="text/template">
+### What is a list?
+
+- A collection of items (Arrays are an example):
+  - Indexed in order from 0 to n-1
+  - Can add things to the list, remove things, find things, etc.
+- In order to use, programmer doesn't need to know how the list is implemented
+- Several different implementations
+  - Each has strengths / weaknesses
+  - Need to understand inner workings to pick best type of list
+  </script></section>
+
+<section class="diagram-slide">
+<h4>Summary of Lists</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph abstract data type
+    A[Lists]
+    end
+    subgraph implementations
+    B[Array]
+    C[Vector]
+    D[Linked List]
+    end
+    A --> B
+    A --> C
+    A --> D
+    subgraph restricted lists
+    E[Stack]
+    F[Queue]
+    end
+    C -->E
+    D --> E
+    C --> F
+    D --> F
+  </span><div class="diagram-display"></div>
+</section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="adt" class="center"><script type="text/template">
+### Abstract Data Types (ADTs) & Interfaces
+</script></section>
+
+<section data-markdown><script type="text/template">
+### What is an ADT?
+
+- An abstract data type is:
+  - A high-level description of a data structure
+  - A description of the methods and what they do
+- Does not include:
+  - Specifics about HOW that structure is implemented (but usually in API if you read closely)
+  - Specifics about efficiency of methods
+- List is our first ADT
+  </script></section>
+
+<section data-markdown><script type="text/template">
+### What is an Interface?
+
+- Notice that when describing a List, we know some the operations:
+  - insert element at end of list
+  - insert at specific index of list
+  - get element at specific index of list
+  - find element in the list
+- But we DO NOT describe how these are accomplished
+  - Java allows you to describe this using __interfaces__
+  </script></section>
+
+<section data-markdown><script type="text/template">
+### Example Java Interface: List
+
+
+<pre><code class="hljs" data-trim contenteditable>
+/* Abstraction of a list that holds double values */
+public interface List{
+  
+  /* Methods are NOT implemented, they are abstract */
+  /* A class that is a list MUST have these methods */
+  
+  /* inserts value into this list at the end */
+  public void insert(double value);
+
+  /* inserts at the specified index */
+  public void insert(double value, int index);
+
+  /* finds the value and removes it from the list */
+  public void remove(double value);
+
+  /* finds the value and returns its index, if present */
+  public int find(double value);
+
+  /* overwrites the item at a specified index */
+  public void setAt(int index, double value);
+
+  /* returns the item at specified index */
+  public double getAt(int index);
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java List API
+
+- Note that java already has a [List Interface](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)
+  - You can (and should) check that out on your own time.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Implementation of an actual List
+
+<pre><code class="hljs" data-trim contenteditable>
+/* A class that IS a list */
+//implements keywork means this object is a list
+//and thus MUST contain and implement all of the methods
+//in the List interface
+public class Vector implements List{
+  
+  private double[] theList;
+
+  public void insert(double value){
+    /* This class will actually implement this */
+    /* and actually do the inserting*/
+  }
+
+  public int find(double value){
+    for(int i = 0; i < theList.length; i++){
+      if(theList[i] == value) return i;
+    }
+    return -1; //didn't find it
+  }
+
+  /* Other list methods would be implemented below */
+}
+</code></pre>
+</script></section>
+
+
+
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="polymorphism" class="center"><script type="text/template">
+### Polymorphism
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Why use interfaces?
+
+- What benefit do we get?
+  - the primary benefit is __polymorphism__
+- __Polymorphism__ is a feature of object oriented languages (like Java) in which type substitutions can be made at runtime.
+- For example, if we want to write code to sort lists, why write a sorting method for each type of list.
+  - Would be better if we had a generic sorting method for ALL lists
+  - Than, anything that IS a list is sorted the exact same way.
+  </script></section>
+
+<section data-markdown><script type="text/template">
+### Polymorphism Example
+
+<pre><code class="hljs" data-trim contenteditable>
+public class SortingMethods{
+  
+  public static void sort(List theList){
+    /* CODE TO SORT LIST IS OMITTED */
+    /* This code must perform the sort by */
+    /* ONLY using methods in the interface, why? */
+  }
+
+  public static void main(String[] args){
+    Vector myVector = new Vector();
+    /* Add some things to the list */
+
+    /* This call works because of polymorphism */
+    /* myVector is a Vector which IS a list*/
+    sort(myVector);
+  }
+
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### More Polymorphism Examples
+
+<pre><code class="hljs" data-trim contenteditable>
+List myList = new Vector(); //why does this work?
+
+Object something = new String(); //a string IS an object
+
+List myList2 = new List(); //does NOT work, why?
+
+Vector myList3 = new List(); //does NOT work, why?
+
+
+
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Polymorphism
+
+- General rule about this in Java is:
+  - if the variable being assigned (or parameterized) is a MORE general version of the original, then it is allowed.
+  - Likewise, you CANNOT refer to a general object as a more specific type.
+    - e.g., If I say give me an animal, you can give me a cat (no problem). but if I say give me a cat, you cannot give me any Animal.
+  </script></section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->  
+<section> 
+
+<section data-markdown id="vectors" class="center"><script type="text/template">
+### Vectors
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vector
+
+- Our first specific type of list
+- Idea, make arrays a bit better.
+  - Arrays have a fixed size. Would be nice if I could just add elements at will and the array would grow automatically.
+  - Likewise, no need to specify a size when creating the list (I may not know yet).
+- So, a vector is a resizeable array. Automatically grows and shrinks as you add things.
+  - Actually, just simulates this using fixed size arrays.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java Built-in Vectors
+
+<pre><code class="hljs" data-trim contenteditable>
+// Java has two primary built in vector classes you can use
+// Vector (import java.util.Vector) and ArrayList (java.util.ArrayList)
+// See Java API for list of methods.
+import java.util.*; //imports ALL of java.util
+
+Vector< Integer > list1 = new Vector< Integer >();
+list1.add(5);
+System.out.println(list1.get(0));
+
+ArrayList< Double > list2 = new ArrayList< Double >();
+list2.add(3.45);
+System.out.println(list2.size());
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vector Summary
+
+- __size__: The number of elements that have been added to the vector
+- __capacity__: The size of the underlying array
+  - Note the size <= capacity
+- __resize()__: A private method that doubles the size of the underlying array
+  - This allows the vector to grow automatically
+  - Automatically invoked when underlying array fills up
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vectors in general
+
+<pre><code class="hljs" data-trim contenteditable>
+//If building your own vector, you would have to build the following (from List interface):
+//For now, let's suppose this vector stores doubles only (will change in a bit)
+
+/* The actual list of elements itself is an array */
+private double theList[]; //length of this IS the capacity
+private int size; //the ACTUAL size of the vector
+
+/* Finds the index of value, if present */
+public double find(double value){
+    for(int i = 0; i < this.size; i++){
+      if(theList[i] == value) return i;
+    }
+    return -1; //didn't find it
+  }
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vectors in general
+
+<pre><code class="hljs" data-trim contenteditable>
+/* overwrites the item at a specified index */
+public void setAt(int index, double value){
+  if(index >= 0 && index < this.size)
+    theList[index] = value; //overwrite the value;
+}
+
+/* returns the item at specified index */
+public double getAt(int index){
+  if(index >= 0 && index < this.size)
+    return theList[index];
+  else
+    ; //Uh Oh, we went off the bounds of the vector
+}
+</code></pre>
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+### Vectors in general (cont'd)
+
+<pre><code class="hljs" data-trim contenteditable>
+/* Doubles the size of the underlying array by making */
+/* A new one. Why double, we'll see later */
+private void resize(){
+  //Make a new array of size theList.length*2
+  //Copy everything over from theList to the new one
+  //make theList equal to the new one instead
+  //You will do this in lab
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vectors in general (cont'd)
+
+<pre><code class="hljs" data-trim contenteditable>
+
+/* inserts value into this list at the end */
+public void insert(double value){
+  //if the list is full, call resize to make it bigger
+  //then, add element at index size
+  //size++
+}
+
+/* inserts at the specified index */
+public void insert(double value, int index){
+  //Resize if necessary
+  //Move everything from index onward up by one position
+  //set index of array to value
+  //size++
+}
+
+/* finds the value and removes it from the list */
+public void remove(double value){
+  //invoke find to get the index
+  //move everything from index+1 onward down one spot
+  //size--;
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vector Strengths
+
+- Programmer does NOT need to worry about size of list. The list grows and shrinks automatically
+- Still very fast (constant time) to access a specific element of the list because array get (e.g., theList[i]) is a fast operation
+- VERY fast (constant time) if inserting / removing from the back of the list
+- Works well with cache because arrays stored contiguously in memory
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vector Weaknesses
+
+- Takes up more space than is actually being used (most of the time).
+  - i.e., the size is almost always less than the capacity
+- Slow (linear time) if inserting or removing from indices NOT at the back of the list
+  - because the vector has to shift everything else one spot to account for the change
+- Slow (linear time) every once in a while when the vector needs to grow.
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="generics" class="center"><script type="text/template">
+### Java Generics
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Motivation
+
+- We can make the Vector from previous slides better...
+  - Now, can only store doubles, but what about int, String, etc.
+- Would be nice if there was a way to write one class that could store ANY type of object
+- __Wildcards__ and __Generics__ allows us to do this.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Wildcards
+
+- __Wildcards__ allow programmers to specify a generic type for an object or parameter.
+- Use wildcards when there are no dependencies with other variables or parameters.
+
+<pre><code class="hljs" data-trim contenteditable>
+//the ? specifies that the type is a wildcard
+//the method will accept any type of List
+private static void printlist(List< ? > list) 
+{
+  for(int i=0; i < list.size(); i++) {
+    System.out.print(list.get(i) + " ");
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Generics
+
+- __Generics__ are essentially the same, but should be used when there is a dependency across variables.
+- Below, <T>  means there will be a generic and is referred to as T
+- Later, params T[] list and T value can be any types
+  - But, T[] in list and T in value MUST match
+
+<pre><code class="hljs" data-trim contenteditable>
+private static < T > int countOccurences(T[] list, T value) {
+    int count = 0;
+    for(T next : list ) {
+      if(next.equals(value)) count++;
+    }
+    return count;
+  }
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Example of Generic Class
+
+<pre><code class="hljs" data-trim contenteditable>
+public class ListNode< T > {
+  
+  /* Data being stored in this node */
+  private T data;
+  
+  public ListNode(T data) {
+    this.data = data;
+  }
+  
+  /* Getters */
+  public T getData() { return this.data; }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Using a Generic Class
+
+<pre><code class="hljs" data-trim contenteditable>
+ListNode< String > n1 = new ListNode< String >("Hello");
+System.out.println(n1.getData());
+
+ListNode< Integer > n2 = new ListNode< Integer >(5);
+
+/* This last one is NOT valid. WHY? Only object types allowed */
+ListNode< double > n3 = new ListNode< double >(3.45);
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some advanatages of generics
+
+- Useful when we want a data structure to store any type of object
+- Useful when we have multiple variables whose types need to be general but match each other.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some limitations of generics
+
+- Cannot set a generic type to a primitive
+  - But java provides object versions (Integer, Char, etc.) for all primitives.
+- Cannot instantiate a generic type
+  - new T() is NEVER allowed.
+  - Can cause heap pollution (don't worry about what that is).
+- If you need to instantiate a generic type:
+  - Make the type Object instead
+  - Manually cast as needed (see next slide)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Making our Vector Generic
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vector{
+
+  private double theList[];
+  private int size;
+
+  public double find(double value){
+      for(int i = 0; i < this.size; i++){
+        if(theList[i] == value) return i;
+      }
+      return -1; //didn't find it
+  }
+
+  //More code down here...
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Making our Vector Generic
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vector < T >{
+
+  private T theList[]; //Problem will arise here in a minute
+  private int size;
+
+  public double find(T value){
+      for(int i = 0; i < this.size; i++){
+        if(theList[i].equals(value)) return i;
+      }
+      return -1; //didn't find it
+  }
+
+  //More code down here...
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### But...problems!!
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vector < T >{
+  /*...*/
+  public Vector(){
+    this.theList = new T[100]; //BOOM...NOT ALLOWED
+  }
+}  
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### We can fix this
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vector < T >{
+
+  private T theList[];
+  private int size;
+
+  public Vector(){
+    this.theList = (T[])new Object[100]; //<--Cast here
+  }
+
+  public double find(T value){
+      for(int i = 0; i < this.size; i++){
+        if(theList[i].equals(value)) return i;
+      }
+      return -1; //didn't find it
+  }
+
+  //More code down here...
+} 
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Vector Get() Method
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vector < T >{
+
+  /* From previous slides... */
+
+  /* returns the item at specified index */
+  public T getAt(int index){
+    if(index >= 0 && index < this.size)
+      return theList[index];
+    else
+      ; //Uh Oh, we went off the bounds of the vector
+  }
+} 
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Summary
+
+- Most data  structures should be generic, because that is more flexible.
+- From here on it, ALL of our data structures will be generic.
+  - Though we may need to do this Object array trick sometimes.
+</script></section>
+
+
+  </section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="linkedlists" class="center"><script type="text/template">
+### Linked Lists
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked Lists
+
+- __Arrays__ and __Vectors__ use contiguous memory to store data
+  - Arrays built into Java and have special syntax
+  - Vectors an extension of arrays.
+- A __Linked List__ is a list that stores nodes connected to one another through references
+  - Each element in the list is a __ListNode__
+    - Stores the __data__ inside that element
+    - Stores references to the next and previous elements
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List Example
+
+![Linked List](images/02-lists/02-LinkedList.svg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List Properties
+
+- __head__: reference to the first node in Linked List
+  - This first node is a __dummy node__ (not part of the actual list)
+- __tail__: reference to the last node in Linked List
+  - Also a __dummy node__
+- __size__: Number of elements in the list currently 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### List Node Properties
+
+- __data__: the actual thing being stored in the list
+- __next__: Reference to memory where the next node can be found
+- __prev__: Reference to memory where the previous ndoe can be found 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Inserting at Tail
+
+- Here's how to insert at the tail of a linked list
+  - Notice that this is ALWAYS fast no matter how big the list is
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LinkedList < T >{
+
+  public void insertAtTail(T data) {
+    ListNode< T > newNode = new ListNode< T >(data);
+    newNode.next = tail;
+    newNode.prev = tail.prev;
+    tail.prev.next = newNode;
+    tail.prev = newNode;
+    
+    this.size++;
+  } 
+} 
+</code></pre>
+
+<section data-markdown><script type="text/template">
+### Other Linked List Methods
+
+- __insertAtHead__: Very similar to insert at tail but at the front of the list
+  - Similar methods for __remove__ at head and tail respectively.
+- __insertAt(index)__: Follow references to find the index from head, then insert. SLOW
+- __insertAt(location)__: Given reference into the list, insert at that location. FAST!
+- __find(value)__: Similar to vector or array. Start at beginning and follow pointers
+- __get(index)__: gets value at that index. Needs to start at head. SLOW!
+</script></section>
+
+<section data-markdown><script type="text/template">
+### ListIterator
+
+- __Problem__: head and tail fields are private! So if I am using Linked List and need to, say, loop through it manually I can't do it.
+  - Well, I can use get(), but that is VERY slow
+- __Solution__: Supply a special type of object called an iterator
+  - Provides methods for moving forward and backward through the list manually. 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### ListIterator Summary
+
+<pre><code class="hljs" data-trim contenteditable>
+public class ListIterator< T > {
+  
+  //The node we are currently at while iterating
+  protected ListNode< T > curNode;
+  
+  public ListIterator(ListNode< T > curNode) {
+    this.curNode = curNode;
+  }
+  
+  /**
+   * These two methods tell us if the iterator has run off
+   * the list on either side
+   */
+  public boolean isPastEnd();
+  public boolean isPastBeginning();
+  
+  /**
+   * Get the data at the current iterator position
+   */
+  public T value();
+  
+  /**
+   * These two methods move the cursor of the iterator
+   * forward / backward one position
+   */
+  public void moveForward();
+  public void moveBackward();
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Using the ListIterator
+
+<pre><code class="hljs" data-trim contenteditable>
+private static < T > void printList(LinkedList< T > list) {
+  //iterator points to first element
+  list.ListIterator< T > it = list.front();
+  
+  while(!it.isPastEnd()) {
+    System.out.print(it.value() + ", ");
+    it.moveForward();
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List: Insert At Iterator
+
+<pre><code class="hljs" data-trim contenteditable>
+/**
+ * Inserts data after the node pointed to by iterator
+ */
+public void insert(ListIterator< T > it, T data) {
+  //TODO in lab.
+}
+
+/**
+ * Remove based on Iterator position
+ * Sets the iterator to the node AFTER the one removed
+ */
+public T remove(ListIterator< T > it) {
+  //TODO in lab
+}
+</code></pre>
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+### Linked List Advantages
+
+- Can insert in front or back of list in constant time (VERY FAST)
+  - Same for insertAt(Iterator)
+- Likewise, can remove from front or back in constant time
+- List nodes are scattered in memory, so no need for OS to find a contiguous block for the list
+- Don't have unused space like a vector does
+- Don't need to "grow in size" when they fill up.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List Disadvantages
+
+- Slow to get an index in middle of list because have to traverse from head or tail
+  - Arrays can go directly to an index, why?
+- Doesn't work well with cache, so arrays often faster in practice
+  - Do you know what a cache is yet?
+- All of the next and prev references use extra space.
+</script></section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="stacks" class="center"><script type="text/template">
+### Stacks
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Stacks
+
+- List with restrictions
+  - Insert, delete, and find can only be performed at one end (the 'top') of the list
+  - LIFO: Last In, First Out
+  </script></section>
+
+<section data-markdown><script type="text/template">
+## Stacks
+
+- Fields
+  - __top__: reference to the top of the stack
+- Methods:
+  - __push__: insert at the top
+  - __pop__: delete from the top
+  - __top__: examine top of the stack
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack Applications
+- Undo operation in programs
+- Operator precedence
+- Symbol balancing (i.e., parenthesis matching)
+- Postfix calculators
+- Activation records: list of active procedures and associated information
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack Applications: Symbol Balancing
+- Read characters to end of file
+  - If opening symbol, push onto stack
+  - If closing symbol
+    - If stack empty, then error
+    - Else pop stack
+    - If popped symbol is not corresponding opening symbol, then error
+  - If at EOF and stack not empty, then error
+  </script></section>
+
+  <section>
+<h2>Stack Applications: Symbol Balancing</h2>
+<p>&nbsp;</p>
+<code>{ ( [ ] ) }</code>
+<p>&nbsp;</p>
+<code class="fragment">{ [ ( } ) ]</code>
+<script type="text/javascript">insertCanvas();</script>
+</section>
+
+  <section data-markdown><script type="text/template">
+## Stack Applications: Postfix Calculator
+- For each input token (number or operator):
+  - If number
+    - Push number onto stack
+  - If operator
+    - Apply operator to 2 numbers popped from stack, then place result on stack
+- After end of input, there should be exaclty one number left on the stack
+  </script></section>
+
+  <section>
+<h2>Stack Applications: Postfix Calculator</h2>
+<p>&nbsp;</p>
+<code>6 5 2 3 + 8 * + 3 + *</code>
+<script type="text/javascript">insertCanvas();</script>
+  </section>
+
+  <section data-markdown><script type="text/template">
+## Stack: Linked List Implementation
+- Linked List
+  - __push__: insert at front of list
+  - __pop__: remove element at front of list
+  - __top__: examine element at front of list
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack: Linked List Implementation
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Stack< T > {
+  
+    private LinkedList theStack;
+    //OR
+    private ListNode top;
+
+    //^^DO NOT do both of these, just showing
+    //you both possibilities on this slide
+};
+</code></pre>
+  </script></section>
+
+  <section>
+<h2>Stack: Linked List Implementation Diagram</h2>
+<img src="images/02-lists/02-Stack.svg" alt="Stack (linked list) UML diagram" style="width:100%;background-color:white">
+  </section>
+
+  <section data-markdown><script type="text/template">
+## Stack: Array Implementation
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Stack< T >{
+
+  private Object[] theArray  //OR instantiate a Vector
+  private int topIndex; //index of top of stack
+
+  public void push(T data){
+    //Increment topOfStack
+    //Set theArray[topOfStack] to value
+  }
+
+  public void pop(){
+    //Decrement topOfStack
+  }
+
+  public T top(){
+    //Return theArray[topOfStack]
+  }
+}
+</code></pre>
+</script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack Summary
+- List with restrictions
+  - Insert and delete can only be performed at the top of the list
+  - LIFO: Last In, First Out
+- Implementations
+  - Linked List
+  - Array
+  - Vector (variable size "array")
+  </script></section>
+
+  </section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="queues" class="center"><script type="text/template">
+### Queues
+</script></section>
+
+  <section data-markdown><script type="text/template">
+## Queues
+- Also a list, but inserts happen at one end (the "back") and removals happen at the other end (the "front")
+- Operations
+  - Enqueue: insert at one end (back)
+  - Dequeue: delete at other end (front)
+  - FIFO: First In, First Out
+- Linked list and array implementations are constant time for all operations
+  - (minor disclaimer about a full vector queue...)
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Queue Applications
+- Print queues
+- Lines in general
+- File serving
+- Call queues
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Implementations
+- Array or vector
+  - theArray
+  - front position/index
+  - back position/index
+  - current size
+- Linked list
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Queue: Array Implementation
+- Operations
+  - enqueue
+    - increment current size, increment back
+    - set `theArray[back] = element`
+  - dequeue
+    - set return value to `theArray[front]`
+    - decrement current size, increment front
+- Again, have to handle the situation when the array is full
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Queue: Linked List Implementation
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Queue< T >{
+
+    // pointers to front and back of list
+    private QueueNode< T > front, back;
+  
+    // place item on back of list
+    public void enqueue(T value);
+    
+    // remove item from front of list
+    T dequeue();    
+
+    // other supporting methods...
+}
+</code></pre>
+  </script></section>
+
+  <section>
+<h2>Queue: Linked List Implementation Diagram</h2>
+<img src="images/02-lists/02-Queue.svg" alt="Queue (linked list) UML diagram" style="width:100%;background-color:white">
+  </section>
+
+  <section data-markdown><script type="text/template">
+## Queue: Linked List Implementation
+- enqueue()
+      public void enqueue(T value) {
+      
+      }
+- dequeue()
+      public T dequeue() {
+      
+      }
+  </script></section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+
+<!---------------------------------------------- -->
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: 00-introduction slide set</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../slides/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../slides/reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../slides/css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../slides/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../slides/reveal.js/css/print/pdf.css' : '../slides/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../slides/reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../slides/js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../slides/js/canvas.js"></script>
+    <script src="node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../slides/css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Introduction to Course
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[What is this pilot program?](#/pilot) <br />
+[Course Logistics](#/logistics) <br />
+[Grading](#/grading) <br />
+[Honor Policy](#/honor) <br />
+	</script></section>
+
+<!-- NEW SECTION -->
+	<section> 
+
+<section data-markdown id="pilot" class="center"><script type="text/template">
+### What is this pilot program?
+</script></section>
+
+<section class="diagram-slide">
+<h4>Current Curriculum</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[1110] --> B[2110: Software Dev.]
+    B --> C[2150: DSA + COA]
+    C --> D[3330: Architecture]
+    C --> E[4102: Algorithms]
+    C --> F[...]
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h4>Proposed Curriculum</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[1110] --> B[DSA 1]
+    A --> C[COA 1]
+    A --> D[SWE]
+    A --> E[DMT 1]
+    B --> F[DSA 2]
+    C --> G[COA 2]
+    E --> I[DMT 2]
+    F --> H[Electives]
+    G --> H
+    I --> H
+
+  </span><div class="diagram-display"></div>
+</section>
+
+	</section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="logistics" class="center"><script type="text/template">
+### Course Logistics
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Your Instructors
+
+- Dr. Mark R. Floryan
+  - Office: Rice Hall 203
+  - OH: Mon and Tue (1-2:30pm)
+  - [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)
+
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Your Teaching Assistants
+
+- 1 Graduate TA
+  - TBD
+- 5 Undergraduate TAs
+  - TBD
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Meeting Times
+
+- Lecture: MWF 10-10:50pm @ Thornton E303
+  - Lectures by yours truly
+  - Attendance not required but HIGHLY recommended
+  - Seriously, just show up
+  - __NO LAPTOPS ALLOWED__
+
+- Labs: MT 5:00-6:15pm @ MEC 213
+  - Labs run by TAs
+  - Attendance is usually required
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Modules
+
+- The course is split into 14 modules
+  - You can find the list [here](../homeworks/index.html)
+- Lectures will go through these modules one at a time.
+- The Modules are very important for grading.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Modules 1
+
+- Basic Java 1
+  - Basic programs, data types, functions
+- Basic Java 2
+  - Ifs, loops, Arrays, References, Parameter Passing
+- Basic Java 3
+  - Objects, Classes
+  - Generic types
+  - Inheritence / Enums / Interfaces / Polymorphism
+  - Java Collections / Etc.
+  - Exceptions / IDEs / Debugging / JVM / Compilers'
+- Recursion (Independent Module...very important)
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Material 2
+
+- Lists (3 Modules)
+  - Arrays vs Linked Lists vs Vectors
+  - Abstract Data Types
+  - Stacks and Queues
+- Big OH - Big Omega - Big Theta
+  - Definitions / Function relationships
+  - Examples
+- Trees
+  - Structure / Binary Tree / Recursive Traversals
+  - BST and operations
+  - Balanced trees (AVL and Red-Black)
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Material 3
+
+- Hash Tables
+  - Operations / Structure
+  - Hash functions
+  - Collision Resolution
+- Priority Queues
+  - Structure / Operations
+  - Min-Heap / Array Implementation
+  - Analysis
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Material 4
+
+- Sorting (2 Modules)
+  - Slow sorts (insertion / bubble)
+  - Fast sorts (merge, quick, heap)
+  - Hybrid sorts (TimSort, etc.)
+- Concurrency
+  - High level abstraction in Java
+  - Resource contention / deadlocks
+</script></section>
+
+
+<section data-markdown class="center"><script type="text/template">
+### Completing a Module
+
+- Each Module contains:
+  - 1 Quiz: More on this later
+  - 1 Homework: Usually programming or similar
+  - 1 Supplemental HW: Not all modules have this. Usually analysis
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Completing a Module (cont'd)
+
+- As a student, each module will be in one of three states:
+  - Incompetence: Sounds harsh, just means you haven't passed anything for that module yet
+  - Competence: You've passed at least one item within the module
+  - Mastery: You've passed every part of the module
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Final Grades
+
+![](../courseLogistics/images/gradingSummary.png)
+</script></section>
+
+
+<section data-markdown class="center"><script type="text/template">
+### Quizzes
+
+- This course has no traditional exams
+- Each module contains **one quiz**
+  - Each **quiz** is roughly equivalent to one page on a traditional exam.
+- Quizzes are taken **during lab**
+  - Each week, a quiz for each topic we've covered will be available.
+  - Each week, you can take up to 2 quizzes (no more)
+    - This includes quizzes you may have failed in the past.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### More on Quizzes
+
+- Quizzes are all pass / fail.
+- Once you pass a quiz, there is no reason to take it again
+- You can fail as many times as you want...but, this will put you behind schedule.
+- A pool of quiz questions will be released when I write them. The quiz each week is a random selection of those questions.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Homeworks
+
+- 1 or 2 per module (depending on module)
+- Will be officially "released" once module covered in lecture
+  - Though available on course site if you want to get ahead
+- No due dates. All homeworks must be submitted before the last Wednesday of class.
+  - However, it is highly recommended you do homework within 1 week of topic covered and before attempting the quiz.
+  - But, you are an adult and this is up to you.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Final Exam
+
+- No traditional final exam
+- Our final exam will be exactly 14 pages long
+  - one per module
+  - original questions
+- You will complete pages for quizzes you've yet to complete
+- Thus, if you've already passed all the quizzes, you won't take the final exam.
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+<section> 
+
+<section data-markdown id="honor" class="center"><script type="text/template">
+### Other Course Policies
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Honor Policy
+
+- You may:
+  - Collaborate on labs by discussion / whiteboarding / pseudocoding
+  - Compare code AFTER lab submitted
+  - Show code to TA or Instructor to get help
+  - Must write YOUR OWN CODE
+- You may not:
+  - Look at code (other than own) BEFORE submitting homework
+  - Look at code online that implements a key part of data structure or assignment
+    - e.g., looking up syntax in the java api is ok
+    - looking up how to implement a queue is not
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Recording Policy
+
+- You may not record me lecturing. This is a personal decision.
+
+- __UVA POLICY__: "The University prohibits the recording or transmission of classroom lectures and discussions by students unless written permission from the Instructor has been obtained and all students in the class as well as guest speakers have been informed that audio/video recording may occur."
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

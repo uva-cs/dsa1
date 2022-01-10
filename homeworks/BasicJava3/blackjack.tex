@@ -1,0 +1,204 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Basic Java 3 - Blackjack \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Details
+%----------------------------------------------------------------------------------------
+
+\section{Summary}
+
+For this assignment, you will be writing some code to play the game \href{https://en.wikipedia.org/wiki/Blackjack}{blackjack}. You will write one class, and also a blackjack playing bot that tries to win as many chips as possible. Your summary:
+
+\begin{enumerate}
+	\item Download the starter code and import the project into Eclipse.
+	\item Implement the DeckStack.java class.
+	\item Implement the MyBlackjackPlayer.java class.
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/homeworks/BasicJava3/code/blackjack.zip}{blackjack.zip}
+	\item \textbf{FILES TO SUBMIT:} DeckStack.java, MyBlackjackPlayer.java
+\end{enumerate}
+
+%------------------------------------------------
+
+\subsection{DeckStack.java}
+
+Your first task is to implement the DeckStack class. Casinos will sometimes use multiple decks to make cheating harder, and to increase the house odds. For our simulation, we want the dealer to be able to deal cards from a shuffled stack of multiple decks. To simulate this, you will use the Deck.java class from lecture, but write another class that uses it. This class will be called DeckStack.java and it will contain the following fields / methods:
+
+\begin{lstlisting}
+//An array of decks of cards that comprise this multi-deck.
+private Deck[] decks;
+
+//Constructor: instantiates the number of decks specified and
+//adds them to the list of decks
+DeckStack(int numDecks);
+
+//Deals the top card from the stack of decks and returns that Card.
+//You can implement this several ways, as long as it correctly
+//deals a card from on of the decks.
+public Card dealTopCard();
+
+//Reshuffles all of the decks.
+protected void restoreDecks();
+
+//returns the number of cards left to be dealt in the
+//entire stack of cards.
+public int cardsLeft();
+\end{lstlisting}
+
+Once you implement this class, the rest of the blackjack simulator has been written for you and should work. You can run the project and see if the simple player we provided plays blackjack (\emph{More detail on the simple player below}).
+
+%------------------------------------------------
+
+\subsection{Implement a Blackjack Player}
+
+Your second task is to implement a basic blackjack player. This involves writing two required (and one optional) methods:
+
+\begin{lstlisting}
+/* Returns the number of chips you'd like to bet this hand */
+public int getBet();
+
+/* Returns the Move this player would like to do right now */
+/* Make move is called until the player returns Move.STAY */
+public Move getMove();
+
+/* The dealer will call this method to show you their entire */
+/* set of cards once the hand is completely over. You may use */
+/* this information if you'd like. */
+public void handOver(Card[] dealerHand);
+
+/* The Move enum looks like this */
+public enum Move{
+	STAY, HIT, DOUBLE;
+}
+\end{lstlisting}
+
+Your job is thus to implement getBet() and getMove() methods such that you maximize your final chip count after 1000 games (the simulator automatically plays 1000 hands). Your player will begin with 1000 chips. In order to reason about your best move, you can access the following variables from within your methods:
+
+\begin{lstlisting}
+/* Returns the number of chips the player has */
+public int getChips();
+
+/* A list the players cards */
+/* Access using this.cards */
+protected ArrarList<Card> cards;
+
+/* Example of how to see the dealer's face-up card */
+this.dealer.getVisibleCard(); //returns a Card object
+\end{lstlisting}
+
+Your goal, as stated earlier, is to maximize your profit after 1000 games. Good luck!
+
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

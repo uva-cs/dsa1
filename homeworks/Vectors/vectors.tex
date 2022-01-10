@@ -1,0 +1,215 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Vectors - Implementing a Vector \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dr. Mark R. Floryan} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Implementation
+%----------------------------------------------------------------------------------------
+
+\section{Summary}
+
+For this homework, you will be writing a vector data structure in Java. Your summary:
+
+\begin{enumerate}
+	\item Download the starter code and import the project into Eclipse
+	\item Implement the Vector.java class
+	\item Verify your implementation using the provided tester class
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/homeworks/Vectors/code/Vectors.zip}{Vectors.zip}
+	\item \textbf{FILES TO SUBMIT:} VectorsImplementation.zip
+\end{enumerate}
+
+%------------------------------------------------
+
+\subsection{Vector.java}
+
+Your only task is to implement all of the methods in Vector.java. This class will implement the provided List interface, which is duplicated for your convenience here. Your task is to implement each of these methods.
+
+\begin{lstlisting}
+public interface List<T> {
+
+	/**
+	 * Returns the size of this list, i.e., the number
+	 * of nodes currently between the head and tail
+	 * @return
+	 */
+	public int size();
+
+	/**
+	 * Clears out the entire list
+	 */
+	public void clear() ;
+
+	/**
+	 * Inserts new data at the end of the
+	 * list (i.e., just before the dummy tail node)
+	 * @param data
+	 */
+	public void insertAtTail(T data);
+
+	/**
+	 * Inserts data at the front of the
+	 * list (i.e., just after the dummy head node
+	 * @param data
+	 */
+	public void insertAtHead(T data);
+
+	/**
+	 * Inserts node such that index becomes the
+	 * position of the newly inserted data
+	 * @param data
+	 * @param index
+	 */
+	public void insertAt(int index, T data);
+
+	public T removeAtTail();
+
+	public T removeAtHead();
+
+	/**
+	 * Returns index of first occurrence of
+	 * the data in the list, or -1 if not present
+	 * @param data
+	 * @return
+	 */
+	public int find(T data);
+
+	/**
+	 * Returns the data at the given index, null if
+	 * anything goes wrong (index out of bounds, empty list, etc.)
+	 * @param index
+	 * @return
+	 */
+	public T get(int index);
+}
+\end{lstlisting}
+
+You'll probably want to add a couple of supporting methods. For example, a resize() method is useful for when the underlying array of the vector needs to grow.
+
+\subsection{Testing Your Implementation}
+
+Once you implement this methods, you can test them by running the main method in the provider TestVectore.java class. This simple tester will execute the methods in your list and compare them to those in Java's built in List to make sure the results are as expected.
+
+One strategy might be to implement your methods in the order that they are tested. That way, you can see the tester say "this method is correct" before moving on to the next one.
+
+Notice that we expect your Vector to be a generic class, meaning any type of Object can be stored within your Vector.
+
+%------------------------------------------------
+
+
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------

@@ -1,0 +1,1741 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: 05-trees slide set</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../slides/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../slides/reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../slides/css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../slides/reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../slides/reveal.js/css/print/pdf.css' : '../slides/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../slides/reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../slides/js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../slides/js/canvas.js"></script>
+    <script src="node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true,
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../slides/css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Trees
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Introduction](#/intro)  <br />
+[Aside: Recursion](#/rec) <br />
+[Tree Traversals](#/trav) <br />
+[Binary Search Trees](#/bst)  <br />
+[AVL Trees](#/avl)  <br />
+[Inheritance](#/inh)  <br />
+[Red-Black Trees](#/rbt)  <br />
+[Applications of Trees](#/app)  <br />
+</script></section>
+
+  <section>
+
+<section id="intro" data-markdown class="center"><script type="text/template">
+## Introduction
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Data Structures
+- If we have a good list implementation, do we need any other data structures?
+- For computing: ***no***
+  - We can compute everything with just lists (actually even less).  The underlying machine memory can be thought of as a list
+- For thinking: ***yes***
+  - Lists are a very limited way of thinking about problems
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+## List Limitations
+
+<span class="diagram-data" style="display:none;">
+  graph LR
+    A[50]
+    A --> B[27]
+    B --> C[101]
+    C --> D[67]
+  </span><div class="diagram-display"></div>
+
+- In a list, every element has direct relationships with only two others: the predecessor and the successor
+- Access time: &Theta;(*n*)
+- Goal: &Theta;(log *n*)
+    </script></section>
+
+    <section>
+<h3><a href="http://commons.wikimedia.org/wiki/File:IndoEuropeanTree.svg">Complex Relationships: Language Tree</a></h2>
+<img alt="language tree" class="stretch" src="images/05-trees/IndoEuropeanTree.svg" style="background-color:white">
+    </section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+### List &rarr; Tree
+- List: each element has relationships with up to 2 other elements
+- Binary Tree: each element has relationships with up to ***3*** other elements
+  - A tree is a special case of a list
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[50]
+    A --> B[12]
+    A --> C[99]
+  </span><div class="diagram-display"></div>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Tree Terms
+- *Root*: node with no parent; there is only one root
+- *Leaf*: a node with no children
+- *Siblings*: two nodes with the same parent
+- *Height* of a node: length of the ***longest*** path from that node to a leaf
+  - Thus, all leaves have height of zero
+  - *Height of a tree*: maximum depth of a node in that tree = height of the root
+- *Depth* of a node: length of the path from the root to that node
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### More Tree Terms
+- *Path*:  sequence of nodes *n*<sub>1</sub>, *n*<sub>2</sub>, ..., *n*<sub>*k*</sub> such that *n*<sub>*i*</sub> is parent of *n*<sub>*i*+1</sub> for 1 &le; *i* &le; *k*
+- *Length*: number of edges in the path
+- *Internal path length*: sum of the depths of all the nodes
+    </script></section>
+
+
+<section>
+
+<h2>Other Examples of Trees</h2>
+<table class="transparent"><tr><td class="top" style="width:60%">
+<ul><li>Files and folders on a computer</li>
+<li>Compilers: parse tree<pre><code class="avrasm">a = (b+c) * d;</code></pre></li>
+<li>Genealogy trees<ul>
+<li>These become complicated with some complex family relationships</li></ul></li>
+</ul>
+</td>
+</tr></table>
+    </section>
+
+</h3></section>
+
+  <section>
+
+<section id="rec" data-markdown class="center"><script type="text/template">
+## Aside: Recursion
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### What is recursion?
+
+- __Recursion__ is a very common programming technique in a which a method invokes itself to solve a problem. A solution thus, is defined as a function of a solution to a slightly smaller version of the problem.
+
+- Why do we care? Trees use recursion ALL OF THE TIME. So we need to know it.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### What is recursion?
+
+- A __recursive solution__ to a problem contains:
+  - __Base Case__: How do you solve the smallest instance of the problem
+  - __Recursive Case__: Solve a small chunk of the problem manually and then invoke your method on a slightly smaller instance of the problem.
+    - You should be making progress towards your base case! 
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Example: Printing a list
+
+- Here is a method that prints a list
+
+<pre><code class="hljs" data-trim contenteditable>
+public void printList(int[] list){
+  for(int i = 0; i < list.length; i++){
+    System.out.println(list[i] + " ");
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Example: Printing a list recursively
+
+- Here is a method that prints a list __recursively__
+
+<pre><code class="hljs" data-trim contenteditable>
+public void printList(int[] list, int curIndex){
+  
+  //Base case, if curIndex has run off end of list, do nothing
+  if(curIndex >= list.length) return;
+
+  //print one element and then recursively print the rest
+  System.out.println(list[curIndex] + " ");
+  printList(list, curIndex+1);
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Example: Printing a list recursively
+
+- Notice we have to start curIndex at 0.
+- Helper functions are very common
+
+<pre><code class="hljs" data-trim contenteditable>
+public void printList(int[] list){
+  printList(list, 0); //print starting at index 0
+}
+
+//private so nobody can invoke this method directly
+private void printList(int[] list, int curIndex){
+  
+  //Base case
+  if(curIndex >= list.length) return;
+
+  //print one element and then recursively print the rest
+  System.out.println(list[curIndex] + " ");
+  printList(list, curIndex+1);
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Another Example: Palindrome
+
+- Test to see if a given string is a palindrome
+
+- General approach, test first and last character only
+  - If they match AND
+  - Everything inside is also a palindrome, then true!
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Another Example: Palindrome
+
+- Test to see if a given string is a palindrome
+
+<pre><code class="hljs" data-trim contenteditable>
+
+public boolean isPalindrome(String s, int l, int r){
+  //base case
+  if(l > r) return true;
+
+  //if outside chars match and inside is palindrome, then return true
+  return (s.charAt(l) == s.charAt(r))
+          && isPalindrom(s, l+1, r-1);
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Another Example: Palindrome
+
+- Test to see if a given string is a palindrome
+
+<pre><code class="hljs" data-trim contenteditable>
+public boolean isPalindrome(String s){
+  return isPalindrome(s, 0, s.length-1);
+}
+
+private boolean isPalindrome(String s, int l, int r){
+  //base case
+  if(l > r) return true;
+
+  //if outside chars match and inside is palindrome, then return true
+  return (s.charAt(l) == s.charAt(r))
+          && isPalindrom(s, l+1, r-1);
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Challenge: Towers of Hanoi
+
+- A game that is old an famous:
+
+![TOH](https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tower_of_Hanoi.jpeg/300px-Tower_of_Hanoi.jpeg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Challenge: Towers of Hanoi
+
+![TOH](https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tower_of_Hanoi.jpeg/300px-Tower_of_Hanoi.jpeg)
+
+- Suppose you are given a method move(i, j) that moves one disc from peg i to peg j
+- Write the following method in psuedocode:
+
+<pre><code class="hljs" data-trim contenteditable>
+//someone will start the method like this:
+solveHanoi(12, 1, 3, 2);
+
+solveHanoi(int numDiscs, int fromPeg, int toPeg, int auxPeg){
+  //Solution goes here
+}
+</code></pre>
+</script></section>
+
+</section>
+
+  <section>
+
+<section id="trav" data-markdown class="center"><script type="text/template">
+## Tree Traversals
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Problem: Traversing a Tree
+
+- If I ask you to print out a tree, not obvious what order to print things.
+- With a list, the order is obvious.
+- For a tree, we can use various types of __tree traversals__
+- A __tree traversal__ is a strategy / order for visiting the nodes.
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+<span class="diagram-data" style="display:none;">
+  graph TD
+    / --> A[\*]
+    / --> B[*]
+    A --> C[+]
+    A --> D[-]
+    C --> 1
+    C --> 2
+    D --> 3
+    D --> 4
+    B --> 5
+    B --> 6
+  </span><div class="diagram-display"></div>
+
+- Pre-order: `/ * 5 6 * + 1 2 - 3 4`
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+<span class="diagram-data" style="display:none;">
+  graph TD
+    / --> A[\*]
+    / --> B[*]
+    A --> C[+]
+    A --> D[-]
+    C --> 1
+    C --> 2
+    D --> 3
+    D --> 4
+    B --> 5
+    B --> 6
+  </span><div class="diagram-display"></div>
+
+- In-order: `(5+6) / ((1+2)*(3-4))`
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+<span class="diagram-data" style="display:none;">
+  graph TD
+    / --> A[\*]
+    / --> B[*]
+    A --> C[+]
+    A --> D[-]
+    C --> 1
+    C --> 2
+    D --> 3
+    D --> 4
+    B --> 5
+    B --> 6
+  </span><div class="diagram-display"></div>
+
+- Post-order: `5 6 * 1 2 + 3 4 - * /`
+</script></section>
+
+    <section data-markdown><script type="text/template">
+## Pre-order Traversal
+- Pre-order: node first, then children (this is pseudo-code):
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Tree{
+  private Node root;
+
+  public void printTree(){
+    printTree(root);
+  }
+
+  private void printTree(Node curNode) {
+      if(curNode == null) return;
+
+      System.out.println(curNode.value + " ");
+      printTree(curNode.left);
+      printTree(curNode.right);
+  }
+}
+</code></pre>
+</script></section>
+
+    <section data-markdown><script type="text/template">
+## In-order Traversal
+- In-order: left node first, then self, then right node:
+
+<pre><code class="hljs" data-trim contenteditable>
+  private void printTree(Node curNode) {
+      if(curNode == null) return;
+
+      printTree(curNode.left);
+      System.out.println(curNode.value + " ");
+      printTree(curNode.right);
+  }
+</code></pre>
+      </script></section>
+
+    <section data-markdown><script type="text/template">
+## Post-order Traversal
+- Post-order: children first, then node
+  - This method counts the number of nodes
+
+<pre><code class="hljs" data-trim contenteditable>
+  private void numNodes(Node root) {
+      if(root == null) return 0;
+
+      int sum = numNodes(root.left) + numNodes(root.right);
+      return sum+1;
+  }
+</code></pre>
+    </script></section>
+
+    </section>
+
+
+    <section>
+
+<section id="bst" data-markdown class="center"><script type="text/template">
+## Binary Search Trees
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Binary Trees
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BinaryNode{
+  int value;
+  BinaryNode left;
+  BinaryNode right;
+}
+</code></pre>
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    1 --> 2
+    1 --> 3
+    2 --> 4
+    2 --> 5
+    3 --> 6
+    3 --> A[ ]
+  </span><div class="diagram-display"></div>
+
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Binary Trees
+
+- In reality, any arrow not shown is a null pointer
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    1 --> 2
+    1 --> 3
+    2 --> 4
+    2 --> 5
+    3 --> 6
+    3 --> A[ ]
+  </span><div class="diagram-display"></div>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Binary Search Trees (BST)
+- Each node has a *key* value that can be compared
+- Binary search tree property:
+  - For a given node, which we will call the *root*...
+  - Every node in left subtree has a key whose value is *less* than the root's key value, AND
+  - Every node in right subtree has a key whose value is *greater* than the root's key value
+- We assume that duplicate values are not allowed
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: Example
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+
+</script></section>
+
+     <section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: Counter-Example
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 3
+    10 --> 13
+</span><div class="diagram-display"></div>
+
+</script></section>
+
+      <section data-markdown><script type="text/template">
+## The difference
+- Both binary trees and binary search trees have zero, one, or two children per node
+- But a binary search tree is *sorted*
+- However, most people, when they say "binary tree", really mean a "binary search tree"
+- Note that we assume that we can *NOT* have duplicate elements in a BST
+      </script></section>
+
+      <section data-markdown><script type="text/template">
+## BST: find
+- Basic idea:
+  - Compare value to be found to key of the root of the tree
+    - If they are equal, then done
+    - If not equal, recurse depending on which half of tree the value should be in if it is in tree
+    - If you hit a `NULL` pointer, then you have "run off" the bottom of the tree, and the value is not in the tree
+      </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: Find Example
+
+- Try to find(6)
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+#### BST: Find
+
+<pre><code class="hljs" data-trim contenteditable>
+boolean find(int x, BSTNode curNode){
+  if(curNode == null) return false; //off end of tree
+  
+  else if(x < curNode.value)
+    return find(x, curNode.left);
+  
+  else if(x > curNode.value) 
+    return find(x, curNode.right);
+  
+  else return true; //found it!
+}
+</code></pre>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### BST: Find
+
+- How to do this if you are storing objects in Java?
+  - __Solution__: Use the compareTo() function
+
+<pre><code class="hljs" data-trim contenteditable>
+private boolean find(T data, BSTNode< T > curNode) {
+  if(curNode == null) return false;
+
+  else if (data.compareTo(curNode.data) < 0)
+    return find(data, curNode.left);
+  
+  else if (data.compareTo(curNode.data) > 0) 
+    return find(data, curNode.right);
+  
+  else
+    return true; 
+}
+</code></pre>
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+#### BST: Find
+
+- Programmers using your tree don't know what curNode is.
+  - Helper function hides this.
+
+<pre><code class="hljs" data-trim contenteditable>
+public boolean find(T data){
+  return find(data, rootNode); //start at root of tree
+}
+
+private boolean find(T data, BSTNode< T > curNode) {
+  if(curNode == null) return false;
+  else if (data.compareTo(curNode.data) < 0)
+    return find(data, curNode.left);
+  else if (data.compareTo(curNode.data) > 0) 
+    eturn find(data, curNode.right);
+  return true; 
+}
+</code></pre>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### BST: Insert
+
+- Idea: Move down tree like in find to discover location
+  - Make and put the new node there
+
+<pre><code class="hljs" data-trim contenteditable>
+public void insert(T data) {
+  this.root = insert(data, root);
+}
+
+private BSTNode< T > insert(T data, BSTNode< T > curNode) {
+  if(curNode == null) return new BSTNode< T >(data);
+  
+  else if (data.compareTo(curNode.data) < 0)
+    curNode.left = insert(data, curNode.left);
+  
+  else if (data.compareTo(curNode.data) > 0)
+    curNode.right = insert(data, curNode.right);
+  
+  else ; //duplicate, ignoring the insert
+  return curNode; //curNode still the root of this subtree
+}
+</code></pre>
+
+</script></section>
+  
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: findMax(), findMin()
+
+- To find max element, traverse right forever
+- similarly down left for findMin
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+
+      <section data-markdown><script type="text/template">
+#### BST - remove
+
+- Disrupts the tree structure
+
+- Basic idea: 
+  - Find node to be removed
+  - Three cases:
+    - Node has no children
+    - Node has one child
+    - Node has two children
+      </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(13)
+
+- No children so just remove the node
+  - Make sure parent pointer now points to NULL
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(13)
+
+- No children so just remove the node
+  - Make sure parent pointer now points to NULL
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> A[ ]
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(10)
+
+- One child: Make parent pointer point to child
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> A[ ]
+</span><div class="diagram-display"></div>
+</script></section>  
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(10)
+
+- One child: Make parent pointer point to child
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> A[ ]
+    5 -.-> 6
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(10)
+
+- One child: Make parent pointer point to child
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 6
+    2 --> 1
+    2 --> 4
+    6 --> B[ ]
+    6 --> A[ ]
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(5)
+
+- __STEP 1:__ Find successor
+- Max val in left subtree (4) OR min in right subtree (6)
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(5)
+
+- __STEP 2:__ Replace deleting node with succesor
+- Deleted node (5) overwritten with successor (6)
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[6] --> 2
+    A[6] --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(5)
+
+- __STEP 3:__ Delete successor
+- recursively call remove(6)
+  - successor will ALWAYS have 0 or 1 child. Why?
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[6] --> 2
+    A[6] --> 10
+    2 --> 1
+    2 --> 4
+    10 --> B[ ]
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Height
+
+- __Worst Case Height__: Linear. Just a straight line
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    9 --> 7
+    9 --> A[ ]
+    7 --> B[ ]
+    7 --> 4
+    4 --> C[1]
+    4 --> D[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Height
+
+- __Best Case Height__: log(n) where n is num nodes
+- Why?
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Perfect Binary Tree
+
+- A perfect binary tree has all leaves at same depth.
+- Every node has 0 or 2 children
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+  </section>
+
+  <section>
+
+<section id="avl" data-markdown class="center"><script type="text/template">
+## AVL Trees
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Animation Tools
+- A good AVL tree animation tool is [here](http://www.qmatica.com/DataStructures/Trees/BST.html)
+  - A mirror that also contains the animation tool is [here](http://webdiis.unizar.es/asignaturas/EDA/AVLTree/avltree.html)
+- We'll be using this website throughout this slide set
+</script></section>
+
+    <section data-markdown><script type="text/template">
+### AVL Trees
+- Motivation: to ***guarantee*** &Theta;(log *n*) running time on find, insert, and remove
+- Idea: Keep tree balanced after each operation
+- Solution:  AVL trees
+  - Named after the inventors, Adelson-Velskii and Landis
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### AVL Tree Structure Property
+For every node in the tree, the *height* of the left and right sub-trees differs at most by 1
+    </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Tree
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> B[ ]
+    2 --> 4
+    10 --> A[ ]
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### NOT an AVL Tree
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> B[ ]
+    2 --> 4
+    10 --> A[ ]
+    10 --> 13
+    13 --> 11
+    13 --> C[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+    <section data-markdown><script type="text/template">
+### AVL balance factor
+- Each node of a BST holds:
+  - The data
+  - Left and right child references
+- An AVL tree also holds a balance factor
+  - The height of the *right* subtree minus the height of the *left* subtree
+  - Can be computed on the fly, as well, but that's VERY slow
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### AVL tree balance
+- "Balanced" trees
+  - 0 means balanced
+  - 1 means the right subtree is one longer than the left subtree
+  - -1 means the left subtree is one longer than the right subtree
+- "Unbalanced" trees
+  - A balance factor of -2 or 2
+  - We'll fix the tree
+- Will we ever hit -3 or 3?
+    </script></section>
+
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Tree with balance factors
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A["5 (0)"] --> B["2 (1)"]
+    A --> C["10 (1)"]
+    B --> D[ ]
+    B --> F["4 (0)"]
+    C --> E[ ]
+    C --> G["13 (0)"]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+    <section data-markdown><script type="text/template">
+## AVL Trees: find, insert
+- find: same as BST find
+- insert: same as BST insert, except might need to "fix" the AVL tree after the insert (via rotations)
+- Runtime analysis:
+  - &Theta;(*d*), where *d* is the depth of the node being found/inserted
+- What is the maximum height of an n-node AVL tree?
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## AVL tree operations
+- Perform the operation (insert, delete)
+- Move back up to the root, updating the balance factors
+  - Why only those nodes?
+  - Because those are the only ones who have had their subtrees altered
+- Do tree rotations where the balance factors are 2 or -2
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## How many times to "fix" the tree?
+- Any single insert will only modify the balance factor by one
+  - So we fix the lowest off-balance nodes
+  - Then everything above it is then balanced
+- This means that we will have to only look at the bottom two unbalanced nodes
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## AVL insert
+- Let *x* be the *deepest* node where imbalance occurs
+- Four cases where the insert happened:
+  1. In the left subtree of the left child of x
+  2. In the right subtree of the left child of x
+  3. In the left subtree of the right child of x
+  4. In the right subtree of the right child of x
+- Cases 1 & 4: perform a single rotation
+- Cases 2 & 3: perform a double rotation
+    </script></section>
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation
+
+- 5 imbalanced, so we will rotate on 5
+  - See next slide for result
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 3
+    5 --> A[ ]
+    3 --> 1
+    3 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation
+
+- Notice that the old right subtree of 3 becomes new left subtree of 5
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    3 --> 5
+    3 --> 1
+    5 --> A[ ]
+    5 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation General Case
+
+- General Case for a right rotation
+- __Before Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    I --> LC
+    I --> RC
+    LC --> LLC
+    LC --> LRC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation General Case
+
+- General Case for a right rotation
+- __AFTER Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    LC --> LLC
+    LC --> I
+    I --> LRC
+    I --> RC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation
+
+- 5 imbalanced, so we will rotate on 5
+  - See next slide for result
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> B[ ]
+    5 --> A[7]
+    A --> C[ ]
+    A --> 25
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation
+
+- 5 imbalanced, so we will rotate on 5
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    7 --> 5
+    7 --> 25
+    5 --> A[ ]
+    5 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation General Case
+
+- General Case for a left rotation
+- __Before Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    I --> LC
+    I --> RC
+    RC --> RLC
+    RC --> RRC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation General Case
+
+- General Case for a left rotation
+- __AFTER Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    RC --> I
+    RC --> RRC
+    I --> LC
+    I --> RLC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Cases 2 and 3
+
+- Attempt a single rotation on the following
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    10 --> 5
+    10 --> A[ ]
+    5 --> B[ ]
+    5 --> 7
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Cases 2 and 3
+
+- Attempt a single rotation on the following
+  - What happened?? Still imbalanced!!!!
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    C[5] --> A[ ]
+    C --> D[10]
+    D --> E[7]
+    D --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown><script type="text/template">
+#### Double Rotation
+
+- A __double rotation__ is used to get around this problem.
+- __double right rotation__: 
+  - rotate left on the left child of imbalanced node
+  - then rotate right on the imbalanced node.
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double rotation example
+
+- double right rotate on 10
+  - rotate left on 5, then right on 10
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  10 --> 5
+  10 --> A[ ]
+  5 --> B[ ]
+  5 --> 7
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double rotation example
+
+- double right rotate on 10
+  - rotate left on 5, then right on 10
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  10 --> 7
+  10 --> A[ ]
+  7 --> 5
+  7 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double rotation example
+
+- double right rotate on 10
+  - rotate left on 5, then right on 10
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  7 --> 5
+  7 --> 10
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double left rotation
+
+- Analogous to the other one
+  - rotate right on the right child
+  - then rotate left on imbalanced node
+
+</script></section> 
+   
+
+    <section data-markdown><script type="text/template">
+## AVL insert, again
+- Let *x* be the *deepest* node where imbalance occurs
+- Four cases where the insert happened:
+  1. In the left subtree of the left child of x
+  2. In the right subtree of the left child of x
+  3. In the left subtree of the right child of x
+  4. In the right subtree of the right child of x
+- Cases 1 & 4: perform a single rotation
+- Cases 2 & 3: perform a double rotation
+    </script></section>
+
+
+
+    <section>
+<h2><a href="http://en.wikipedia.org/wiki/File:Tree_Rebalancing.gif">All the tree rotations</a></h2>
+<img class="stretch" alt="tree rotations" src="images/05-trees/1024px-Tree_Rebalancing.gif">
+    </section>
+
+    <section data-markdown><script type="text/template">
+## AVL Tree: Runtime Analysis
+- Find: &Theta;(log *n*) time: height of tree is always &Theta;(log *n*)
+- Insert: &Theta;(log *n*) time: find() takes &Theta;(log *n*), then may have to visit every node on the path back up to root to perform up to 2 single rotations
+- Remove: &Theta;(log *n*): left as an exercise
+- Print: &Theta;(*n*): no matter the data structure, it will still take *n* steps to print *n* elements
+    </script></section>
+
+  </section>
+
+
+<section>
+
+<section id="inh" data-markdown class="center"><script type="text/template">
+## Basic Inheritance
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### Motivation
+
+- Sometimes we want to create objects that naturally share a lot of functionality.
+  - e.g., avl trees and BST both store and use binary nodes
+  - e.g., find() in avl and BST works the same way
+
+- __Goal 1__: Reduce the amount of code that needs to be duplicated
+- __Goal 2__: Allow for polymorphism between types that have shared attributes
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### Concrete Motivation
+
+- Suppose we are writing some code for a car website (e.g., carmax)
+- We might have some objects like:
+  - Car: contains make, model, price, year
+  - Motorcycle: contains make, model, ..., 
+  - Truck: contains make, model, price, towing capacity
+
+- __Problem 1:__ A LOT of duplicate code
+- __Problem 2:__ Have to process Cars / Motorcycles / Trucks as totally seperate types of variables
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### Inheritance
+
+- Java provides __inheritance__ as a mechanism for organizing your classes more succinctly.
+- __Inheritance__: Is a property of a class in which it has a parent class. The child class inherits the fields and the methods of the parent class.
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Inheritance Idea
+
+- In figure below: Many fields are duplicated in the two classes
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  A["Car : Make, model, price, horsepower"]
+  B[Truck : Make, model, price, tow power]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Inheritance Idea
+
+- Using inheritance, all vehicles has some shared properties, and cars / trucks have some unique ones too.
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  C[Vehicle : Make, model, price]
+  C --> A[Car : horsepower]
+  C --> B[Truck : tow power]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Inheritance Idea
+
+- Behavior can be duplicated as well
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  C["Vehicle : sell(), increasePrice()"]
+  C --> A["Car : race()"]
+  C --> B["Truck : installTowHitch()"]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+
+<section data-markdown><script type="text/template">
+#### Inheritance in Java
+
+- Java allows you to use inheritance with the __extends__ keyword (see next slide)
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vehicle{
+  String make;
+  String model;
+  double price;
+
+  //constructor
+  public Vehicle(String make, String model, double price){
+    this.make = make;
+    this.model = model;
+    this.price = price;
+  }
+
+  public void sell(){/*CODE HERE*/}
+
+  public void increasePrice(double amount){
+    this.price += amount;
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Inheritance in Java
+
+- Java allows you to use inheritance with the __extends__ keyword (see next slide)
+- __extends__ means the class automatically gets all public fields and methods of its parent.
+
+<pre><code class="hljs" data-trim contenteditable>
+//get everything in vehicle for free!
+public class Car extends Vehicle{
+  int horsepower;
+
+  public void race(){/*DO STUFF*/}
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Inheritance in Java
+
+- Use __super__ to access fields and methods in parent
+- super() will also call the constructor of the parent class
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Car extends Vehicle{
+  int horsepower;
+
+  //constructor
+  public Car(String make, String model, double price, int horsepower){
+    super(make, model, price);
+    this.horsepower = horsepower;
+  }
+
+  public void race(){
+    /*DO RACING STUFF*/
+    super.sell(); //done with this car now?
+  }
+}
+</code></pre>
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+#### Practical Example: Trees
+
+- There are some things that ALL trees have/do:
+  - Store tree nodes
+  - All tree nodes have left and right child
+  - All nodes have height
+  - You can insert into any tree (though different mechanism)
+- Inheritance is perfect for this
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Practical Example: Trees
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  A[Binary Tree] --> B[BST]
+  B --> C[AVL]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown><script type="text/template">
+#### Practical Example: Trees
+
+- __Binary Tree__
+  - Stores BinaryTreeNode root
+  - pre-order, post-order, in-order traversal methods
+- __BST__
+  - Does everything Binary Tree does
+  - Inserts in sorted order, removes nodes
+  - Find()
+- __AVL__
+  - Does everything a BST does.
+  - Adds tree rotation methods
+  - Inserts and removes same way then rotates
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: Trees
+
+- __Binary Tree__: things ALL trees have/do
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BinaryTree< T > {
+
+  protected TreeNode< T > root = null;
+  
+  /* IMPLEMENT THESE METHODS FOR LAB */
+  public void printInOrder();
+  public void printPreOrder();
+  public void printPostOrder();
+}
+</code></pre>
+
+<pre><code class="hljs" data-trim contenteditable>
+public class TreeNode< T >{
+    protected T data = null;
+    protected TreeNode< T > left = null;
+    protected TreeNode< T > right = null;
+    protected int height = 0;
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: BST
+
+- __Binary Search Tree__: things only BSTs do
+- What is this "T extends Comparable thing"?
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BinarySearchTree< T extends Comparable< T > >
+                extends BinaryTree< T > implements Tree< T >{
+  
+  public void insert(T data){...}
+
+  public boolean find(T data){...}
+
+  public void remove(T data){...}
+  
+  public TreeNode< T > findMax(TreeNode< T > curNode){...}
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: AVL Tree
+
+- __AVL Tree__: things only AVLs do
+- Notice that we have insert again??
+
+<pre><code class="hljs" data-trim contenteditable>
+public class AVLTree< T extends Comparable< T >>
+                extends BinarySearchTree< T >{
+  
+  @Override
+  public void insert(T data){...}
+
+  @Override
+  public void remove(T data){...}
+  
+  private TreeNode< T > balance(TreeNode< T > curNode){...}
+  private TreeNode< T > rotateRight(TreeNode< T > curNode){...}
+  private TreeNode< T > rotateLeft(TreeNode< T > curNode){...}
+  
+  private int balanceFactor(TreeNode< T > node){...}
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: AVL Tree
+
+- Notice that AVL Tree and BST both had an __insert()__ method with the same parameters.
+- This is called overriding a method.
+- The parent class implemented the method already, but the child class wants to __override__ that implementation, and reimplement it slightly differently.
+  - Sometimes child will use __super.methodHere()__ to call the parent version and then add more functionality on top
+  - Sometimes child class will totally rewrite the method.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: AVL Tree
+
+- How does java know which insert() method to actually execute?
+- Jave uses __Dynamic Dispatch__, meaning the run-time type of the object is examined, and the method in that class is automatically invoked.
+
+<pre><code class="hljs" data-trim contenteditable>
+BinarySearchTree< Integer > myTree = new AVLTree< Integer >();
+/* ... */
+myTree.insert(5); //AVLTree.insert() is called.
+</code></pre>
+</script></section>
+
+</section>
+
+  <section>
+
+    <section id="rbt" data-markdown class="center"><script type="text/template">
+## Red-black Trees
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Red-black trees
+- Each node has a color attribute, which is either (wait for it...) red or black
+- Animation site is [here](http://www.qmatica.com/DataStructures/Trees/BST.html) ([mirror](http://webdiis.unizar.es/asignaturas/EDA/AVLTree/avltree.html))
+
+![red black tree 1](https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Red-black_tree_example.svg/500px-Red-black_tree_example.svg.png)
+
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Red-black tree properties
+All of these properties must hold for a red-black tree
+
+1. A node is either red or black
+2. The root is black
+3. All leaves are black
+   - The leaves may be the `NULL` children
+4. Both children of every red node are black
+   - Therefore, a black node is the only possible parent for a red node
+5. Every simple path from a node to any descendant leaf contains the same number of black nodes
+   - Counting or not counting the `NULL` black nodes; it doesn't make a difference as long as you are consistent
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Insert
+- Insert the node as for a normal BST
+  - And color it red
+- 5 possible cases:
+  1. The new node is the root node
+  2. The new node's parent is black
+  3. Both the parent and uncle (aunt?) are red
+  4. Parent is red, uncle is black, new node is the right child of parent
+  5. Parent is red, uncle is black, new node is the left child of parent
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Removal
+- Do a normal BST remove
+  - Find next highest/lowest value, put its value in the node to be deleted, remove that highest/lowest node
+    - Note that that node won't have 2 children!
+  - We replace the node to be deleted with its left child
+    - This child is N, its sibling is S, its parent is P
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Removal cases
+- A total of 6 cases!
+  1. N is the new root
+  2. S is red
+  3. P, S, and S's children are black
+  4. S and S's children are black, but P is red
+  5. S is black, S's left child is red, S's right child is black, and N is the left child of its parent
+  6. S is black, S's right child is red, and N is the left child of parent P
+- We won't see them in detail, though, but you can find details [here](http://en.wikipedia.org/wiki/Red_black_trees)
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Why a red-black versus AVL?
+- AVL trees are more rigidly balanced than red-black trees
+  - Thus, more rotations are required during the operations in the worst case
+- Time-critical applications will see a performance boost
+- Functional programming languages used red-black trees for associative arrays (hashes)
+  - The tree can be a persistent data structure
+    - A data structure that retains a "memory" of its mutations
+    </script></section>
+
+  </section>
+
+
+<section>
+
+    <section id="app" data-markdown class="center"><script type="text/template">
+## Applications
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### When are trees not good to use?
+- Trees are fast -- so when would we not want to use them?
+  - When the items do not have a sorted order
+    - A list of todo tasks
+  - When we want less complexity
+    - A stack or a queue
+  - When we want an &Theta;(1) operation on retrieves
+    - Vector get()
+  - When we want an &Theta;(1) time for *all* operations
+    - Hash tables can (almost) achieve that
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Applications of Trees: Programs
+- Any program can be represented as a tree; consider the following program (no external source code):
+
+```
+int z;
+
+int foo (int x) {
+    for ( int y = 0; y < x; y++ )
+        cout << y << endl;
+}
+
+int main() {
+    int z = 5;
+    cout << "enter x" << endl;
+    cin >> z;
+    foo(z);
+}
+```
+- Note that there are two `int z` declarations; this will be relevant shortly
+    </script></section>
+
+    <section>
+<h3>The program tree</h3>
+<img class="stretch" src="images/05-trees/program-tree-1.svg" alt="program tree">
+    </section>
+
+    <section data-markdown><script type="text/template">
+#### Notes on the program tree
+- Called a "abstract syntax tree" or a "parse tree"
+- Each node can be a different type
+  - Having different properties and different number of children
+    - A `for` loop node has four children (for init, for expression, for update, body)
+    - A function node has at least three children (parameters, variables, body)
+      - (we are ignoring other possible children of a function node here)
+    - A body node has a variable number children
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Notes on the program tree
+- Called an "abstract syntax tree" or a "parse tree"
+- A compiler will build such a tree in memory
+  - And trasverse it many times
+  - For example, to figure out which 'z' is used in the main() function
+  - Or to do code generation
+    - Each node has an overridden method to generate the code for that node
+  - Or to do type checking
+  - Or to do code optimization
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Comparing two programs
+- What if we read in two programs...
+  - ... and build parse trees for each
+  - ... and compare their structure?
+- We would be able to compare two programs while ignoring such things as:
+  - Function/method order
+  - Variable renaming
+  - Different comments
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Measure of Structural Similarity
+- "A System for Detecting Software Plagiarism" ([website](http://theory.stanford.edu/~aiken/moss/))
+  - The paper the site is based on can be found [here](http://theory.stanford.edu/~aiken/publications/papers/sigmod03.pdf)
+- It will load up all the programs for a class
+- And do all *n*<sup>2</sup> comparisons
+- And display the most similar programs
+    </script></section>
+
+  </section>
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/search/search.js', async: true },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true },
+          { src: 'reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
