@@ -6,21 +6,30 @@ CS2501 - Data Structures and Algorithms I Course Logistics
 <a name="introduction"></a>Course Logistics
 ---------------------------------------
 
-- [Introductory Slide Deck](../slides/00-introduction.html): This slide deck contains useful information about the course structure, grading policy, lab structure, etc. We will go over this on the first day of class.
-- [Schedule](./schedule.html): The lecture schedule for the course.
-- [Grading Policy](./grading.html): A summary of the somewhat non-conventional grading policy for this course.
-- [Syllabus](./syllabus.html): Contains the same information as the slide deck above, but with more detail.
+On this page, you'll find a high-level summary of the course logistics for this course. For more detailed summary, please consult *[The Syllabus, which you can find here](https://docs.google.com/document/d/1GNLIwp1_dg_61ZSbfqd7z2f9avZ59tLa3zmb6oFoTPk/edit?usp=sharing)*. 
+
+The course schedule can be found over at the [Slides and Schedule page](../slides/index.html).
+
+
+<a name="Lecture"></a>Lectures
+---------------------------------------
+
+Stuff
+
+
+<a name="HW"></a>Homework
+---------------------------------------
+
+
+<a name="Labs"></a>Labs and Quizzes
+---------------------------------------
+
+
+<a name="Grading"></a>Grading
+---------------------------------------
 
 
 <a name="TAs"></a>Teaching Assistants
 ---------------------------------------
 
-- Graduate TA:
--- Chuanhao Li [cl5ev@virginia.edu](mailto:cl5ev@virginia.edu)
-
-- Undergraduate TAs:
--- Cassie Quach [cq5yc@virginia.edu](mailto:cq5yc@virginia.edu)
--- George Taliaferro [wgt7xp@virginia.edu](mailto:wgt7xp@virginia.edu)
--- Annie Chapman [amc6wf@virginia.edu](mailto:amc6wf@virginia.edu)
--- Daniel Patel [dp7sv@virginia.edu](mailto:dp7sv@virginia.edu)
--- Branden Kim [bk2dh@virginia.edu](mailto:bk2dh@virginia.edu)
+TBD

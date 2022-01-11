@@ -75,7 +75,7 @@ showstringspaces=false}
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
-\author{Dr. Mark R. Floryan} % Your name
+\author{Nada Basit and Mark Floryan}
 
 \date{\normalsize\today} % Today's date or a custom date
 
@@ -92,12 +92,12 @@ showstringspaces=false}
 For this homework, you will be building a custom hash table class, and using it to perform a word search. The overview of this homework is as follows:
 
 \begin{enumerate}
-	\item Download the provided \href{https://markfloryan.github.io/dsa1/homeworks/HashTables/code/HashTables.zip}{starter code}.
+	\item Download the provided \href{https://uva-cs.github.io/dsa1/homeworks/HashTables/code/HashTables.zip}{starter code}.
 	\item Implement the HashTable.java class.
 	\item Test the correctness of your hash table using the provided tester.
 	\item Implement the word search solver by using your hash table implementation.
 	\item Optimize your hash table to run as quickly as possible on the large word search grids provided
-	\item \textbf{FILES TO DOWNLOAD:} \href{https://markfloryan.github.io/dsa1/homeworks/HashTables/code/HashTables.zip}{HashTables.zip}
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/HashTables/code/HashTables.zip}{HashTables.zip}
 	\item \textbf{FILES TO SUBMIT:} HashTables.zip
 \end{enumerate}
 
@@ -148,7 +148,7 @@ Next, you will be writing some code within the WordPuzzleSolver.java class. This
 Some other notes / requirements about this part of the homework:
 
 \begin{enumerate}
-	\item You should instantiate your hash table and insert each of the words from the dictionary. In order to this, you will need to read input from a file. See the course \href{https://markfloryan.github.io/dsa1/java/javaCheatSheet/javaCheatSheet.pdf}{java cheat sheet} for an example of how to read from a file.
+	\item You should instantiate your hash table and insert each of the words from the dictionary. In order to this, you will need to read input from a file. See the course \href{https://uva-cs.github.io/dsa1/java/javaCheatSheet/javaCheatSheet.pdf}{java cheat sheet} for an example of how to read from a file.
 	\item You need to check words that start at ANY starting location in the grid, moving in any of the eight directions (North, NorthWest, etc.), and check any words of length $3 \leq n \leq 22$. Make sure you do not move off the end of the grid when looking up words.
 	\item Your output should match the format shown in the provided starter project under \emph{input/3x3.out.txt}. The order the words are printed is not important, but would be nice to make grading easier.
 	\item the \emph{input/} folder provides several grids and dictionaries to test your code with. Your code should be correct for all combinations and also be reasonably fast (less than 10 seconds on the largest grids). How fast can you make it?

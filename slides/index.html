@@ -1,27 +1,457 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>CS2501 - Data Structures and Algorithms I</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="../markdown.css" type="text/css" />
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1 id="cs2501---data-structures-and-algorithms-i">CS2501 - Data Structures and Algorithms I</h1>
+<p>This page contains the daily course schedule for the entire semester, as well as links to slides used in the lecture. There is also high-level information regarding which homework assignment is due each week.</p>
 <h2 id="slides"><a name="introduction"></a>Slides</h2>
-<ul>
-<li><p><a href="./00-introduction.html">Introduction to Course</a>: Introduction to the course, grading structure, etc.</p></li>
-<li><p><a href="./01-java.html">Introduction to Java</a>: Basic Java syntax, structure. Object oriented programming and related techniques.</p></li>
-<li><p><a href="02-lists.html">Lists</a>: Overview of list data structures and more Java necessary for developing lists.</p></li>
-<li><p><a href="./03-bigoh.html">Big Oh Notation</a>: Analysing data structure runtimes using Big-Oh notation.</p></li>
-<li><p><a href="./04-trees.html">Trees</a>: Tree data structures, including BST and AVL</p></li>
-<li><p><a href="./05-sorting.html">Sorting</a>: Sorting algorithms, including bubble, insertion, mergesort, and quicksort</p></li>
-<li><p><a href="./06-hashing.html">Hashing</a>: Hash tables and collision resolution strategies.</p></li>
-<li><p><a href="./07-priorityqueues.html">Priority Queus</a>: Priority queues, min-heaps, and heapsort.</p></li>
-<li><p><a href="./08-concurrency.html">Concurrency</a>: Some simple multi-threading in Java.</p></li>
-</ul>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 28%" />
+<col style="width: 12%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Day</th>
+<th>Date</th>
+<th>Module</th>
+<th>Topic</th>
+<th>Slides</th>
+<th>HW/Lab Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Wednesday</td>
+<td>1/19/2022</td>
+<td>Introduction to Course</td>
+<td>Course Introduction, Syllabus, etc.</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>1/21/2022</td>
+<td>Basic Java 1</td>
+<td>Hello World; Primitive Data Types; Using Simple Objects</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Monday</td>
+<td>1/24/2022</td>
+<td></td>
+<td>Writing Functions; Using Arrays</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>1/26/2022</td>
+<td></td>
+<td>Control-Flow</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>1/28/2022</td>
+<td></td>
+<td>Fizz-Buzz and other live coding problems</td>
+<td>SLIDES TBD</td>
+<td>Intro to Lab</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Monday</td>
+<td>1/31/2022</td>
+<td>Basic Java 2</td>
+<td>References</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>2/2/2022</td>
+<td></td>
+<td>Methods and Parameters</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>2/4/2022</td>
+<td></td>
+<td>Methods / Parameters Live Coding Problems</td>
+<td>SLIDES TBD</td>
+<td>Basic Java 1</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Monday</td>
+<td>2/7/2022</td>
+<td>Basic Java 3</td>
+<td>Classes and Enums</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>2/9/2022</td>
+<td></td>
+<td>Example Class</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>2/11/2022</td>
+<td></td>
+<td>More Classes; How to use the Java API</td>
+<td>SLIDES TBD</td>
+<td>Basic Java 2</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Monday</td>
+<td>2/14/2022</td>
+<td>Lists: Vectors</td>
+<td>What is a list, Interfaces, and Polymorphism.</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>2/16/2022</td>
+<td></td>
+<td>Vectors</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>2/18/2022</td>
+<td></td>
+<td>Java Generics (In the context of Vectors)</td>
+<td>SLIDES TBD</td>
+<td>Basic Java 3</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Monday</td>
+<td>2/21/2022</td>
+<td>LLs / Stacks / Queues</td>
+<td>Linked Lists and Iterators</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>2/23/2022</td>
+<td></td>
+<td>Stacks</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>2/25/2022</td>
+<td></td>
+<td>Queues</td>
+<td>SLIDES TBD</td>
+<td>Vectors</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Monday</td>
+<td>2/28/2022</td>
+<td>Big-Oh</td>
+<td>Big-Oh, Big-Omega, Big-Theta</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>3/2/2022</td>
+<td></td>
+<td>More Big-Oh example problems</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>3/4/2022</td>
+<td></td>
+<td>Amortized Analysis</td>
+<td>SLIDES TBD</td>
+<td>LL, Stack, Queue</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Monday</td>
+<td>3/7/2022</td>
+<td></td>
+<td></td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>3/9/2022</td>
+<td>UVA SPRING BREAK</td>
+<td></td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>3/11/2022</td>
+<td></td>
+<td></td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Monday</td>
+<td>3/14/2022</td>
+<td>Recursion &amp; Trees</td>
+<td>Recursion + Examples</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>3/16/2022</td>
+<td></td>
+<td>Introduction to Trees + Tree Traversals</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>3/18/2022</td>
+<td></td>
+<td>BST Structure, Find, Insert</td>
+<td>SLIDES TBD</td>
+<td>Big-Oh, Recursion Practice</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Monday</td>
+<td>3/21/2022</td>
+<td></td>
+<td>BST FindMin/Max, Remove, and Runtime Analysis</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>3/23/2022</td>
+<td></td>
+<td>AVL Trees</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>3/25/2022</td>
+<td></td>
+<td>Inheritance (Red-Black Trees if time)</td>
+<td>SLIDES TBD</td>
+<td>BST</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Monday</td>
+<td>3/28/2022</td>
+<td></td>
+<td>Inheritance and Red-Black Trees</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>3/30/2022</td>
+<td>Basic Sorts</td>
+<td>Introduction to Sorting, Comparable, compareTo, and Bubble Sort</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>4/1/2022</td>
+<td></td>
+<td>Insertion Sort, Lower-Bounds Adjacent Proof</td>
+<td>SLIDES TBD</td>
+<td>Inheritance + AVL</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Monday</td>
+<td>4/4/2022</td>
+<td>Advanced Sorts</td>
+<td>Mergesort</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>4/6/2022</td>
+<td></td>
+<td>Quicksort</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>4/8/2022</td>
+<td></td>
+<td>Lower-Bound Proof + Other Sorting Methods</td>
+<td>SLIDES TBD</td>
+<td>Basic Sorts</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Monday</td>
+<td>4/11/2022</td>
+<td>Hash Tables</td>
+<td>ADTs So Far / Maps and Sets in Java</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>4/13/2022</td>
+<td></td>
+<td>Hash Tables + Separate Chaining</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>4/15/2022</td>
+<td></td>
+<td>Open Addressing + Analysis</td>
+<td>SLIDES TBD</td>
+<td>Advanced Sorts</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Monday</td>
+<td>4/18/2022</td>
+<td>Priority Queues</td>
+<td>Priority Queues + Binary Heap Structure</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wednesday</td>
+<td>4/20/2022</td>
+<td></td>
+<td>Binary Heap Operations (Insert, DeleteMin, findMin)</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Friday</td>
+<td>4/22/2022</td>
+<td></td>
+<td>Heapsort</td>
+<td>SLIDES TBD</td>
+<td>Hash Tables</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Monday</td>
+<td>4/25/2022</td>
+<td>Concurrency</td>
+<td>Basic Concurrency and Thread Example</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wednesday</td>
+<td>4/27/2022</td>
+<td></td>
+<td>Exception Handling, Shared Resources, Race Conditions</td>
+<td>SLIDES TBD</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Friday</td>
+<td>4/29/2022</td>
+<td></td>
+<td>Locks, Deadlocks</td>
+<td>SLIDES TBD</td>
+<td>Priority Queue</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Monday</td>
+<td>5/2/2022</td>
+<td></td>
+<td>Blocking Queue</td>
+<td>SLIDES TBD</td>
+<td>Blocking Queue</td>
+</tr>
+</tbody>
+</table>
 <h2 id="other"><a name="introduction"></a>Other</h2>
 <ul>
 <li><a href="./dailyAnnouncements.html">Daily Announcements</a>: Daily Announcement Slides</li>

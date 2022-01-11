@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  16 AUG 2019 11:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  11 JAN 2022 11:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -789,7 +789,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 184.
 Here is how much of TeX's memory you used:
  11111 strings out of 492995
  172058 string characters out of 6132704
- 457574 words of memory out of 5000000
+ 457582 words of memory out of 5000000
  14434 multiletter control sequences out of 15000+600000
  93378 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -800,7 +800,7 @@ live/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/20
 17/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist
 /fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on linkedlistsAnalysis.pdf (4 pages, 86385 bytes).
+Output written on linkedlistsAnalysis.pdf (4 pages, 86392 bytes).
 PDF statistics:
  98 PDF objects out of 1000 (max. 8388607)
  87 compressed objects within 1 object stream

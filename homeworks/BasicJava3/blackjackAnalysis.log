@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  20 AUG 2019 12:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  11 JAN 2022 11:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -763,7 +763,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 149.
 Here is how much of TeX's memory you used:
  10948 strings out of 492995
  169701 string characters out of 6132704
- 445572 words of memory out of 5000000
+ 445580 words of memory out of 5000000
  14308 multiletter control sequences out of 15000+600000
  73074 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -771,7 +771,7 @@ Here is how much of TeX's memory you used:
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/
 2017/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb>
-Output written on blackjackAnalysis.pdf (3 pages, 40374 bytes).
+Output written on blackjackAnalysis.pdf (3 pages, 40193 bytes).
 PDF statistics:
  53 PDF objects out of 1000 (max. 8388607)
  45 compressed objects within 1 object stream
