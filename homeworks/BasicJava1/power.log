@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  11 JAN 2022 11:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  12 JAN 2022 07:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -741,21 +741,21 @@ LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
 
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<images/eclipse_welcome.png, id=30, 1028.34187pt x 578.16pt>
+<images/eclipse_welcome.png, id=34, 1028.34187pt x 578.16pt>
 File: images/eclipse_welcome.png Graphic file (type png)
 
 <use images/eclipse_welcome.png>
 Package pdftex.def Info: images/eclipse_welcome.png used on input line 111.
 (pdftex.def)             Requested size: 292.7776pt x 164.6097pt.
 
-<images/eclipse_workspace.png, id=31, 1370.11874pt x 896.34875pt>
+<images/eclipse_workspace.png, id=35, 1370.11874pt x 896.34875pt>
 File: images/eclipse_workspace.png Graphic file (type png)
 
 <use images/eclipse_workspace.png>
 Package pdftex.def Info: images/eclipse_workspace.png used on input line 118.
 (pdftex.def)             Requested size: 292.7776pt x 191.53499pt.
  [2 <./images/eclipse_welcome.png> <./images/eclipse_workspace.png>]
-<images/eclipse_class_dialog.png, id=41, 538.01pt x 644.4075pt>
+<images/eclipse_class_dialog.png, id=45, 538.01pt x 644.4075pt>
 File: images/eclipse_class_dialog.png Graphic file (type png)
 
 <use images/eclipse_class_dialog.png>
@@ -770,33 +770,48 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 144.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 147.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 147.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 147.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 147.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 147.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 147.
  [3 <./images/eclipse_class_dialog.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 180.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 180.
  (./power.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 155.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 180.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 180.
 Package rerunfilecheck Info: File `power.out' has not changed.
-(rerunfilecheck)             Checksum: 3ACA26A104A791012671D8C387085B4A;178.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
+(rerunfilecheck)             Checksum: 56D9AA9150933731EDB3357F4A42F1FE;237.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 180.
  ) 
 Here is how much of TeX's memory you used:
- 11045 strings out of 492995
- 171111 string characters out of 6132704
+ 11088 strings out of 492995
+ 171664 string characters out of 6132704
  444756 words of memory out of 5000000
- 14395 multiletter control sequences out of 15000+600000
- 77573 words of font info for 74 fonts, out of 8000000 for 9000
+ 14419 multiletter control sequences out of 15000+600000
+ 97360 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,11n,51p,8816b,1005s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/20
-17/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texm
-f-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on power.pdf (3 pages, 458369 bytes).
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
+exlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
+live/2017/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/201
+7/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texmf
+-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist/
+fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on power.pdf (4 pages, 476905 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
- 16 named destinations out of 1000 (max. 500000)
- 40 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 96 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
+ 26 named destinations out of 1000 (max. 500000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

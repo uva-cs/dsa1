@@ -144,7 +144,32 @@ Now that your environment is setup, you will write one very small Java method as
 public static long power(int base, int exp);
 \end{lstlisting}
 
-Your program should take in two numbers for the user. First, the base and second, the exponent. Then, your program should invoke the power method above and present the user (via the console) the value of base to the exponent power. You can assume that when we test your code, all inputs will fit inside of int types, and all correct answers will fit inside of long types. This method may be iterative or recursive, but \textbf{may not use any library functions such as Math.pow()}.
+This method should accept two parameters (base and exp) and return the result of base to the power of exp. For example, \emph{power(2,3)} would return 8 because $2^3=8$. 
+
+Your Power.java file should also contain a \emph{main method} to handle input and output. Your main method should take in two numbers from the user keyboard. First, the base and second, the exponent. Then, your program should invoke the power method above and present the user (via the console) the value of base to the exponent power. You can assume that when we test your code, all inputs will fit inside of int types, and all correct answers will fit inside of long types. This method may be iterative or recursive, but \textbf{may not use any library functions such as Math.pow()}.
+
+\textbf{SAMPLE INPUT:}
+
+\begin{lstlisting}
+2
+3
+\end{lstlisting}
+
+\textbf{SAMPLE OUTPUT:}
+
+\begin{lstlisting}
+8
+\end{lstlisting}
+
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+	\item Make sure you are only submitting one file, and it is called \emph{Power.java} (exactly, not power.java or pOwer.java).
+	\item Make sure you remove any \emph{package} statements from your code before submitting. The autograder doesn't expect your file to be inside a package for this assignment.
+	\item Make sure your output is in the correct format (see above) exactly. You should not be printing ANYTHING else or the autograder will think your output is incorrect.
+\end{enumerate}
 
 
 
