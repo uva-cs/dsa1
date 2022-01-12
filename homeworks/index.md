@@ -7,8 +7,8 @@ CS2501 - Data Structures and Algorithms I
 | Week | Module | Homework 1 | Homework 2 |
 |--|------------------------|----------------------------|----------------------------|
 | 1 | N/A | Syllabus Quiz (Coming Soon) | |
-| 2 | N/A | [Java Warm-Up / Getting Started](./BasicJava1/power.pdf) | |
-| 3 | Basic Java 1 | *COMING SOON* | [Six Functions](./BasicJava1/sixFunctions.pdf) |
+| 2 | Basic Java 1 | [Java Warm-Up / Getting Started](./BasicJava1/power.pdf) | |
+| 3 | | *COMING SOON* | [Six Functions](./BasicJava1/sixFunctions.pdf) |
 | 4 | Basic Java 2 | [Roomba](./BasicJava2/roomba.pdf) | [Roomba Analysis](./BasicJava2/roombaAnalysis.pdf) |
 | 5 | Basic Java 3 | [Blackjack](BasicJava3/blackjack.pdf) | [Blackjack Analysis](BasicJava3/blackjackAnalysis.pdf) |
 | 6 | Vectors | [Vector Implementation](Vectors/vectors.pdf) |  |
