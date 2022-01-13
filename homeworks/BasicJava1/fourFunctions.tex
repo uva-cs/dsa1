@@ -108,9 +108,9 @@ For this homework, you will implement six functions, as well as a small program 
 \item \textbf{mode}: Accepts and array of integers as a parameter, and returns the most commonly occurring value among them. \emph{If there is more than one mode, you may return any of them.}
 \end{enumerate}
 
-Once these methods are complete, you should write a program that asks the user to input a number one through four. If the user doesn't enter a valid number, the program exits. If the user enters a valid number one through four, then they are prompted to enter five integers. Those seven integers are then given to the corresponding method above (1 = average, 2 = median, 3 = stddev, 4 = mode) and the answer (a single value) is printed to the console. The program then exits.
+Once these methods are complete, you should write a program that asks the user to input a number one through four. If the user doesn't enter a valid number, the program exits. If the user enters a valid number one through four, then they are prompted to enter five integers. Those five integers are then given to the corresponding method above (1 = average, 2 = median, 3 = stddev, 4 = mode) and the answer (a single value) is printed to the console. The program then exits.
 
-\textbf{IMPORTANT NOTE: The average, median, and standard deviation should be printed as a double to two decimal places. The mode should be printed as an integer. You can handle the floating point values using this line of code:}
+\textbf{IMPORTANT NOTE: The average and standard deviation should be printed as a double to two decimal places. The mode and median should be printed as an integer (because there are always five numbers, there is always a true median). You can handle the floating point values using this line of code:}
 
 \begin{lstlisting}
 System.out.printf("%.2f\n", average(nums));
