@@ -8,7 +8,7 @@ This page contains the daily course schedule for the entire semester, as well as
 
 | Week | Day | Date | Module | Topic | Slides | HW/Lab Topic |
 |-|-----|-------|--------|--------------|------|--------|
-|1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|SLIDES TBD||
+|1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|[Floryan](./00-introduction.html)||
 | |	Friday|1/21/2022|Basic Java 1|Hello World; Primitive Data Types; Using Simple Objects|SLIDES TBD||
 |2|	Monday|1/24/2022||Writing Functions; Using Arrays|SLIDES TBD||	
 | |	Wednesday|1/26/2022||Control-Flow|SLIDES TBD||
