@@ -115,7 +115,7 @@ DeckStack(int numDecks);
 
 //Deals the top card from the stack of decks and returns that Card.
 //You can implement this several ways, as long as it correctly
-//deals a card from on of the decks.
+//deals a card from one of the decks.
 public Card dealTopCard();
 
 //Reshuffles all of the decks.
@@ -159,7 +159,7 @@ Your job is thus to implement getBet() and getMove() methods such that you maxim
 /* Returns the number of chips the player has */
 public int getChips();
 
-/* A list the players cards */
+/* A list of the player's cards */
 /* Access using this.cards */
 protected ArrarList<Card> cards;
 
@@ -168,6 +168,16 @@ this.dealer.getVisibleCard(); //returns a Card object
 \end{lstlisting}
 
 Your goal, as stated earlier, is to maximize your profit after 1000 games. Good luck!
+
+\subsection{Grading Guidelines}
+
+Your submission will be graded using the following guidelines:
+
+\begin{enumerate}
+	\item The correctness of your \emph{DackStack} class. You will get a majority of the credit for this assignment if this class works as intended.
+	\item Your blackjack player must successfully play blackjack without crashing the simulator or causing other runtime errors / issues.
+	\item \emph{MyBlackjackPlayer.java}: Your blackjack player needs to be implemented to apply some reasonable strategy. A grader will glance at your class and make sure you've put in effort to produce a player that is better than random (better than randomly choosing whether to hit or stay, for example).
+\end{enumerate}
 
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  11 JAN 2022 11:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  13 JAN 2022 10:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -779,21 +779,21 @@ Overfull \hbox (16.31085pt too wide) in paragraph at lines 146--147
  []
 
 [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 173.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 183.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 173.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 183.
  (./blackjack.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 173.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 173.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 183.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 183.
 Package rerunfilecheck Info: File `blackjack.out' has not changed.
-(rerunfilecheck)             Checksum: 9267FF2341F1495F731E1BAFDC0CACBD;182.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 173.
+(rerunfilecheck)             Checksum: AD9037E30EF5CB0025D7789C918F534A;249.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 183.
  ) 
 Here is how much of TeX's memory you used:
- 11083 strings out of 492995
- 171471 string characters out of 6132704
+ 11088 strings out of 492995
+ 171519 string characters out of 6132704
  468571 words of memory out of 5000000
- 14393 multiletter control sequences out of 15000+600000
+ 14394 multiletter control sequences out of 15000+600000
  82134 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,12n,51p,8820b,1671s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -803,10 +803,10 @@ live/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/20
 17/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist
 /fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on blackjack.pdf (3 pages, 87370 bytes).
+Output written on blackjack.pdf (3 pages, 89914 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
- 58 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 126 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
+ 62 named destinations out of 1000 (max. 500000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
