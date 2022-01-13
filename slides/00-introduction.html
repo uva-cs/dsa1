@@ -64,52 +64,12 @@
 	<section data-markdown><script type="text/template">
 ### Contents
 &nbsp;  
-[What is this pilot program?](#/pilot) <br />
 [Course Logistics](#/logistics) <br />
-[Grading](#/grading) <br />
+[Course Content](#/content) <br />
+[Grading and Assessments](#/grading) <br />
 [Honor Policy](#/honor) <br />
 	</script></section>
 
-<!-- NEW SECTION -->
-	<section> 
-
-<section data-markdown id="pilot" class="center"><script type="text/template">
-### What is this pilot program?
-</script></section>
-
-<section class="diagram-slide">
-<h4>Current Curriculum</h4>
-<span class="diagram-data" style="display:none;">
-  graph TD
-    A[1110] --> B[2110: Software Dev.]
-    B --> C[2150: DSA + COA]
-    C --> D[3330: Architecture]
-    C --> E[4102: Algorithms]
-    C --> F[...]
-  </span><div class="diagram-display"></div>
-</section>
-
-<section class="diagram-slide">
-<h4>Proposed Curriculum</h4>
-<span class="diagram-data" style="display:none;">
-  graph TD
-    A[1110] --> B[DSA 1]
-    A --> C[COA 1]
-    A --> D[SWE]
-    A --> E[DMT 1]
-    B --> F[DSA 2]
-    C --> G[COA 2]
-    E --> I[DMT 2]
-    F --> H[Electives]
-    G --> H
-    I --> H
-
-  </span><div class="diagram-display"></div>
-</section>
-
-	</section>
-
-<!---------------------------------------------- -->
 
 <!-- NEW SECTION -->
   <section> 
@@ -119,11 +79,24 @@
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
+### Course Description
+
+- A second course in computing with an emphasis on foundational data structures and program analysis. The course provides a comprehensive look at the Java programming language including object oriented programming, concurrency, inheritance / polymorphism. Additionally, foundational data structures and related algorithms / analysis are studied. These include Lists, Stacks, Queues, Trees, Hash Tables, and Priority Queues.
+
+</script></section>
+
+
+
+<section data-markdown class="center"><script type="text/template">
 ### Your Instructors
 
-- Dr. Mark R. Floryan
+- Dr. Nada Basit
+  - Office: Rice Hall 405
+  - OH: Mon (1:15-2:15) and Tue (11:30-1:00pm)
+  - [basit@virginia.edu](mailto:basit@virginia.edu)
+- Dr. Mark Floryan
   - Office: Rice Hall 203
-  - OH: Mon and Tue (1-2:30pm)
+  - OH: Tue and Wed (10-11:30am)
   - [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)
 
 </script></section>
@@ -133,31 +106,170 @@
 
 - 1 Graduate TA
   - TBD
-- 5 Undergraduate TAs
-  - TBD
+- ~40-50 Undergraduate TAs
+  - 5 of these students are head TAs and can be contacted directly for various reasons (more later)
+  - Each lab will have several 10-15 TAs present to run lab sections
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
-### Meeting Times
+### Lecture Times
 
-- Lecture: MWF 10-10:50pm @ Thornton E303
-  - Lectures by yours truly
+- Section 1 (Floryan): MWF 12-12:50pm @ Chem 402
   - Attendance not required but HIGHLY recommended
-  - Seriously, just show up
-  - __NO LAPTOPS ALLOWED__
+  - __NO LAPTOPS ALLOWED__: Unless I explicitly ask you to use them for an activity.
+  - Lectures will be recorded and posted to Collab
 
-- Labs: MT 5:00-6:15pm @ MEC 213
-  - Labs run by TAs
-  - Attendance is usually required
+- Section 2 (Basit): MWF 10-10:50am @ Ridley G008
+  - Nada's lecture policies are in her slides
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Lab Times
+
+- Labs (All on Monday)
+  - 101: 3-4:45pm (OLS 120)
+  - 102: 5-6:45pm (Rice 130)
+  - 103: 7-8:45pm (Rice 130)
+  - 104: 3:30-5:15pm (Mec 205)
+
+- Lab attendance is not required, but quizzes happen there so you have to go for that.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Lab Procedure
+
+- First 30-45 mins: Take **quizzes** and submit.
+- Rest of the time you can either:
+  - Get help on homework from TAs. 
+  - Work on extra programming / interview question challenges
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Contacting Us
+
+- Email is fine, but please put **CS2100** in the email subject. This helps us organize our emails and more efficiently get back to you.
+- We are going to ask that you **first contact a head TA** regarding any issue. If that person cannot resolve your issue, then we will be happy to help.
+  - Not trying to avoid you, but it is a big class.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Tools
+
+- We will use the following tools primarily
+  - Our course website: [https://uva-cs.github.io/dsa1](https://uva-cs.github.io/dsa1)
+  - Collab workspace
+  - [Gradescope](https://gradescope.com)
+  - [Piazza](https://piazza.com)
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Website
+
+- Our [course website](https://uva-cs.github.io/dsa1) contains most of the information you'll need this semester.
+  - link to the Syllabus
+  - Schedule of lectures
+  - Links to slides
+  - Homework assignment writeups, starting code, tutorials, etc.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Collab
+
+- We will use Collab sparingly, however:
+  - You will have one quiz on Collab (the syllabus quiz)
+  - Final grades will be posted there (eventually)
+  - Will contain links to other resources (course website, etc.)
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Gradescope
+
+- All of our work submission (homeworks and quizzes) will be done on [Gradescope](https://gradescope.com)
+- **Homeworks** will be submitted.
+  - Most of the programming assignments are autograded
+  - Reports and a couple of programming assignments are manually graded
+- **Quizzes** are taken on Gradescope as well
+  - More on this later
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Piazza
+
+- [Piazza](https://piazza.com) is a great tool for asking questions about course content. 
+- TAs will monitor and answer questions throughout the semester.
+- Instructor may or may not be on Piazza consistently.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Expectations
+
+- You have **taken CS111x** (or equivalent) and earned a C- or above.
+- You can do the following:
+  - You understand variables, program flow, simple problem solving, etc.
+  - You understand simple data types like floats / doubles, strings, integers, etc. (though the names you used might be different)
+  - You can write simple functions, pass parameters, write loops, use arrays, iterate over lists, etc.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Python vs. Java
+
+- Many of you learned **Python** as you first language
+  - Learning your second language will have some overhead, but you can do it and we are here to help you! You are **not behind**!!
+- And many of you already have **Java** experience
+  - Great! You will likely be bored for about 3-4 weeks. Please don't complain (I don't care that you already know SO much stuff)
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Lab and Lecture Swap
+
+- If you want to swap lecture or lab, you can:
+  - **Do a lab/lecture swap in SIS**. Only works of the destination sections are open / have space.
+  - **Find someone to swap with**. Then ask Jesse Rogers in Thornton to manually swap you. I cannot do this for you.
+</script></section>
+
+</section>
+
+
+<!-- NEW SECTION -->
+<section> 
+
+<section data-markdown id="content" class="center"><script type="text/template">
+### Course Content
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Goals
+
+By the end of the semester, students should be able to:
+- Understand how to write programs in Java, including all basic structures (e.g., if-statements, loops, functions), recursion, objects, methods, inheritance / polymorphism, and exception throwing / handling.
+- Understand and implement several key data structures, required for a foundational education in computer science. These data structures include Vectors, Linked Lists, Stacks, Queues, Binary Search Trees, AVL Trees, Hash Tables, and Priority Queues.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Goals
+
+By the end of the semester, students should be able to:
+- Understand and implement various sorting methods, including bubble sort, insertion sort, mergesort, quicksort, and heapsort.
+- Understand and analyze program analysis using practical approaches (e.g., mergesort vs. quicksort) and theoretical approaches (e.g., balanced vs. unbalanced search trees). This will include both space and time complexity analyses.
+- Gather an abstract and basic understanding of concurrency and associated issues (shared resources, etc.). Students will be able to implement simple multi-threaded programs in Java. 
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Course Tools
+
+- You will need to download [Eclipse](https://www.eclipse.org), a development tool for **Java**
+  - HW 1 takes you through this
+- You will need **Java**, but Eclipse comes with a version of Java packaged in.
+  - You should not use any Java features beyond version 11.
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
 ### Modules
 
-- The course is split into 14 modules
-  - You can find the list [here](../homeworks/index.html)
+- The course is split into 12 modules
+  - You can find the list [here](../slides/index.html)
 - Lectures will go through these modules one at a time.
-- The Modules are very important for grading.
+- The modules help you keep the course content organized.
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
@@ -173,19 +285,18 @@
   - Inheritence / Enums / Interfaces / Polymorphism
   - Java Collections / Etc.
   - Exceptions / IDEs / Debugging / JVM / Compilers'
-- Recursion (Independent Module...very important)
+- Vectors (versus Arrays, Abstract Data Types)
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
 ### Course Material 2
 
-- Lists (3 Modules)
-  - Arrays vs Linked Lists vs Vectors
-  - Abstract Data Types
-  - Stacks and Queues
-- Big OH - Big Omega - Big Theta
+- Other Lists
+  - Linked Lists, Stacks, and Queues
+- Big OH and Recursion
   - Definitions / Function relationships
-  - Examples
+  - Analyzing Programs
+  - How to think recursively
 - Trees
   - Structure / Binary Tree / Recursive Traversals
   - BST and operations
@@ -194,7 +305,15 @@
 
 <section data-markdown class="center"><script type="text/template">
 ### Course Material 3
+- Basic Sorting
+  - Slow sorts (insertion / bubble)
+- Advanced Sorts  
+  - Fast sorts (merge, quick, heap)
+  - Hybrid sorts (TimSort, etc.)
+</script></section>
 
+<section data-markdown class="center"><script type="text/template">
+### Course Material 4
 - Hash Tables
   - Operations / Structure
   - Hash functions
@@ -203,43 +322,44 @@
   - Structure / Operations
   - Min-Heap / Array Implementation
   - Analysis
+- Basic Concurrence
+  - Threading, Deadlocks, etc.
+</script></section>
+</section>
+
+
+<!-- NEW SECTION -->
+<section> 
+
+<section data-markdown id="grading" class="center"><script type="text/template">
+### Grading / Assessments
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
-### Course Material 4
+### Structure of each Module
 
-- Sorting (2 Modules)
-  - Slow sorts (insertion / bubble)
-  - Fast sorts (merge, quick, heap)
-  - Hybrid sorts (TimSort, etc.)
-- Concurrency
-  - High level abstraction in Java
-  - Resource contention / deadlocks
-</script></section>
-
-
-<section data-markdown class="center"><script type="text/template">
-### Completing a Module
-
+- As stated before, the course has 12 modules
 - Each Module contains:
-  - 1 Quiz: More on this later
+  - 1 Quiz: More on this soon
   - 1 Homework: Usually programming or similar
   - 1 Supplemental HW: Not all modules have this. Usually analysis
+- *A couple of modules are structured differently but majority are consistent.*
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
 ### Completing a Module (cont'd)
 
-- As a student, each module will be in one of three states:
-  - Incompetence: Sounds harsh, just means you haven't passed anything for that module yet
-  - Competence: You've passed at least one item within the module
-  - Mastery: You've passed every part of the module
+- Each component of the module is graded
+  - **Quiz**: Out of 4 points total. 3.5 or higher automatically rounded up to 4.0 (I'll explain why verbally).
+  - **Homework**: Out of 10 points each. Programming assignments are autograded, others are manually graded. 
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
 ### Final Grades
 
-![](../courseLogistics/images/gradingSummary.png)
+- Your final grade breakdown will be:
+  - 40 percent homework
+  - 60 percent total quiz score (over all quizzes).
 </script></section>
 
 
@@ -252,16 +372,25 @@
 - Quizzes are taken **during lab**
   - Each week, a quiz for each topic we've covered will be available.
   - Each week, you can take up to 2 quizzes (no more)
-    - This includes quizzes you may have failed in the past.
+    - This includes quizzes you've taken before (if you want to increase your score).
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
 ### More on Quizzes
 
-- Quizzes are all pass / fail.
-- Once you pass a quiz, there is no reason to take it again
-- You can fail as many times as you want...but, this will put you behind schedule.
-- A pool of quiz questions will be released when I write them. The quiz each week is a random selection of those questions.
+- Quizzes are out of 4 points.
+- Once you earn a 4/4 on a quiz, there is no reason to take it again
+- You can take them as many times as you want...but, this will put you behind schedule.
+- A pool of quiz questions will be released beforehand (they are already on the course website). Questions chosen randomly on quiz day.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### More on Quiz Procedure
+
+- You will come to lab, and take out your laptop
+- Grab the question pool from the course website and open up the Gradescope quiz.
+- Your TAs will randomly select from the question pool for that quiz and notify you which questions to answer.
+- You will answer the questions and submit on Gradescope.
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
@@ -270,20 +399,35 @@
 - 1 or 2 per module (depending on module)
 - Will be officially "released" once module covered in lecture
   - Though available on course site if you want to get ahead
-- No due dates. All homeworks must be submitted before the last Wednesday of class.
-  - However, it is highly recommended you do homework within 1 week of topic covered and before attempting the quiz.
-  - But, you are an adult and this is up to you.
+- Due dates are on next slide.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Due Times
+
+- Most weeks will have the following schedule:
+  - Homework 1 for that week (usually coding): Due Wed. at 11:59pm
+  - Quiz Attempts: Taken for 30 minutes during lab
+  - Homework 2 for that week (usually report): Due Fri. at 11:59pm
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Late Policy
+
+Each type of assignment has a different late policy:
+  - Homework 1 (coding): You can have up to **one week** to submit late for a **10 percent penalty**
+  - Quiz: Must be done for 30 minutes in lab, but can be retaken in future weeks.
+  - Homework 2 (reports): No late grace period. Friday deadline is a hard deadline.
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
 ### Final Exam
 
 - No traditional final exam
-- Our final exam will be exactly 14 pages long
+- Our final exam will be exactly 12 pages long
   - one per module
   - original questions
-- You will complete pages for quizzes you've yet to complete
-- Thus, if you've already passed all the quizzes, you won't take the final exam.
+- You can take as many quizzes as you want one last time to raise your scores on those quizzes.
 </script></section>
 
 </section>
@@ -298,13 +442,28 @@
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
+### Cohorts
+
+- Everyone in the class will be assigned into a **Cohort**
+  - Your cohort will all be enrolled in the same **lab section**
+  - You may collaborate with your cohort as much as you'd like (exceptions on next slide)
+  - Each Cohort will be **assigned a TA** they can reach out to if they need.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
 ### Honor Policy
 
-- You may:
-  - Collaborate on labs by discussion / whiteboarding / pseudocoding
+- You may collaborate with your **cohort** in the following ways:
+  - Collaborate on homeworks by discussion / whiteboarding / pseudocoding
   - Compare code AFTER lab submitted
   - Show code to TA or Instructor to get help
-  - Must write YOUR OWN CODE
+- All submitted work must be individual effort, so you must:
+  - Write your code, reports, etc. by yourself.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Honor Policy (cont'd)
+
 - You may not:
   - Look at code (other than own) BEFORE submitting homework
   - Look at code online that implements a key part of data structure or assignment

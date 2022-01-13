@@ -25,13 +25,13 @@ This page contains the daily course schedule for the entire semester, as well as
 |6|	Monday|2/21/2022|LLs / Stacks / Queues|	Linked Lists and Iterators|SLIDES TBD||
 | |	Wednesday|2/23/2022||Stacks|SLIDES TBD||	
 | |	Friday|2/25/2022||Queues|SLIDES TBD|Vectors|
-|7|	Monday|2/28/2022|Big-Oh|Big-Oh, Big-Omega, Big-Theta|SLIDES TBD||	
+|7|	Monday|2/28/2022|Big-Oh / Recursion|Big-Oh, Big-Omega, Big-Theta|SLIDES TBD||	
 | |	Wednesday|3/2/2022||More Big-Oh example problems|SLIDES TBD||	
 | |	Friday|3/4/2022||Amortized Analysis|SLIDES TBD|LL, Stack, Queue|
 | |	Monday|3/7/2022|||	SLIDES TBD|	|	
 | |	Wednesday|3/9/2022|UVA SPRING BREAK||SLIDES TBD||	
 | |	Friday|3/11/2022|||	SLIDES TBD|	|
-|8|	Monday|3/14/2022|Recursion & Trees|	Recursion + Examples|SLIDES TBD||	
+|8|	Monday|3/14/2022|Trees|	Recursion + Examples|SLIDES TBD||	
 | |	Wednesday|3/16/2022||Introduction to Trees + Tree Traversals|SLIDES TBD||	
 | |	Friday|3/18/2022||BST Structure, Find, Insert|SLIDES TBD|Big-Oh, Recursion Practice|
 |9|	Monday|3/21/2022||BST FindMin/Max, Remove, and Runtime Analysis|SLIDES TBD|	|

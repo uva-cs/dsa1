@@ -17,8 +17,8 @@ Below you'll find a list of homeworks for the course. Programming assignments ar
 | 7 | LLs, Stacks, Queues | *Coming Soon* | *Coming Soon* |
 |  | Spring Break |  |  |
 | 8 | Big-Oh / Recursion | [Big-Oh](BigOh/bigOh.pdf) | [Recursion Practice](Recursion/recursion.pdf) |
-| 9 | BSTs | *Coming Soon* | *Coming Soon* |
-| 10 | Inheritance and AVL Trees | *Coming Soon* | *Coming Soon* |
+| 9 | Trees | *Coming Soon* | *Coming Soon* |
+| 10 |  | *Coming Soon* | *Coming Soon* |
 | 11 | Basic Sorts | [Basic Sorting Algorithms](BasicSorts/basicSorts.pdf) | |
 | 12 | Advanced Sorts | [Advanced Sorting Algorithms](AdvancedSorts/advancedSorts.pdf) | [Analyzing Sorting Algorithms](AdvancedSorts/sortingAnalysis.pdf) |
 | 13 | Hash Tables | [HT Implementation](HashTables/hashTables.pdf) | [HT Analysis](HashTables/hashTableAnalysis.pdf) |
