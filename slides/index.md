@@ -9,12 +9,12 @@ This page contains the daily course schedule for the entire semester, as well as
 | Week | Day | Date | Module | Topic | Slides | HW/Lab Topic |
 |-|-----|-------|--------|--------------|------|--------|
 |1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|[Floryan](./00-introduction.html)||
-| |	Friday|1/21/2022|Basic Java 1|Hello World; Primitive Data Types; Using Simple Objects|SLIDES TBD||
-|2|	Monday|1/24/2022||Writing Functions; Using Arrays|SLIDES TBD||	
-| |	Wednesday|1/26/2022||Control-Flow|SLIDES TBD||
-| |	Friday|1/28/2022||Fizz-Buzz and other live coding problems|SLIDES TBD|Intro to Lab|
-|3|	Monday|1/31/2022|Basic Java 2|References|SLIDES TBD|	|
-| |	Wednesday|2/2/2022||Methods and Parameters|SLIDES TBD|	|
+| |	Friday|1/21/2022|Basic Java 1|Hello World; Primitive Data Types; Using Simple Objects|[Floryan](./BasicJava1/1-intro.html)||
+|2|	Monday|1/24/2022||Writing Functions; Using Arrays|[Floryan](./BasicJava1/2-functions.html)||	
+| |	Wednesday|1/26/2022||Control-Flow|[Floryan](./BasicJava1/3-controlFlow.html)||
+| |	Friday|1/28/2022||Fizz-Buzz and other live coding problems|[Floryan](./BasicJava1/4-fizzBuzz.html)|Intro to Lab|
+|3|	Monday|1/31/2022|Basic Java 2|References|[Floryan](./BasicJava2/1-references.html)|	|
+| |	Wednesday|2/2/2022||Methods and Parameters|[Floryan](./BasicJava2/2-methodsParams.html)|	|
 | |	Friday|2/4/2022||Methods / Parameters Live Coding Problems|SLIDES TBD|Basic Java 1|
 |4|	Monday|2/7/2022|Basic Java 3|Classes and Enums|	SLIDES TBD||
 | |	Wednesday|2/9/2022||Example Class|SLIDES TBD||	

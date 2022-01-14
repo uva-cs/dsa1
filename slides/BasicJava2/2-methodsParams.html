@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: Basic Java 2-2</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Introduction to Java
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Methods and Parameters](#/methodsAndParams) <br />
+	</script></section>
+
+
+<!-- Methods / Parameter Passing -->
+
+<section> 
+
+<section data-markdown id="methodsAndParams" class="center"><script type="text/template">
+### Methods and Parameters
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Methods: Overview
+
+- Java: any code you write __MUST__ be within class
+  - More on classes, what they are, etc. soon!
+- You can write functions in Java, and they behave more or less like functions in other languages:
+  - Can take parameters
+  - Have return values
+- However, since all functions are within classes, Java calls them methods because they are associated with a single class definition
+  - Note that in languages like C++, you can write functions and methods.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### A simple method
+
+- Notice the static keyword
+  - Will talk more about this later
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.util.Scanner;
+public class MethodExample {
+    /**
+      * This is a method
+      * takes in two parameters and returns the larger
+      */
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int x1 = in.nextInt();
+        int x2 = in.nextInt();
+
+        System.out.println("The bigger number is " + getMax(x1, x2));
+    }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on methods
+- Scope
+  - Public: Anyone can invoke this method
+  - Private: Method can only be invoked from within this class
+  - Protected: Method can be invoked by inheriting classes and ones in the same package
+  - More on this later...
+- Static
+  - Basically means the class only has one shared instance of this method
+  - Again, more on this later...
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on methods (cont.)
+
+- Return value
+  - Can be void if no return value necessary
+  - If not void, function MUST contain a return statement
+- Parameters,
+  - Can pass as many parameters as you want, but must declare the types
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Overloading methods
+
+- Overloaded methods have the same name, but different numbers / types of parameters
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.util.Scanner;
+public class MethodExample {
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+
+    public static int getMax(int num1, int num2, int num3){
+      return getMax(getMax(num1,num2), num3);
+    }
+
+    public static double getMax(double num1, double num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Parameter Passing
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+    public static void main(String args[]) {
+        /* Read in the numbers from Scanner (Omitted) */
+
+        System.out.println("The bigger number is " + getMax(x1, x2));
+    }
+</code></pre>
+
+  - __Actual Parameter:__ The variable(s) that are given to the function
+    - e.g., x1 and x2 in main() above
+  - __Formal Parameter:__ The variable(s) the method uses
+    - e.g., num1 and num2 in getMax() above
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Parameter Passing
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static int getMax(int num1, int num2){
+      return (num1 >= num2 ? num1 : num2);
+    }
+    public static void main(String args[]) {
+        /* Read in the numbers from Scanner (Omitted) */
+
+        System.out.println("The bigger number is " + getMax(x1, x2));
+    }
+</code></pre>
+
+  - Java uses __Pass by Value__
+    - This means that a copy of the actual parameter is made into the formal parameter, and the method operates on the copy of that. Let's see some examples...
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Parameter Passing Examples: Swap
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2);
+    }
+</code></pre>
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2); //<--Code is here
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1; //<--Code is here
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2);
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+    subgraph swap
+    E(num1 = 5)
+    F(num2 = 7)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp; //<--Code is here
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2); 
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+    subgraph swap
+    E(num1 = 7)
+    F(num2 = 5)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(int num1, int num2){
+      int temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    public static void main(String args[]) {
+        int x1 = 5; int x2 = 7;
+        swap(x1,x2); //<--Code returns here
+    }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1 = 5)
+    C(x2 = 7)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Swapping Objects (e.g., References)
+
+- Be careful when passing a reference type by value
+  - Will the following work?
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+      Point temp = p1;
+      p1 = p2;
+      p2 = temp;
+    }
+    public static void main(String args[]) {
+        Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+        swap(x1,x2);
+    }
+</code></pre>
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2);
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+      Point temp = p1;  //CODE IS HERE
+      p1 = p2;
+      p2 = temp;                               }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+    subgraph swap
+    G(p1)
+    H(p2)
+    end
+    G --> D
+    H --> E
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+      Point temp = p1;
+      p1 = p2;
+      p2 = temp;  //CODE IS HERE               }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+    subgraph swap
+    G(p1)
+    H(p2)
+    end
+    G --> E
+    H --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2); //Method returns, no change in x1 or x2
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Another Example!
+
+<pre><code class="hljs" data-trim contenteditable>
+    public static void swap(Point p1, Point p2){
+        Point temp = (Point)p1.clone(); //Deep Copy
+        p1.x = p2.x; p1.y = p2.y;
+        p2.x = temp.x; p2.y = temp.y;
+    }
+
+    public static void main(String args[]) {
+        Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+        swap(x1,x2);
+    }
+</code></pre>
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2); //About to invoke swap
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    B(x1) --> D(1,2)
+    C(x2) --> E(5,6)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); //Deep Copy
+      p1.x = p2.x; p1.y = p2.y;
+      p2.x = temp.x; p2.y = temp.y;
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(1,2)
+    C(x2) --> D(5,6)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); //<-- This line Executed
+      p1.x = p2.x; p1.y = p2.y;
+      p2.x = temp.x; p2.y = temp.y;          
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(1,2)
+    C(x2) --> D(5,6)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    G(temp) --> H(1,2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); 
+      p1.x = p2.x; p1.y = p2.y;  //<-- This line Executed
+      p2.x = temp.x; p2.y = temp.y;
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(5,6)
+    C(x2) --> D(5,6)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    G(temp) --> H(1,2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+  public static void swap(Point p1, Point p2){
+      Point temp = (Point)p1.clone(); 
+      p1.x = p2.x; p1.y = p2.y;
+      p2.x = temp.x; p2.y = temp.y; //<-- This line Executed
+  }
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(5,6)
+    C(x2) --> D(1,2)
+    end
+    subgraph swap
+    E(p1)
+    F(p2)
+    G(temp) --> H(1,2)
+    end
+    E --> B
+    F --> D
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Point x1 = new Point(1,2); Point x2 = new Point(5,6);
+    swap(x1,x2); //Swap has returned
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(x1) --> B(5,6)
+    C(x2) --> D(1,2)
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Parameters Summary
+
+- When methods are called, a __copy__ of the actual parameter is made into the formal parameter
+  - For primitives, a copy of the data itself
+  - For references, a copy of the memory address
+    - Be careful with references
+    - Reassigning the reference will not change the actual parameter, but altering what the reference points to will. This is an important distinction!
+</script></section>
+
+</section>
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

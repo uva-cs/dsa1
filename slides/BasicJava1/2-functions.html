@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: Basic Java 1-2</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Introduction to Java
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Basic Functions](#/basicFuncs) <br />
+[Arrays](#/arrays) <br />
+	</script></section>
+
+
+  
+
+
+<!-- Simple functions -->
+
+<section> 
+
+<section data-markdown id="basicFuncs" class="center"><script type="text/template">
+### Basic Functions
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Functions
+
+- functions use the *static* syntax
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+public class ArrayExample{
+
+  public static int add(int x, int y){
+    return x + y;
+  }
+
+  public static void main(String[] args){
+    int a = 5;
+    int b = 7;
+    System.out.println("the sum is: " + add(a,b));
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Notes on Functions
+
+- for now, you can ignore the *public* and *static* qualifiers
+- return type can be **void** if nothing is returned by the function
+- formal parameters (e.g., x,y) must have a declared type (e.g., int)
+  - actual parameters (e.g., a,b) must much that declared type
+- *add* is actually called a **method**, but being casual with the nomenclature for right now.
+
+</script></section>
+
+</section>
+
+
+<!---------------------------------------------- -->
+	
+
+
+<!-- Arrays -->
+
+<section> 
+
+<section data-markdown id="arrays" class="center"><script type="text/template">
+### Arrays
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Arrays
+
+- Arrays in Java use the [] syntax
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class ArrayExample{
+  public static void main(String[] args){
+    /* several ways to create Arrays */
+    int[] a1 = new int[5];
+    double[] a2 = {1.3, 5.4, 2.33};
+    
+    int x = 5;
+    String a3[] = new String[x];
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Arrays
+
+- You can access elements in array using [] as well
+
+<pre><code class="hljs" data-trim contenteditable>
+import java.io.*;
+
+public class ArrayExample{
+  public static void main(String[] args){
+    /* continues from previous slide */
+    ...
+    System.out.println(a1[0]);
+    System.out.println(a2[2]);
+    System.out.println(a3.length);
+  }
+}
+</code></pre>
+
+```
+Output:
+0
+2.33
+5
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some notes on Arrays
+
+- Arrays have a fixed length. Cannot grow and shrink.
+  - If you want this, need to allocate new larger array and manually move things over.
+- Arrays store one type (e.g., all integers, all Strings)
+- If not specified, contents of array are all set to default value (0 for integers, "" for Strings, etc.)
+- If you access outside the range of the array (e.g., a1[100]), Java throws an ArrayIndexOutOfBoundsException
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+
+
+<!---------------------------------------------- -->
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

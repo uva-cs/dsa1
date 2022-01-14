@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: Basic Java 2-1</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Introduction to Java
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[References](#/references) <br />
+	</script></section>
+
+
+<!-- References -->
+
+<section> 
+
+<section data-markdown id="references" class="center"><script type="text/template">
+### References
+</script></section>
+
+<section data-markdown><script type="text/template">
+### References
+
+- Primitives in Java (e.g., int, double, etc):
+  - Store a value directly in memory
+  - Variable refers directly to that memory address
+
+- Objects in Java are stored as References:
+  - Stores a memory address of another variable
+  - When program refers to variable, automatically dereferenced
+  - Makes parameter passing and equality tricky (examples coming).
+</script></section>
+
+<section class="diagram-slide">
+<h3>References Example</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* This is a primitive */
+int x = 127;
+
+/* This is a reference */
+String s = new String("Hello");
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[x: 127]
+    B[s] --> C("Hello")
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Arrays are Reference Types</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* This is an array */
+int[] x = {5,7,8};
+</code></pre>
+<span class="diagram-data" style="display:none;">
+    graph LR
+    B[x] --> C(5,7,8)
+</span><div class="diagram-display"></div>
+</section>
+
+<section>
+<h3>Using == on references</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* What do you think this does? */
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 6, 14);
+
+if(date1 == date2){
+  System.out.println("They are the same!");
+}
+</code></pre>
+
+</section>
+
+<section class="diagram-slide">
+<h3>Using == on references</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* These two vars are NOT == */
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 6, 14);
+
+if(date1 == date2){
+  System.out.println("They are the same!");
+}
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph LR
+    A[date1] --> B(6-14-2018)
+    C[date2] --> D(6-14-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Comparing references</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* These two vars are NOT == */
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 6, 14);
+
+/* Use .equals() to compare references */
+if(date1.equals(date2)){
+  System.out.println("They are the same!");
+}
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph LR
+  A[date1] --> B(6-14-2018)
+  C[date2] --> D(6-14-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section>
+<h3>Assignment of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 7, 18);
+
+date1 = date2;
+
+System.out.println(date1);
+</code></pre>
+</section>
+
+<section class="diagram-slide">
+<h3>Assignment of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 7, 18);
+
+date1 = date2;
+
+System.out.println(date1);
+</code></pre>
+<h4>Before the assignment</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[date1] --> B(6-14-2018)
+    C[date2] --> D(7-18-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Assignment of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+Date date1 = new Date(2018, 6, 14);
+Date date2 = new Date(2018, 7, 18);
+
+date1 = date2;
+
+System.out.println(date1);
+</code></pre>
+<h4>AFTER the assignment</h4>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    B(6-14-2018)
+    A[date1] --> D
+    C[date2] --> D(7-18-2018)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Shared References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* From previous slide */
+/* Note that BOTH date1 and date2 are changed */
+date1.setYear(2017)
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    B(6-14-2018)
+    A[date1] --> D
+    C[date2] --> D(7-18-2017)
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Another Example of References</h3>
+<pre><code class="hljs" data-trim contenteditable>
+/* From previous slide */
+/* Note that date1 is not affected here */
+date2 = new Date(2013, 10, 28);
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    B(6-14-2018)
+    A[date1] --> D(7-18-2017)
+    C[date2] --> E(10-28-2013)
+  </span><div class="diagram-display"></div>
+</section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+
+
+<!---------------------------------------------- -->
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

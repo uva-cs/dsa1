@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2501: Basic Java 1-3</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+	<script src="../reveal.js/lib/js/html5shiv.js"></script>
+	<![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Introduction to Java
+	</script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Control Flow](#/controlFlow) <br />
+	</script></section>
+
+
+<!-- Control Flow -->
+
+<section> 
+
+<section data-markdown id="controlFlow" class="center"><script type="text/template">
+### Control Flow
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Types of Control Flow
+
+- If Statements:
+  - Standard if statements
+  - Switch statements
+- Loops
+  - For loop
+  - For each loop
+  - While loop
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Assignment vs. Comparison
+
+- A quick note on the difference between = and ==
+
+<pre><code class="hljs" data-trim contenteditable>
+public class CompareExample{
+  public static void main(String[] args){
+    /* = is assignment. Evaluate right side and set to left */
+    int x = (5*3);
+
+    /* == is compare. Whole expression evaluates to true/false */
+    x == 5;
+
+    System.out.println((x = 5*3)); //seems weird
+    System.out.println((x == 5));
+  }
+}
+</code></pre>
+
+```
+Output:
+15    //x=5*3 evaluates to 15, the value x was set to
+false //15 not equal to 5
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Comparing Objects
+
+- Objects cannot be compared with ==, <, >, etc.
+
+<pre><code class="hljs" data-trim contenteditable>
+public class IfExamples{
+  public static void main(String[] args){
+    
+    String s1 = new String("Hey");
+    String s2 = new String("Hey");
+
+    if(s1 == s2){ System.out.println("EQUAL!"); }
+    else { System.out.println("NOPE!"); }
+  }
+}
+</code></pre>
+
+```
+Output:
+NOPE     //We will see why very soon
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Standard If Statement
+
+<pre><code class="hljs" data-trim contenteditable>
+int x = 5;
+String out = "";
+
+if(x > 10){ 
+  out = "x is big!";
+}
+else if(x>5){
+  out = "x is not that big";
+}
+else{
+  out = "x is tiny!";
+}
+
+System.out.println(out);
+</code></pre>
+
+```
+Output:
+x is tiny!
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Notes about if statements
+
+- Can have as many else if blocks as you'd like
+- Content within the if() MUST evaluate to a boolean
+  - i.e., true or false
+- You can leave off the curly braces {}
+  - BUT, if no braces, then only the very next line of code is considered inside the if block
+  - Probably a good habit to always put the curly braces for now
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Switch statement
+
+- switch statements check several equalities
+
+<pre><code class="hljs" data-trim contenteditable>
+String month = "February";
+
+switch(month) {
+  case "January":
+    System.out.println("It is COLD outside!");
+    break;
+  case "February":
+    System.out.println("Now it's REALLY cold!");
+  /* ...More cases here removed for space */
+  default:
+    System.out.println("That is not a valid month!");
+    break;
+}
+</code></pre>
+
+```
+Output:
+Now it's REALLY cold!
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### For loop
+
+- A classic!
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LoopExamples{
+  public static void main(String[] args){
+
+    int[] stuff = {3,5,7,9};
+    int total = 0;
+
+    for(int i=0; i < stuff.length; i++){
+      total += stuff[i];
+    }
+    
+    System.out.println("Sum is " + total);
+  }
+}
+</code></pre>
+
+```
+Output:
+Sum is 24
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### For-Each loop
+
+- A nice compact way to do a standard for-loop
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LoopExamples{
+  public static void main(String[] args){
+
+    int[] stuff = {3,5,7,9};
+    int total = 0;
+
+    for(int x : stuff){
+      total += x;
+    }
+    
+    System.out.println("Sum is " + total);
+  }
+}
+</code></pre>
+
+```
+Output:
+Sum is 24
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+### While loop
+
+- Another type of loop, sometimes easier to write
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LoopExamples{
+  public static void main(String[] args){
+
+    int[] stuff = {3,5,7,9};
+    int total = 0;
+    int i = 0;
+
+    while(i < stuff.length){
+      total += x;
+      i++;
+    }
+    
+    System.out.println("Sum is " + total);
+  }
+}
+</code></pre>
+
+```
+Output:
+Sum is 24
+```
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
