@@ -8,7 +8,7 @@ This page contains the daily course schedule for the entire semester, as well as
 
 | Week | Day | Date | Module | Topic | Slides | HW/Lab Topic | Quiz Topic |
 |-|-----|-------|--------|--------------|------|--------|---------|
-|1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|[Floryan](./00-introduction.html)|||
+|1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|[Floryan](./00-introduction.html)<br>[Basit](./Basit/Day1-Basit.pdf)|||
 | |	Friday|1/21/2022|Basic Java 1|Hello World; Primitive Data Types; Using Simple Objects|[Floryan](./BasicJava1/1-intro.html)|||
 |2|	Monday|1/24/2022||Writing Functions; Using Arrays|[Floryan](./BasicJava1/2-functions.html)|||	
 | |	Wednesday|1/26/2022||Control-Flow|[Floryan](./BasicJava1/3-controlFlow.html)|||
