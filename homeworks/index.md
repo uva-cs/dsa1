@@ -9,7 +9,7 @@ Below you'll find a list of homeworks for the course. Programming assignments ar
 | Week | Module | Homework 1 | Homework 2 |
 |--|------------------------|----------------------------|----------------------------|
 | 1 | N/A | Syllabus Quiz (Coming Soon) | |
-| 2 | Basic Java 1 | [Java Warm-Up / Getting Started](./BasicJava1/power.pdf) | |
+| 2 | Basic Java 1 | [Java Warm-Up / Getting Started](./BasicJava1/power.pdf)<br>([Another Eclipse Install Tutorial](../java/installingJavaAndEclipse.pdf)) | |
 | 3 | | [Min and Max Functions](./BasicJava1/minMax.pdf) | [Four More Functions](./BasicJava1/fourFunctions.pdf) |
 | 4 | Basic Java 2 | [Roomba](./BasicJava2/roomba.pdf) | [Roomba Analysis](./BasicJava2/roombaAnalysis.pdf) |
 | 5 | Basic Java 3 | [Blackjack](BasicJava3/blackjack.pdf) | [Blackjack Analysis](BasicJava3/blackjackAnalysis.pdf) |

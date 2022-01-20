@@ -21,6 +21,7 @@ repository first**
 - [Schedule and Slides](slides/index.html) ([md](slides/index.md)): Contains the weekly course schedule as well as the slides used in the course.
 - [Class Exercises](java/classExercises.html): Code we write in lecture will be posted here as it occurs.
 - Other stuff:
+	- [Installing Java and Eclipse](./java/installingJavaAndEclipse.pdf)
 	- [Java Cheat Sheet](java/javaCheatSheet/javaCheatSheet.pdf): A cheat sheet of common Java things. Will be updated throughout the semester.
 	- [Eclipse Debugger Tutorial](java/eclipseDebuggerTutorial.pdf): A tutorial on how to use the debugger in Eclipse.
 
