@@ -96,7 +96,7 @@ For this homework, you will be writing a vector data structure in Java. Your sum
 	\item Implement the Vector.java class
 	\item Verify your implementation using the provided tester class
 	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/Vectors/code/Vectors.zip}{Vectors.zip}
-	\item \textbf{FILES TO SUBMIT:} VectorsImplementation.zip
+	\item \textbf{FILES TO SUBMIT:} Vector.java
 \end{enumerate}
 
 %------------------------------------------------
@@ -168,16 +168,29 @@ You'll probably want to add a couple of supporting methods. For example, a resiz
 
 \subsection{Testing Your Implementation}
 
-Once you implement this methods, you can test them by running the main method in the provider TestVectore.java class. This simple tester will execute the methods in your list and compare them to those in Java's built in List to make sure the results are as expected.
+Once you implement these methods, you can test them by running the main method in the provider TestVector.java class. This simple tester will execute the methods in your list and compare them to those in Java's built in List to make sure the results are as expected.
 
 One strategy might be to implement your methods in the order that they are tested. That way, you can see the tester say "this method is correct" before moving on to the next one.
 
 Notice that we expect your Vector to be a generic class, meaning any type of Object can be stored within your Vector.
 
+\textbf{Important Note: } The provided tester is NOT perfect. It is possible (not likely, but possible) that the tester will report that a method is correct, not noticing that there is some very minor issue that will appear later. For example, if the Vector insert appears to work but the state of some internal variables you are using are not correct. This might not reveal itself until you start removing. So, it COULD be the case that the error is in insert but the tester doesn't see the error until removing items. Be mindful of this. The tester is a great guide for finding errors in your implementation but it is not perfect.
+
 %------------------------------------------------
 
 
+You should submit one file for this homework, \textbf{Vector.java}.
 
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+	\item Make sure you are only submitting one file, and it is called \emph{Vector.java} exactly.
+	\item Make sure you \textbf{keep} the \emph{package vector;} statement at the top of your file. This autograder expects your file to be in that package.
+	\item Make sure your file \emph{does not} contain a main method.
+	\item Make sure your Vector class is \emph{Not printing anything to the console.} This will mess up the autograder.
+\end{enumerate}
 
 %----------------------------------------------------------------------------------------
 
