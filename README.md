@@ -23,6 +23,9 @@ repository first**
 - Other stuff:
 	- [Installing Java and Eclipse](./java/installingJavaAndEclipse.pdf)
 	- [Java Cheat Sheet](java/javaCheatSheet/javaCheatSheet.pdf): A cheat sheet of common Java things. Will be updated throughout the semester.
+	- [Basic Java Help Guide](./java/Java-Basics.pdf): Goes over the basics of Java in one resource.
+	- [Java Data Types](./java/Data-Types.pdf): Goes over the Java data types.
+	- [Python versus Java](./java/Python-Java-Comparison.pdf): A comparison of some simple python programs and their Java equivalent.
 	- [Eclipse Debugger Tutorial](java/eclipseDebuggerTutorial.pdf): A tutorial on how to use the debugger in Eclipse.
 
 <a name="contributing"></a>Contributing to this Repository
