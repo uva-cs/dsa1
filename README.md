@@ -27,6 +27,7 @@ repository first**
 	- [Java Data Types](./java/Data-Types.pdf): Goes over the Java data types.
 	- [Python versus Java](./java/Python-Java-Comparison.pdf): A comparison of some simple python programs and their Java equivalent.
 	- [Eclipse Debugger Tutorial](java/eclipseDebuggerTutorial.pdf): A tutorial on how to use the debugger in Eclipse.
+	- [Java Style Guide](./java/CS2100_StyleGuide.pdf): A nice guide on styling your Java code correctly. Everyone should give this a read!!
 
 <a name="contributing"></a>Contributing to this Repository
 ----------------------------------------------------------
