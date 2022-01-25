@@ -1,0 +1,183 @@
+\documentclass[paper=a4, fontsize=11pt, parskip=full]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+%Preamble
+\usepackage{listings}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+basicstyle=\ttfamily,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+numbers=left,
+numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+\normalfont \normalsize
+\textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Queues - Stack and Queue Analysis \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Nada Basit and Mark Floryan}
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+
+%----------------------------------------------------------------------------------------
+%	Summary
+%----------------------------------------------------------------------------------------
+\section{Summary}
+
+The goal of this homework is to write a report comparing the efficiency of linked-list based queues to array-based stacks. Theoretically, the runtimes for all operations on both these data structures is constant time. So, it is ok that we are comparing stacks to queues here. What we are really interested in is how much the resize operation on the stack, which is linear time and should slow us down, affects the overall performance of the stack versus the queue.
+
+You will perform an experiment by doing the following:
+
+\begin{enumerate}
+	\item Write some test code to time the various methods of your stack and queue. We are interested in testing enqueue versus push and dequeue versus pop
+	\item Run a small experiment timing each method. Because these methods are very fast, you'll need to invoke each MANY times before you see a slow enough performance and be able to compare your findings.
+	\item Write a report summarizing and analyzing your findings
+	\item \textbf{FILES TO DOWNLOAD:} None
+	\item \textbf{FILES TO SUBMIT:} stackAndQueueAnalysis.pdf
+\end{enumerate}
+
+For this experiment, you should time your stack and queue by calling each method $i$. You may play around with $i$ until you find a number that works well, but they should be the same for each method (e.g., don't execute enqueue $10^5$ times and push $10^7$ times). You should test the following methods:
+
+\begin{lstlisting}
+	/* You will test these methods: */
+
+	/* Compare the speeds of these two methods */
+	Queue.enqueue(T data);
+	Stack.push(T data);
+
+	/* Seperately, compare the speeds of these two */
+	Queue.dequeue();
+	Stack.pop();
+\end{lstlisting}
+
+\subsection{Report}
+
+Summarize your experiment and your findings in a report. Make sure to adhere to these general guidelines:
+
+\begin{itemize}
+	\item Your submission MUST BE a pdf document. You will receive a zero if it is not.
+	\item Your document MUST be presented as if submitted to a professional publication outlet. You can use the \href{https://uva-cs.github.io/dsa1/homeworks/WordPaperTemplate.zip}{template} posted in the course repository or follow \href{https://www.springer.com/us/computer-science/lncs/conference-proceedings-guidelines}{Springer's guidelines for conference proceedings}.
+	\item You should write your report as if it is original novel research.
+	\item The grammar / spelling / professionalism of this document should be sound.
+	\item When possible, do not use the first person. Instead of "I ran the code 60 times", use "The code was executed 60 times...".
+\end{itemize}
+
+In addition to the general guidelines above, please follow the following rough outline for your paper:
+
+\begin{itemize}
+	\item \textbf{Abstract}: Summarize the entire document in a single paragraph
+	\item \textbf{Introduction}: Present the problem, and provide details regarding the two strategies you implemented.
+	\item \textbf{Methods}: Describe your methodology for collecting data. How many method calls, how many executions, how you averaged things, etc.
+	\item \textbf{Results}: Describe your results from your execution runs.
+	\item \textbf{Conclusion}: Interpret your results. Which methods were fast and which were slow? Did this surprise you? Does this align with the theoretical runtimes of those methods? How large did the lists need to get before you witnessed a slowdown?
+\end{itemize}
+
+Lastly, your paper MUST contain the following things:
+
+\begin{itemize}
+	\item A table (methods section) summarizing the different methods and how many execution runs were done in each group.
+	\item A table (results section) summarizing each method and the averages / std. dev. of runtimes for each (as well as any other data you decided to collect).
+	\item Some kind of graph visualizing the results of the table from the previous bullet.
+\end{itemize}
+
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+
+%WORKS CITED:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
