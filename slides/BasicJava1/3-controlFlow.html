@@ -140,6 +140,30 @@ NOPE     //We will see why very soon
 </script></section>
 
 <section data-markdown><script type="text/template">
+### Comparing Objects
+
+- Objects cannot be compared with .equals() and .compareTo()
+
+<pre><code class="hljs" data-trim contenteditable>
+public class IfExamples{
+  public static void main(String[] args){
+    
+    String s1 = new String("Hey");
+    String s2 = new String("Hey");
+
+    if(s1.equals(s2)){ System.out.println("EQUAL!"); }
+    else { System.out.println("NOPE!"); }
+  }
+}
+</code></pre>
+
+```
+Output:
+NOPE     //We will see why very soon
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
 ### Standard If Statement
 
 <pre><code class="hljs" data-trim contenteditable>
