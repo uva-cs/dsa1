@@ -12,18 +12,19 @@ public class LinkedList<T> implements List<T>{
 	private int size;
 	
 	public LinkedList() {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 	}
 	
 	public int size() {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
+		return 0;
 	}
 	
 	/**
 	 * Clears out the entire list
 	 */
 	public void clear() {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 	}
 	
 	/**
@@ -31,7 +32,7 @@ public class LinkedList<T> implements List<T>{
 	 * @param data
 	 */
 	public void insertAtTail(T data) {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 	}
 	
 	/**
@@ -39,7 +40,7 @@ public class LinkedList<T> implements List<T>{
 	 * @param data
 	 */
 	public void insertAtHead(T data) {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 	}
 	
 	/**
@@ -48,25 +49,25 @@ public class LinkedList<T> implements List<T>{
 	 * @param index
 	 */
 	public void insertAt(int index, T data) {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 	}
 	
 	/**
 	 * Inserts data after the node pointed to by iterator
 	 */
 	public void insert(ListIterator<T> it, T data) {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 	}
 	
 	
 	
 	public T removeAtTail(){
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 		return null;
 	}
 	
 	public T removeAtHead(){
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 		return null;
 	}
 	
@@ -75,7 +76,7 @@ public class LinkedList<T> implements List<T>{
 	 * Sets the iterator to the node AFTER the one removed
 	 */
 	public T remove(ListIterator<T> it) {
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 		return null;
 	}
 	
@@ -85,8 +86,8 @@ public class LinkedList<T> implements List<T>{
 	 * @return
 	 */
 	public int find(T data) {
-		//TODO: Write this method
-		return null;
+		/* TODO: Implement this method */  
+		return 0;
 	}
 	
 	/**
@@ -95,7 +96,7 @@ public class LinkedList<T> implements List<T>{
 	 * @return
 	 */
 	public T get(int index) { 
-		//TODO: Write this method
+		/* TODO: Implement this method */  
 		return null;
 	}
 	
@@ -115,12 +116,13 @@ public class LinkedList<T> implements List<T>{
 	}
 	
 	/* Return iterators at front and end of list */
-	public ListIterator<T> front(){
-		//TODO: Write this method
+	public ListIterator<T> front(){ 
+		/* TODO: Implement this method */  
 		return null;
 	}
+
 	public ListIterator<T> back(){
-		//TODO: Write this method
+		/* TODO: Implement this method */ 
 		return null;
 	}
 	

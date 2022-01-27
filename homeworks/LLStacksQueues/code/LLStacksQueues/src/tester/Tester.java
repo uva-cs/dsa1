@@ -5,10 +5,11 @@ import java.util.LinkedList;
 
 /**
  * @author Mark Floryan
- * @version 1.0
+ * @version 1.1
  * This class tests a custom built linked list by comparing it with java built in Linked List
+ * We also test a custom Queue with the java built in Queue
  */
-public class ListTester {
+public class Tester {
 	
 	public static int NUM_TESTS = 5000;
 	
@@ -18,14 +19,28 @@ public class ListTester {
 		list.ListIterator<T> it2 = list2.front();
 		
 		if(list1.size() != list2.size()) return false;
+		
+		//check forwards
 		while(!it2.isPastEnd()) {
 			if(!it1.next().equals(it2.value())) return false;
 			it2.moveForward();
+		}
+		
+		//check backwards
+		it1 = list1.descendingIterator();
+		it2 = list2.back();
+		while(!it2.isPastBeginning()) {
+			if(!it1.next().equals(it2.value())) return false;
+			it2.moveBackward();
 		}
 		return true;
 	}
 	
 	public static void main(String[] args) {
+		
+		/** ---------------------------------- **/
+		/** CHECKING THE LINKED LIST **/
+		/** ---------------------------------- **/
 		
 		/* Test the two lists by inserting and removing stuff and checking equality as we go */
 		
@@ -91,7 +106,7 @@ public class ListTester {
 		/*Call the generic insertAt() method a bunch of times*/
 		System.out.print("Checking inserting at generic index of list...");
 		for(int i=0; i<NUM_TESTS; i++) {
-			int rand = (int)Math.floor(Math.random()*10);
+			int rand = (int)Math.floor(Math.random()*1000);
 			int ind = (int)(Math.random()*compList.size());
 			compList.add(ind, rand);
 			studList.insertAt(ind, rand);
@@ -105,7 +120,7 @@ public class ListTester {
 		/*Check the find method*/
 		System.out.print("Checking find in the list...");
 		for(int i=0; i<NUM_TESTS; i++) {
-			int rand = (int)Math.floor(Math.random()*10);
+			int rand = (int)Math.floor(Math.random()*1000);
 
 			int ind1 = compList.indexOf(rand);
 			int ind2 = studList.find(rand);
@@ -183,7 +198,79 @@ public class ListTester {
 		}
 		System.out.println("DONE");
 		
-		System.out.println("EVERYTHING LOOKS GOOD!!");
+		/** ---------------------------------- **/
+		/** CHECKING THE QUEUE **/
+		/** ---------------------------------- **/
+		
+		NUM_TESTS = 1000000;
+		
+		try {
+			/* Two queue for comparison */
+			queue.Queue<Integer> q1 = new queue.Queue<Integer>();
+			java.util.LinkedList<Integer> q2 = new java.util.LinkedList<Integer>();
+			
+			System.out.print("Adding items to Queue...");
+			for(int i=0; i<NUM_TESTS; i++) {
+				int toQ = (int)Math.random()*500;
+				q1.enqueue(toQ);
+				q2.add(toQ);
+				
+			}
+			System.out.println("DONE");
+			
+			System.out.print("Checking size of Queue...");
+			if(q1.size() != q2.size()) {
+				System.out.println("ERROR: sizes different after adding");
+				System.exit(1);
+			}
+			System.out.println("DONE");
+			
+			System.out.print("Removing items from Queue...");
+			for(int i=0; i<NUM_TESTS/2; i++) {
+				if(q1.dequeue() != q2.poll()) {
+					System.out.println("ERROR: dequeueing not working, different values removed");
+					System.exit(1);
+				}
+			}
+			System.out.println("DONE");
+			
+			System.out.print("Checking size of Queue...");
+			if(q1.size() != q2.size()) {
+				System.out.println("ERROR: sizes different after enqueueing");
+				System.exit(1);
+			}
+			System.out.println("DONE");
+			
+			System.out.print("Adding more items to Queue...");
+			for(int i=0; i<NUM_TESTS; i++) {
+				int toQ = (int)Math.random()*500;
+				q1.enqueue(toQ);
+				q2.add(toQ);
+			}
+			System.out.println("DONE");
+			
+			System.out.print("Checking size of Queue...");
+			if(q1.size() != q2.size()) {
+				System.out.println("ERROR: sizes different after enqueueing");
+				System.exit(1);
+			}
+			System.out.println("DONE");
+			
+			System.out.print("Removing everything from Queue...");
+			while(q2.size() > 0) {
+				if(q1.dequeue() != q2.poll()) {
+					System.out.println("ERROR: dequeueing not working, different values removed");
+					System.exit(1);
+				}
+				
+			}
+			System.out.println("DONE");
+			
+			System.out.println("EVERYTHING LOOKS GOOD!");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
-
 }

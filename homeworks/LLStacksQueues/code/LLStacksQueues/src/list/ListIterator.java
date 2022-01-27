@@ -5,7 +5,7 @@ public class ListIterator<T> {
 	protected ListNode<T> curNode;
 	
 	public ListIterator(ListNode<T> curNode) {
-		//TODO: Write this method
+		this.curNode = curNode;
 	}
 	
 	/**
@@ -13,12 +13,12 @@ public class ListIterator<T> {
 	 * the list on either side
 	 */
 	public boolean isPastEnd() {
-		//TODO: Write this method
+		/* TODO: Implement this method */
 		return false;
 	}
 	
 	public boolean isPastBeginning() {
-		//TODO: Write this method
+		/* TODO: Implement this method */
 		return false;
 	}
 	
@@ -26,7 +26,7 @@ public class ListIterator<T> {
 	 * Get the data at the current iterator position
 	 */
 	public T value() {
-		//TODO: Write this method
+		/* TODO: Implement this method */
 		return null;
 	}
 	
@@ -35,10 +35,10 @@ public class ListIterator<T> {
 	 * forward / backward one position
 	 */
 	public void moveForward() {
-		//TODO: Write this method
+		/* TODO: Implement this method */
 	}
 	
 	public void moveBackward() {
-		//TODO: Write this method
+		/* TODO: Implement this method */
 	}
 }

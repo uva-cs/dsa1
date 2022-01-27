@@ -71,7 +71,7 @@ showstringspaces=false}
 \normalfont \normalsize
 \textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Linked Lists - Linked List Implementation \\ % The assignment title
+\huge Linked Lists, Stacks, Queues - Implementations \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
@@ -89,21 +89,48 @@ showstringspaces=false}
 
 \section{Summary}
 
-For this homework, you will be writing a generic doubly-linked list data structure in Java. Your summary:
+For this homework, you will be implementing multiple data structures. You will begin by implementing a \textbf{generic doubly-linked list}. Afterwards, you will implement a \textbf{queue} (using your linked-list). We will \textbf{NOT} be asking you to implement a \textbf{stack} because the implementation is so similar to the Vector you have already done:
 
 \begin{enumerate}
 	\item Download the starter code and import the project into Eclipse
 	\item Implement the LinkedList.java class
 	\item Verify your implementation using the provided tester class
-	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/LinkedLists/code/linkedlists.zip}{linkedLists.zip}
-	\item \textbf{FILES TO SUBMIT:} LinkedList.zip
+	\item Implement the Queue class by utilizing your working Linked List
+	\item Verify your implementation using the provided tester class
+	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/LLStacksQueues/code/LLStacksQueues.zip}{LLStacksQueues.zip}
+	\item \textbf{FILES TO SUBMIT:} ListIterator.java, LinkedList.java, Queue.java
 \end{enumerate}
 
 %------------------------------------------------
 
+\subsection{ListNode.java}
+
+Once you've opened the project, take a look at the \emph{ListNode} class. This class represents a single node in our Linked List, including references to the previous and next nodes in the list. Familiarize yourself with this class but \textbf{do not change the code in this class}. ListNode.java is implemented for you and does not require any updates.
+
+\begin{lstlisting}
+public class ListNode<T> {
+	
+	/* Data being stored in this node */
+	private T data;
+	
+	/* Reference to the next node in the list */
+	protected ListNode<T> next;
+	protected ListNode<T> prev;
+	
+	public ListNode(T data) {
+		this.data = data;
+		this.next = null;
+		this.prev = null;
+	}
+	
+	/* Getters */
+	public T getData() { return this.data; }
+}
+\end{lstlisting}
+
 \subsection{ListIterator.java}
 
-Once you've imported the provided code into Eclipse, you may want to start on ListIterator.java (though you don't have to). A ListIterator is an object that points to one element in your linked list, and provides methods to grab the element at that index, move the iterator forward one position, backward one position, etc. The provided tester uses this iterator class to test your code, and so it much be implemented correctly. The methods you will be asked to implement are:
+Once you've imported the provided code into Eclipse, you may want to start on ListIterator.java (though you don't have to). A ListIterator is an object that points to (references) one element in your linked list, and provides methods to grab the element at that index, move the iterator forward one position, backward one position, etc. The provided tester uses this iterator class to test your code, and so it must be implemented correctly. The methods you will be asked to implement are:
 
 \begin{lstlisting}
 	/**
@@ -210,7 +237,9 @@ In addition, there are a few Linked List specific methods that you need to imple
 
 \subsection{Testing Your Implementation}
 
-Once you implement this methods, you can test them by running the main method in the provider ListTester.java class. This simple tester will execute the methods in your list and compare them to those in Java's built in LinkedList to make sure the results are as expected.
+Once you implement these methods, you can test them by running the main method in the provider ListTester.java class. This simple tester will execute the methods in your list and compare them to those in Java's built in LinkedList to make sure the results are as expected.
+
+\emph{Remember, that the tester is not perfect! If it fails on a particular method, it COULD be the case that a different method actually is causing the problem. For example, perhaps your insert has a small issue but that problem doesn't reveal itself until we try to remove items from the list. Keep this in mind as you test your code and work to fix bugs. Also remember that bugs could exist in your ListIterator class, and not in the method that the tester reports as incorrect.}
 
 One strategy might be to implement your linked list methods in the order that they are tested. That way, you can see the tester say "this method is correct" before moving on to the next one.
 
@@ -218,7 +247,39 @@ Notice that we expect your Linked List to be a generic class, meaning any type o
 
 %------------------------------------------------
 
+\subsection{Queue.java}
 
+Your last task is to implement the *Queue* class inside the Queue.java file. The methods you are responsible for are listed below. This Queue \textbf{must be a linked-list based queue} and you should be using your custom Linked List class to support this Queue (we've provided the import statement for you).
+
+\begin{lstlisting}
+	public class Queue<T>{
+		public Queue();
+
+		public int size();
+
+		public void enqueue(T data);
+
+		public T dequeue();
+	}
+\end{lstlisting}
+
+Notice that this implementation should be \emph{very simple} if you are correctly making use of your Linked List methods.
+
+\subsection{Testing and submitting}
+
+Run the tester class again to ensure your \emph{Queue} is working correctly. You are now ready to submit.
+
+You should submit \textbf{three files} for this homework: \textbf{ListIterator.java, LinkedList.java, and Queue.java}.
+
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+	\item Make sure you are only submitting the three requested files, and they are name \emph{ListIterator.java}, \emph{LinkedList.java}, and \emph{Queue.java} exactly.
+	\item Make sure you keep any \emph{package} statements in your code before submitting. The autograder expects your files to have the package statements that are provided in the downloaded project.
+	\item Make sure your output is in the correct format. You should not be printing ANYTHING else or the autograder will think your output is incorrect.
+\end{enumerate}
 
 
 %----------------------------------------------------------------------------------------

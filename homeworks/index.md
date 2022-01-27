@@ -14,7 +14,7 @@ Below you'll find a list of homeworks for the course. Programming assignments ar
 | 4 | Basic Java 2 | [Roomba](./BasicJava2/roomba.pdf) | [Roomba Analysis](./BasicJava2/roombaAnalysis.pdf) |
 | 5 | Basic Java 3 | [Blackjack](BasicJava3/blackjack.pdf) | [Blackjack Analysis](BasicJava3/blackjackAnalysis.pdf) |
 | 6 | Vectors | [Vector Implementation](Vectors/vectors.pdf) |  |
-| 7 | LLs, Stacks, Queues | *Coming Soon* | *Coming Soon* |
+| 7 | LLs, Stacks, Queues | [Linked List and Queue Implementation](./LLStacksQueues/LLStacksQueues.pdf) | *Coming Soon* |
 |  | Spring Break |  |  |
 | 8 | Big-Oh / Recursion | [Big-Oh](BigOh/bigOh.pdf) | [Recursion Practice](Recursion/recursion.pdf) |
 | 9 | Trees | *Coming Soon* | *Coming Soon* |
