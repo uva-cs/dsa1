@@ -12,7 +12,7 @@ This page contains the daily course schedule for the entire semester, as well as
 | |	Friday|1/21/2022|Basic Java 1|Hello World; Primitive Data Types; Using Simple Objects|[Floryan](./BasicJava1/1-intro.html)<br>[Basit](./Basit/Day2-Basit.pdf)|||
 |2|	Monday|1/24/2022||Writing Functions; Using Arrays|[Floryan](./BasicJava1/2-functions.html)<br>[Basit](./Basit/Day3-Basit-FunctionsArrays.pdf)|||	
 | |	Wednesday|1/26/2022||Control-Flow|[Floryan](./BasicJava1/3-controlFlow.html)<br>[Basit](./Basit/Day4-ControlFlow.pdf)|||
-| |	Friday|1/28/2022||Fizz-Buzz and other live coding problems|[Floryan](./BasicJava1/4-fizzBuzz.html)<br>[Basit](./Basit/Day5-LiveCoding.pdf)|Intro to Lab||
+| |	Friday|1/28/2022||Fizz-Buzz and other live coding problems|[Floryan](./BasicJava1/4-fizzBuzz.html)<br>[Basit](./Basit/Day5-LiveCoding.pdf)<br>[Extra: Python vs Java](./Basit/Day5-PythonVsJava.pdf)|Intro to Lab||
 |3|	Monday|1/31/2022|Basic Java 2|References|[Floryan](./BasicJava2/1-references.html)|	||
 | |	Wednesday|2/2/2022||Methods and Parameters|[Floryan](./BasicJava2/2-methodsParams.html)|	||
 | |	Friday|2/4/2022||Methods / Parameters Live Coding Problems|SLIDES TBD|Basic Java 1|
