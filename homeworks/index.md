@@ -8,13 +8,13 @@ Below you'll find a list of homeworks for the course. Programming assignments ar
 
 | Week | Module | Homework 1 | Homework 2 |
 |--|------------------------|----------------------------|----------------------------|
-| 1 | N/A | Syllabus Quiz (Coming Soon) | |
+| 1 | N/A | Syllabus Quiz (On Collab!) | |
 | 2 | Basic Java 1 | [Java Warm-Up / Getting Started](./BasicJava1/power.pdf)<br>([Another Eclipse Install Tutorial](../java/installingJavaAndEclipse.pdf)) | |
 | 3 | | [Min and Max Functions](./BasicJava1/minMax.pdf) | [Four More Functions](./BasicJava1/fourFunctions.pdf) |
 | 4 | Basic Java 2 | [Roomba](./BasicJava2/roomba.pdf) | [Roomba Analysis](./BasicJava2/roombaAnalysis.pdf) |
 | 5 | Basic Java 3 | [Blackjack](BasicJava3/blackjack.pdf) | [Blackjack Analysis](BasicJava3/blackjackAnalysis.pdf) |
 | 6 | Vectors | [Vector Implementation](Vectors/vectors.pdf) |  |
-| 7 | LLs, Stacks, Queues | [Linked List and Queue Implementation](./LLStacksQueues/LLStacksQueues.pdf) | *Coming Soon* |
+| 7 | LLs, Stacks, Queues | [Linked List and Queue Implementation](./LLStacksQueues/LLStacksQueues.pdf) | [Analysis](./LLStacksQueues/LLStackQueueAnalysis.pdf) |
 |  | Spring Break |  |  |
 | 8 | Big-Oh / Recursion | [Big-Oh](BigOh/bigOh.pdf) | [Recursion Practice](Recursion/recursion.pdf) |
 | 9 | Trees | *Coming Soon* | *Coming Soon* |
