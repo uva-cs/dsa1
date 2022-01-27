@@ -83,3 +83,11 @@ table td {
 table tr:nth-child(2n){
     background-color:#f8f8f8;
 }
+
+/*
+ * For highlighting specific cells in tables 
+ */
+ /*
+td .div-b{
+    background-color:blue;
+}*/
