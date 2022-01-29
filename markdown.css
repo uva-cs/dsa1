@@ -87,7 +87,21 @@ table tr:nth-child(2n){
 /*
  * For highlighting specific cells in tables 
  */
- /*
-td .div-b{
-    background-color:blue;
-}*/
+ 
+td .c1{
+    background-color:#96ceb4;
+    font-weight: bold;
+    padding:5px;
+}
+
+td .c2{
+    background-color:#f2e394;
+    font-weight: bold;
+    padding:5px;
+}
+
+td .c3{
+    background-color:#f2ae72;
+    font-weight: bold;
+    padding:5px;
+}
