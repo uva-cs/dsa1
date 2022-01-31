@@ -34,7 +34,7 @@ This page contains the daily course schedule for the entire semester, as well as
 |8|21|	Monday|3/14/2022|<span class="c1">Trees|	Recursion + Examples|SLIDES TBD|<span class="c3">Big-Oh, Recursion|||<span class="c2">LL, Stacks, Queues (Quiz)|
 | |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|SLIDES TBD||<span class="c3">Big-Oh (Report)|||
 | |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|SLIDES TBD|||<span class="c3">Recursion (Coding)||
-|9|24|	Monday|3/21/2022|<span class="c1">|BST FindMin/Max, Remove, and Runtime Analysis|SLIDES TBD|Trees (BST)|||<span class="c3">Big-Oh, Recursion (Quiz)|
+|9|24|	Monday|3/21/2022|<span class="c1">|BST FindMin/Max, Remove, and Runtime Analysis|SLIDES TBD|<span class="c1">Trees (BST)|||<span class="c3">Big-Oh, Recursion (Quiz)|
 | |25|	Wednesday|3/23/2022|<span class="c1">|AVL Trees|	SLIDES TBD||<span class="c1">Trees (BST Coding)|||
 | |26|	Friday|3/25/2022|<span class="c1">|Inheritance (Red-Black Trees if time)|SLIDES TBD|||||
 |10|27| Monday|3/28/2022|<span class="c1">|Inheritance and Red-Black Trees|	SLIDES TBD|<span class="c1">Trees (AVL)|||**Quiz Retakes Modules 4-6 (Choose 1)**|
