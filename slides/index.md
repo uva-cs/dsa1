@@ -13,7 +13,7 @@ This page contains the daily course schedule for the entire semester, as well as
 |2|3|	Monday|1/24/2022|<span class="c1">|Writing Functions; Using Arrays|[Floryan](./BasicJava1/2-functions.html)<br>[Basit](./Basit/Day3-Basit-FunctionsArrays.pdf)|<span class="c1">Basic Java 1||||	
 | |4|	Wednesday|1/26/2022|<span class="c1">|Control-Flow|[Floryan](./BasicJava1/3-controlFlow.html)<br>[Basit](./Basit/Day4-ControlFlow.pdf)||<span class="c1">Basic Java 1 (Java Warmup - Power Function)|||
 | |5|	Friday|1/28/2022|<span class="c1">|Fizz-Buzz and other live coding problems|[Floryan](./BasicJava1/4-fizzBuzz.html)<br>[Basit](./Basit/Day5-LiveCoding.pdf)<br>[Extra: Python vs Java](./Basit/Day5-PythonVsJava.pdf)|||||
-|3|6|	Monday|1/31/2022|<span class="c2">Basic Java 2|References|[Floryan](./BasicJava2/1-references.html)|<span class="c1">Basic Java 1||||
+|3|6|	Monday|1/31/2022|<span class="c2">Basic Java 2|References|[Floryan](./BasicJava2/1-references.html)<br>[Basit](./Basit/Day6-References.pdf)|<span class="c1">Basic Java 1||||
 | |7|	Wednesday|2/2/2022|<span class="c2">|Methods and Parameters|[Floryan](./BasicJava2/2-methodsParams.html)||<span class="c1">Basic Java 1 (Min and Max)|||
 | |8|	Friday|2/4/2022|<span class="c2">|Methods / Parameters Live Coding Problems|SLIDES TBD|||<span class="c1">Basic Java 1 (Four Functions)|
 |4|9|	Monday|2/7/2022|<span class="c3">Basic Java 3|Classes and Enums|	SLIDES TBD|<span class="c2">Basic Java 2|||<span class="c1">Basic Java 1 (Quiz)|
