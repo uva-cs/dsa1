@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Linked Lists, Stacks, Queues</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Lists - Linked Lists, Stacks, Queues
+  </script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Stacks](#/stacks) <br />
+	</script></section>
+
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="stacks" class="center"><script type="text/template">
+### Stacks
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Stacks
+
+- List with restrictions
+  - Insert, delete, and find can only be performed at one end (the 'top') of the list
+  - LIFO: Last In, First Out
+  </script></section>
+
+<section data-markdown><script type="text/template">
+## Stacks
+
+- Fields
+  - __top__: reference to the top of the stack
+- Methods:
+  - __push__: insert at the top
+  - __pop__: delete from the top
+  - __top__: examine top of the stack
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack Applications
+- Undo operation in programs
+- Operator precedence
+- Symbol balancing (i.e., parenthesis matching)
+- Postfix calculators
+- Activation records: list of active procedures and associated information
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack Applications: Symbol Balancing
+- Read characters to end of file
+  - If opening symbol, push onto stack
+  - If closing symbol
+    - If stack empty, then error
+    - Else pop stack
+    - If popped symbol is not corresponding opening symbol, then error
+  - If at EOF and stack not empty, then error
+  </script></section>
+
+  <section>
+<h2>Stack Applications: Symbol Balancing</h2>
+<p>&nbsp;</p>
+<code>{ ( [ ] ) }</code>
+<p>&nbsp;</p>
+<code class="fragment">{ [ ( } ) ]</code>
+<script type="text/javascript">insertCanvas();</script>
+</section>
+
+  <section data-markdown><script type="text/template">
+## Stack Applications: Postfix Calculator
+- For each input token (number or operator):
+  - If number
+    - Push number onto stack
+  - If operator
+    - Apply operator to 2 numbers popped from stack, then place result on stack
+- After end of input, there should be exaclty one number left on the stack
+  </script></section>
+
+  <section>
+<h2>Stack Applications: Postfix Calculator</h2>
+<p>&nbsp;</p>
+<code>6 5 2 3 + 8 * + 3 + *</code>
+<script type="text/javascript">insertCanvas();</script>
+  </section>
+
+  <section data-markdown><script type="text/template">
+## Stack: Linked List Implementation
+- Linked List
+  - __push__: insert at front of list
+  - __pop__: remove element at front of list
+  - __top__: examine element at front of list
+  </script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack: Linked List Implementation
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Stack< T > {
+  
+    private LinkedList theStack;
+    //OR
+    private ListNode top;
+
+    //^^DO NOT do both of these, just showing
+    //you both possibilities on this slide
+};
+</code></pre>
+  </script></section>
+
+  <section>
+<h2>Stack: Linked List Implementation Diagram</h2>
+<img src="images/02-lists/02-Stack.svg" alt="Stack (linked list) UML diagram" style="width:100%;background-color:white">
+  </section>
+
+  <section data-markdown><script type="text/template">
+## Stack: Array Implementation
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Stack< T >{
+
+  private Object[] theArray  //OR instantiate a Vector
+  private int topIndex; //index of top of stack
+
+  public void push(T data){
+    //Increment topOfStack
+    //Set theArray[topOfStack] to value
+  }
+
+  public void pop(){
+    //Decrement topOfStack
+  }
+
+  public T top(){
+    //Return theArray[topOfStack]
+  }
+}
+</code></pre>
+</script></section>
+
+  <section data-markdown><script type="text/template">
+## Stack Summary
+- List with restrictions
+  - Insert and delete can only be performed at the top of the list
+  - LIFO: Last In, First Out
+- Implementations
+  - Linked List
+  - Array
+  - Vector (variable size "array")
+  </script></section>
+
+  </section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+
+
+
+<!---------------------------------------------- -->
+
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

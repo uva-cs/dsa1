@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Linked Lists, Stacks, Queues</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Lists - Linked Lists, Stacks, Queues
+  </script></section>
+	<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Linked Lists](#/linkedlists) <br />
+	</script></section>
+
+
+<!-- NEW SECTION -->
+  <section> 
+
+<section data-markdown id="linkedlists" class="center"><script type="text/template">
+### Linked Lists
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked Lists
+
+- __Arrays__ and __Vectors__ use contiguous memory to store data
+  - Arrays built into Java and have special syntax
+  - Vectors an extension of arrays.
+- A __Linked List__ is a list that stores nodes connected to one another through references
+  - Each element in the list is a __ListNode__
+    - Stores the __data__ inside that element
+    - Stores references to the next and previous elements
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List Example
+
+![Linked List](images/02-lists/02-LinkedList.svg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List Properties
+
+- __head__: reference to the first node in Linked List
+  - This first node is a __dummy node__ (not part of the actual list)
+- __tail__: reference to the last node in Linked List
+  - Also a __dummy node__
+- __size__: Number of elements in the list currently 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### List Node Properties
+
+- __data__: the actual thing being stored in the list
+- __next__: Reference to memory where the next node can be found
+- __prev__: Reference to memory where the previous ndoe can be found 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Inserting at Tail
+
+- Here's how to insert at the tail of a linked list
+  - Notice that this is ALWAYS fast no matter how big the list is
+
+<pre><code class="hljs" data-trim contenteditable>
+public class LinkedList < T >{
+
+  public void insertAtTail(T data) {
+    ListNode< T > newNode = new ListNode< T >(data);
+    newNode.next = tail;
+    newNode.prev = tail.prev;
+    tail.prev.next = newNode;
+    tail.prev = newNode;
+    
+    this.size++;
+  } 
+} 
+</code></pre>
+
+<section data-markdown><script type="text/template">
+### Other Linked List Methods
+
+- __insertAtHead__: Very similar to insert at tail but at the front of the list
+  - Similar methods for __remove__ at head and tail respectively.
+- __insertAt(index)__: Follow references to find the index from head, then insert. SLOW
+- __insertAt(location)__: Given reference into the list, insert at that location. FAST!
+- __find(value)__: Similar to vector or array. Start at beginning and follow pointers
+- __get(index)__: gets value at that index. Needs to start at head. SLOW!
+</script></section>
+
+<section data-markdown><script type="text/template">
+### ListIterator
+
+- __Problem__: head and tail fields are private! So if I am using Linked List and need to, say, loop through it manually I can't do it.
+  - Well, I can use get(), but that is VERY slow
+- __Solution__: Supply a special type of object called an iterator
+  - Provides methods for moving forward and backward through the list manually. 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### ListIterator Summary
+
+<pre><code class="hljs" data-trim contenteditable>
+public class ListIterator< T > {
+  
+  //The node we are currently at while iterating
+  protected ListNode< T > curNode;
+  
+  public ListIterator(ListNode< T > curNode) {
+    this.curNode = curNode;
+  }
+  
+  /**
+   * These two methods tell us if the iterator has run off
+   * the list on either side
+   */
+  public boolean isPastEnd();
+  public boolean isPastBeginning();
+  
+  /**
+   * Get the data at the current iterator position
+   */
+  public T value();
+  
+  /**
+   * These two methods move the cursor of the iterator
+   * forward / backward one position
+   */
+  public void moveForward();
+  public void moveBackward();
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Using the ListIterator
+
+<pre><code class="hljs" data-trim contenteditable>
+private static < T > void printList(LinkedList< T > list) {
+  //iterator points to first element
+  list.ListIterator< T > it = list.front();
+  
+  while(!it.isPastEnd()) {
+    System.out.print(it.value() + ", ");
+    it.moveForward();
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List: Insert At Iterator
+
+<pre><code class="hljs" data-trim contenteditable>
+/**
+ * Inserts data after the node pointed to by iterator
+ */
+public void insert(ListIterator< T > it, T data) {
+  //TODO in lab.
+}
+
+/**
+ * Remove based on Iterator position
+ * Sets the iterator to the node AFTER the one removed
+ */
+public T remove(ListIterator< T > it) {
+  //TODO in lab
+}
+</code></pre>
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+### Linked List Advantages
+
+- Can insert in front or back of list in constant time (VERY FAST)
+  - Same for insertAt(Iterator)
+- Likewise, can remove from front or back in constant time
+- List nodes are scattered in memory, so no need for OS to find a contiguous block for the list
+- Don't have unused space like a vector does
+- Don't need to "grow in size" when they fill up.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Linked List Disadvantages
+
+- Slow to get an index in middle of list because have to traverse from head or tail
+  - Arrays can go directly to an index, why?
+- Doesn't work well with cache, so arrays often faster in practice
+  - Do you know what a cache is yet?
+- All of the next and prev references use extra space.
+</script></section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+
+<!---------------------------------------------- -->
+
+
+<!---------------------------------------------- -->
+
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
