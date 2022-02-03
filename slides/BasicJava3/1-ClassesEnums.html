@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Basic Java 3-1</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Basic Java 3
+  </script></section>
+  <section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Classes and Enums](#/classes) <br />
+  </script></section>
+
+
+<!-- Classes -->
+
+<section> 
+
+<section data-markdown id="classes" class="center"><script type="text/template">
+### Classes and Enums
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Putting it all together!
+
+- Last __big__ thing you need to understand is __classes__
+- __Class:__ A template for defining new objects, including the object's name, state, and behavior.
+- In short, when a programmer wants to create a new type of variable, they create a class to describe that type of variable's internal state and behavior.
+- __Example:__ Suppose I'd like to write code for playing card games. It would be nice to have variables of type Card, Deck, etc. to make this easier.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Example Class: Playing Cards
+
+<pre><code class="hljs" data-trim contenteditable>
+/* Class definition, must be in a file called Card.java */
+public class Card {
+  
+  /* These are called fields: data specific to this card */
+  int rank; //1 (Ace) through 13 (King)
+  String suit; //"Spades", "Hearts", "Clubs", "Diamonds"
+
+  /* Default constructor. Ace of Sp. is default card */
+  public Card() {
+    this.rank = 1;
+    this.suit = "Spades";
+  }
+  
+  /*
+   * Constructor. Allows you to set the cards data when
+   * creating it. This is called overloading a method
+   */
+  public Card(int rank, String suit) {
+    this.rank = rank;
+    this.suit = suit;
+  }
+  
+  /**
+   * This is a method, will return a description
+   * of this card as a String 
+   */
+  public String toString() {
+    String rank = "";
+    switch(this.rank) {
+      case 1:
+        rank = "Ace";
+        break;
+      case 11:
+        rank = "Jack";
+        break;
+      case 12:
+        rank = "Queen";
+        break;
+      case 13:
+        rank = "King";
+        break;
+      default:
+        rank = "" + this.rank; //number and rank the same
+        break;
+    }
+    
+    return rank + " of " + this.suit;   
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Using the Card Class
+
+<pre><code class="hljs" data-trim contenteditable>
+public static void main(String args[]) {
+    Card c1 = new Card(); //Ace of spades by default
+    Card c2 = new Card(3, "Diamonds"); //3 of diamonds
+    System.out.println(c1.toString());
+    System.out.println(c2.toString());
+  }
+</code></pre>
+```
+Output:
+Ace of Spades
+3 of Diamonds
+```
+</script></section>
+
+<section class="diagram-slide">
+<pre><code class="hljs" data-trim contenteditable>
+    Card c1 = new Card(); //Ace of spades by default
+    Card c2 = new Card(3, "Diamonds"); //3 of diamonds
+    System.out.println(c1.toString());
+    System.out.println(c2.toString());
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 1 suit = "Spades"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Accessing Fields</h3>
+<pre><code class="hljs" data-trim contenteditable>
+    Card c1 = new Card(); //Ace of spades by default
+    Card c2 = new Card(3, "Diamonds"); //3 of diamonds
+    c1.rank = 3; //just changed card into rank 3
+    c1.suit = "Diamonds"; //now c1 is a diamond
+    System.out.println(c1.toString());
+    System.out.println(c2.toString());
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 3 suit = "Diamonds"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Checking Equality</h3>
+<pre><code class="hljs" data-trim contenteditable>
+    /* Code from previous slide(s) */
+    if(c1 == c2)
+      System.out.println("This won't happen!");
+
+    /* Won't work because Card class needs an equals() method */
+    if(c1.equals(c2))
+      System.out.println("This should happen, but won't")
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 3 suit = "Diamonds"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h3>Equality of cards</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public class Card{
+  /* From previous slide Card class slide */
+
+  /* Checks for equality of two cards */ 
+  public boolean equals(Object other) {
+    Card otherC = (Card)other;
+    return    otherC.rank == this.rank
+           && otherC.suit.equals(this.suit);
+  }
+}
+</code></pre>
+<span class="diagram-data" style="display:none;">
+  graph TD
+    subgraph main
+    A(c1) --> B("Card: rank = 3 suit = "Diamonds"")
+    C(c2) --> D("Card: rank = 3 suit = "Diamonds"")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+<section data-markdown><script type="text/template">
+### Summary so far
+
+- __Card class__ looks pretty good so far
+  - Has a rank and suit, can check for equality, can print
+- __Next improvements:__
+  - The suit can be ANY string (e.g., "BLAHBLAH")
+  - Rank can be any integer (e.g., -168)
+- We can accomplish this in a couple ways:
+  - __Enums__: Useful when a variable has a small, finite number of possible values (e.g., suit)
+</script></section>
+
+<section class="diagram-slide">
+<h3>Enums</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+/* An Enum is a variable type that has a finite set of values */
+/* Let's use one for the suit of a card */
+public enum Suit{
+    Hearts, Diamonds, Spades, Clubs; 
+  }
+</code></pre>
+</section>
+
+<section class="diagram-slide">
+<h3>Using the enum in the Card class</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public class Card{
+  int rank; //1 (Ace) through 13 (King)
+  Suit suit; //"Spades", "Hearts", "Clubs", "Diamonds"
+
+  /* Default constructor. Ace of Sp. is default card */
+  public Card() {
+    this.rank = 1;
+    this.suit = Suit.Spades;
+  }
+  
+  /*
+   * Constructor. Allows you to set the cards data when
+   * creating it. This is called overloading a method
+   */
+  public Card(int rank, Suit suit) {
+    this.rank = rank;
+    this.suit = suit;
+  }
+  
+  /**
+   * This is a method, will return a description
+   * of this card as a String 
+   */
+  public String toString() {
+    String rank = "";
+    switch(this.rank) {
+      case 1:
+        rank = "Ace";
+        break;
+      case 11:
+        rank = "Jack";
+        break;
+      case 12:
+        rank = "Queen";
+        break;
+      case 13:
+        rank = "King";
+        break;
+      default:
+        rank = "" + this.rank; //number and rank the same
+        break;
+    }
+    
+    return rank + " of " + this.suit;   
+  }
+  
+  @Override
+  public boolean equals(Object other) {
+    Card otherC = (Card)other;
+    return otherC.rank == this.rank && otherC.suit == this.suit;
+  }
+}
+</code></pre>
+</section>
+
+<section data-markdown><script type="text/template">
+### Enums
+
+- __Enum__ is just a variable type that can take on a specified set of values. Otherwise, acts like any other variable.
+- Now suit can only be one of the four proper suits.
+- What about rank?
+  - We want it it be an int so we can compare it easily with other card ranks (can do this with enums, but a bit of a pain)
+  - Another option is to use getters / setters, so let's see an example
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Scope
+
+- In Java, we can declare a variable or method to have __scope__
+  - __public:__ Anybody can access the field. implied public if not specified
+  - __private:__ Can only access from within the class definition
+  - __protected:__ Can access from within same package or inheritance line
+    - Won't use this one for a little while
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Protecting our fields
+
+- __Problem:__ We don't want other programmers messing with the fields of our Card class and changing the values to unexpected things or illegal things (e.g., rank = -168)
+- __Solution:__ Make the fields have private scope, then no one can mess with them.
+  - Fields are set initially in the constructor only, can't be accessed afterwards
+  - Provide methods to access and/or set the fields if necessary.
+</script></section>
+
+<section class="diagram-slide">
+<h3>Updating the Card class</h3>
+<pre><code class="hljs" data-trim contenteditable> 
+public Class Card{ 
+  private int rank; //1 (Ace) through 13 (King)
+  private Suit suit; //"Spades", "Hearts", "Clubs", "Diamonds"
+
+  /* Default constructor. Ace of Sp. is default card */
+  public Card() {
+    this.rank = 1;
+    this.suit = suit.Spades;
+  }
+  
+  /*
+   * Constructor. Allows you to set the cards data when
+   * creating it. This is called overloading a method
+   */
+  public Card(int rank, Suit suit) {
+    this.rank = 1; // in case setRank fails
+    this.setRank(rank);
+    this.suit = suit;
+  }
+  
+  public int getRank() { return this.rank; }
+  public Suit getSuit() { return this.suit; }
+  
+  public void setRank(int newRank) {
+    /* Ignore if trying to set to illegal value */
+    if(newRank < 1 || newRank > 13) return;
+    
+    /* Otherwise, set it */
+    this.rank = newRank;
+  }
+  public void setSuit(Suit newSuit) {
+    /* No stress, enum already must have valid value */
+    this.suit = newSuit;
+  }
+
+  /* Other stuff here */
+}
+</code></pre>
+</section>
+
+<section data-markdown><script type="text/template">
+### Summary
+
+- Getters and Setters let us have control over how much other programmers can alter the fields in our class
+- Maybe we don't want to be able to change a Card's suit and rank once it is instantiated
+  - Solution: Remove the setters from the class
+  - Now programmers can see the variables (through the getters) but not change them.
+</script></section>
+
+
+<!---------------------------------------------- -->
+
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

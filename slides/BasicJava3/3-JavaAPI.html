@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Basic Java 3-1</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Basic Java 3
+  </script></section>
+  <section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[JVM](#/jvm) <br />
+[Java API](#/javaAPI) <br />
+  </script></section>
+
+<!---------------------------------------------- -->
+
+<!-- Java Virtual Machine -->
+
+<section> 
+
+<section data-markdown id="jvm" class="center"><script type="text/template">
+### The Java Virtual Machine (JVM)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java Virtual Machine (JVM)
+
+- Java runs code on the Java Virtual Machine
+  - The JVM is a piece of software (i.e., a program) that simulates a computer and runs Java ByteCode (other programs).
+  - Thus, Java code does not run directly on your machine
+- __Advantages__: Code runs on any machine as long as JVM version the same
+- __Disadvantage__: Slower than running code on hardware directly
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Compiler
+
+- A __compiler__ is a program that converts a higher level language into a lower level one.
+- The java compiler turns java code into java bytecode
+- Other languages (such as C++) will convert code into machine code that runs on a computer's specific architercture.
+</script></section>
+
+<section class="diagram-slide">
+<span class="diagram-data" style="display:none;">
+  graph LR
+    subgraph c++
+    A("C++ source code") --> B("C++ Compiler")
+    B --> C("Assembly Code")
+    C --> D("Linker")
+    D --> E(Machine Code)
+    E -->|executes on| F(Computer)
+    end
+    subgraph java
+    G("Java source code") --> H("Java Compiler")
+    H --> K("Java ByteCode")
+    K -->|simulated on| I("Java Virtual Machine")
+    I -->|executes on| J("Computer")
+    end
+  </span><div class="diagram-display"></div>
+</section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- Java API -->
+
+<section> 
+
+<section data-markdown id="javaAPI" class="center"><script type="text/template">
+### Using the Java API
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Java API
+
+- Documentation of Java classes, methods, etc.
+  - VERY useful for discovering what functionality already exists in Java and how to use it.
+- Some examples:
+  - __[Object](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html)__
+  - __[Date](https://docs.oracle.com/javase/8/docs/api/java/util/Date.html)__
+  - __[ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)__
+</script></section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
