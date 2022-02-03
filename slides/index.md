@@ -19,9 +19,9 @@ This page contains the daily course schedule for the entire semester, as well as
 |4|9|	Monday|2/7/2022|<span class="c3">Basic Java 3|Classes and Enums|[Floryan](./BasicJava3/1-ClassesEnums.html)|<span class="c2">Basic Java 2|||<span class="c1">Basic Java 1 (Quiz)|
 | |10|	Wednesday|2/9/2022|<span class="c3">|Example Class|[Floryan](./BasicJava3/2-ExampleClass.html)||<span class="c2">Basic Java 2 (Roomba)|||
 | |11|	Friday|2/11/2022|<span class="c3">|More Classes; How to use the Java API|[Floryan](./BasicJava3/3-JavaAPI.html)|||<span class="c2">Basic Java 2 (Roomba Report)||
-|5|12|	Monday|2/14/2022|<span class="c1">Lists: Vectors|What is a list, Interfaces, and Polymorphism.|SLIDES TBD|<span class="c3">Basic Java 3|||<span class="c2">Basic Java 2 (Quiz)|
-| |13|	Wednesday|2/16/2022|<span class="c1">|Vectors|SLIDES TBD||<span class="c3">Basic Java 3 (Blackjack)|||
-| |14|	Friday|2/18/2022|<span class="c1">|Java Generics (In the context of Vectors)|SLIDES TBD|||<span class="c3">Basic Java 3 (BlackJack Report||
+|5|12|	Monday|2/14/2022|<span class="c1">Lists: Vectors|What is a list, Interfaces, and Polymorphism.|[Floryan](./Vectors/1-ListIntro.html)|<span class="c3">Basic Java 3|||<span class="c2">Basic Java 2 (Quiz)|
+| |13|	Wednesday|2/16/2022|<span class="c1">|Vectors|[Floryan](./Vectors/2-Vectors.html)||<span class="c3">Basic Java 3 (Blackjack)|||
+| |14|	Friday|2/18/2022|<span class="c1">|Java Generics (In the context of Vectors)|[Floryan](./Vectors/3-Generics.html)|||<span class="c3">Basic Java 3 (BlackJack Report||
 |6|15|	Monday|2/21/2022|<span class="c2">LLs / Stacks / Queues|	Linked Lists and Iterators|SLIDES TBD|<span class="c1">Vectors|||<span class="c3">Basic Java 3 (Quiz)|
 | |16|	Wednesday|2/23/2022|<span class="c2">|Stacks|SLIDES TBD||<span class="c1">Vectors (Coding)|||
 | |17|	Friday|2/25/2022|<span class="c2">|Queues|SLIDES TBD|||<span class="c1">Vectors (Report)||
