@@ -19,6 +19,7 @@ repository first**
 - [Course Logistics](courseLogistics/index.html): The syllabus, introductory slide deck, etc.
 - [Homeworks](homeworks/index.html) ([md](homeworks/index.md)): the homeworks are the main assignments in the course. For each course module, there are 0, 1, or 2 homeworks. 
 - [Schedule and Slides](slides/index.html) ([md](slides/index.md)): Contains the weekly course schedule as well as the slides used in the course.
+- [Example Quiz Questions](./quizzes/quizzes.pdf): Some example quiz questions for a past semester.
 - [Class Exercises](java/classExercises.html): Code we write in lecture will be posted here as it occurs.
 - Other stuff:
 	- [Installing Java and Eclipse](./java/installingJavaAndEclipse.pdf)
