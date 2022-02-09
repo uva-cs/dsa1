@@ -144,12 +144,12 @@ Many of you have probably not seen \textbf{binary search} before. Binary search 
 binarySearch(int[] a, int item){
 	set variables min=0 and max=a.length-1
 	continue while min is less than max
-		look at the middle between min and max
-		if that element is item, then found!
+		middle = middle element between min and max
+		if middle element is item, then found!
 		if item is less than middle element
-			repeat search between min and cur
+			repeat search between min and middle
 		if item is more than middle element
-			repeat search between cur+1 and max
+			repeat search between middle+1 and max
 
 	if this loop exits, then the item was not found
 }
@@ -177,6 +177,19 @@ All Triads (n\textasciicircum{}3)  &   &    &     &       &        &            
 All Subsets (2\textasciicircum{}n) &   &    &     &       &        &                       &                       &                       &                       \\ \hline
 \end{tabular}
 
+
+You should submit two files for this homework, \textbf{BigOh.java} and \textbf{BigOh.pdf}.
+
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+	\item Make sure you are only submitting one file, and it is called \emph{BigOh.java} exactly.
+	\item Make sure there is no package statement at the top of your file. You can remove the one that is given in the default file that is provided when you submit.
+	\item Make sure you \textbf{DO NOT} alter the main method provided .
+	\item Make sure your Vector class is \emph{Not printing anything to the console.} This will mess up the autograder.
+\end{enumerate}
 
 %----------------------------------------------------------------------------------------
 
