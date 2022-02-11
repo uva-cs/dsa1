@@ -16,7 +16,7 @@ Below you'll find a list of homeworks for the course. Programming assignments ar
 | 6 | 2/21 - 2/25 | Vectors | [Vector Implementation](Vectors/vectors.pdf) |  |
 | 7 | 2/28 - 3/4 | LLs, Stacks, Queues | [Linked List and Queue Implementation](./LLStacksQueues/LLStacksQueues.pdf) | [Analysis](./LLStacksQueues/LLStackQueueAnalysis.pdf) |
 |  | 3/7 - 3/11 | Spring Break |  |  |
-| 8 | 3/14 - 3/18 | Big-Oh / Recursion | [Big-Oh](BigOh/bigOh.pdf) | [Recursion Practice](Recursion/recursion.pdf) |
+| 8 | 3/14 - 3/18 | Big-Oh | [Big-Oh Coding](BigOh/bigOh.pdf) | [Big-Oh Analysis](./BigOh/bigOhAnalysis.pdf) |
 | 9 | 3/21 - 3/25 | Trees | *Coming Soon* | *Coming Soon* |
 | 10 | 3/28 - 4/1 |  | *Coming Soon* | *Coming Soon* |
 | 11 | 4/4 - 4/8 | Basic Sorts | [Basic Sorting Algorithms](BasicSorts/basicSorts.pdf) | |
