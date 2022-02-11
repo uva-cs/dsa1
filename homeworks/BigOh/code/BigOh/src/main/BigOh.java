@@ -19,6 +19,7 @@ public class BigOh {
 	}
 	
 	/* Calls binary search n times. Counts number of successful searches */
+	/* You should search for the numbers 1 through n in succession */
 	/* Should run in Theta(nlogn) time */
 	public static int multipleBinarySearch(int[] a) {
 		//TODO: IMPLEMENT THIS METHOD
