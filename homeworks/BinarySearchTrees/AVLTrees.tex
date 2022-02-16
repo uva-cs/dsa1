@@ -71,7 +71,7 @@ showstringspaces=false}
 \normalfont \normalsize
 \textsc{University of Virginia, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge BSTs - Tree Implementation \\ % The assignment title
+\huge AVL - Tree Implementations \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
@@ -89,15 +89,16 @@ showstringspaces=false}
 
 \section{Summary}
 
-For this homework, you will be implementing two classes to create a working Binary Search Tree. You will start by implementing a basic Binary Tree with the three tree traversals covered in class. Then, you will implement and test a working Binary Search Tree.
+For this homework, you will be implementing three classes, which are all increasingly complicated Tree objects. You will start by implementing a basic Binary Tree with the three tree traversals convered in class. Then, you will implement and test a working Binary Search Tree. Lastly, you will implement a few methods to complete an AVL Tree.
 
 \begin{enumerate}
 	\item Download the provided starter code
 	\item Implement some general methods in the BinaryTree class.
 	\item Implement the BinarySearchTree class
+	\item Implement the missing methods in the AVLTree class (some of this is done for you to simplify the assignment)
 	\item Use the provided tester files to verify your implementation works. Note that you should test your code more so than the provided tester does this time. The tester is NOT as thorough as in previous homeworks.
 	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/BinarySearchTrees/code/BinarySearchTrees.zip}{BinarySearchTrees.zip}
-	\item \textbf{FILES TO SUBMIT:} BinaryTree.java, BinarySearchTree.java
+	\item \textbf{FILES TO SUBMIT:} TreeImplementations.zip
 \end{enumerate}
 
 %------------------------------------------------
@@ -109,15 +110,12 @@ To begin, implement the BinaryTree class. These are methods that are useful for 
 \begin{lstlisting}
 public class BinaryTree<T>{
 	//Prints the tree using in-order traversal
-	//All on one line, space separated
 	private void printInOrder(TreeNode<T> curNode);
 	
 	//Prints the tree using pre-order traversal
-	//All on one line, space separated
 	private void printPreOrder(TreeNode<T> curNode);
 	
 	//Prints the tree using post-order traversal
-	//All on one line, space separated
 	private void printPostOrder(TreeNode<T> curNode);
 }
 \end{lstlisting}
@@ -131,7 +129,6 @@ Next, you will implement a binary search tree. This class will extend the binary
 \begin{lstlisting}
 public interface Tree<T extends Comparable<T>> {
 	
-	//remember to IGNORE DUPLICATES
 	public void insert(T data);
 	
 	public boolean find(T data);
@@ -149,22 +146,35 @@ public class BinarySearchTree<T extends Comparable<T>>
 
 You may add other supporting methods to your binary search tree if you find that to be helpful. 
 
-\subsection{Testing your code}
+\subsection{AVLTree.java}
 
-Once you are done, you can look at the provided tester file. This tester is VERY minimal and only checks one single test case, providing you with the expected output. You can (and should) create more tests and manually check them to ensure your tree is operating correctly.
+Lastly, you will implement an AVL tree that inherits from your binary search tree. An AVL tree can take advantage of the insert and remove methods from the class it inherits from (i.e., BinarySearchTree.java). Thus, to insert into an avl tree, you can call super.insert() and then simply check if the current node needs to be balanced. Some of this implementation is provided for you, but you will have to implement the following methods yourself:
 
-You should submit \textbf{two files} for this homework: \textbf{BinaryTree.java, and BinarySearchTree.java}.
+\begin{lstlisting}
+public class AVLTree<T extends Comparable<T>>
+					extends BinarySearchTree<T>{
 
-\subsection{Gradescope}
+	//Insert and remove are partially coded for you already
 
-You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+	//figures out whether a double or single rotation is
+	//needed and in which direction(s)
+	private TreeNode<T> balance(TreeNode<T> curNode);
+			
+	//rotate right on the curNode provided
+	private TreeNode<T> rotateRight(TreeNode<T> curNode);
+	
+	//rotate left on the curNode provided
+	private TreeNode<T> rotateLeft(TreeNode<T> curNode);
+	
+	//compute the balance factor of the given node
+	private int balanceFactor(TreeNode<T> node);
 
-\begin{enumerate}
-	\item Make sure you are only submitting the two requested files, and they are named \emph{BinaryTree.java} and \emph{BinarySearchTree.java} exactly.
-	\item Make sure you keep any \emph{package} statements in your code before submitting. The autograder expects your files to have the package statements that are provided in the downloaded project.
-	\item Make sure your output is in the correct format. You should not be printing ANYTHING else or the autograder will think your output is incorrect.
-\end{enumerate}
+}
+\end{lstlisting}
 
+Once you are done, you can look at the two provided tester files to check your implementation. As stated earlier, these files do not rigorously check your implementations, so you should be writing your own test cases in addition to the few provided.
+
+When you are done, submit your entire project as a zip file.
 
 %------------------------------------------------
 
