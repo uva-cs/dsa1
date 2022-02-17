@@ -89,66 +89,21 @@ showstringspaces=false}
 
 \section{Summary}
 
-For this homework, you will be implementing three classes, which are all increasingly complicated Tree objects. You will start by implementing a basic Binary Tree with the three tree traversals convered in class. Then, you will implement and test a working Binary Search Tree. Lastly, you will implement a few methods to complete an AVL Tree.
+For this homework, you will be extending your Binary Search Tree to include tree rotations, and self-balancing. You will implement a few methods to complete this AVL Tree.
 
 \begin{enumerate}
-	\item Download the provided starter code
-	\item Implement some general methods in the BinaryTree class.
-	\item Implement the BinarySearchTree class
+	\item Grab your working code from the \emph{Binary Search Trees} assignment (the project / starter code is the same).
 	\item Implement the missing methods in the AVLTree class (some of this is done for you to simplify the assignment)
 	\item Use the provided tester files to verify your implementation works. Note that you should test your code more so than the provided tester does this time. The tester is NOT as thorough as in previous homeworks.
-	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/BinarySearchTrees/code/BinarySearchTrees.zip}{BinarySearchTrees.zip}
-	\item \textbf{FILES TO SUBMIT:} TreeImplementations.zip
+	\item \textbf{FILES TO DOWNLOAD:} \emph{None, but use your code from the previous assignment for this one.}
+	\item \textbf{FILES TO SUBMIT:} BinaryTree.java (from last week), BinarySearchTree.java (from last week), AVLTree.java (new)
 \end{enumerate}
 
 %------------------------------------------------
 
-\subsection{BinaryTree.java}
-
-To begin, implement the BinaryTree class. These are methods that are useful for ANY binary tree (whether balanced or not). You will need to implement the following methods:
-
-\begin{lstlisting}
-public class BinaryTree<T>{
-	//Prints the tree using in-order traversal
-	private void printInOrder(TreeNode<T> curNode);
-	
-	//Prints the tree using pre-order traversal
-	private void printPreOrder(TreeNode<T> curNode);
-	
-	//Prints the tree using post-order traversal
-	private void printPostOrder(TreeNode<T> curNode);
-}
-\end{lstlisting}
-
-The Binary Tree contains a few methods that are implemented for you. This includes the main print functions, that simply call the helper functions described above on the root to give off the recursive prints. In addition, a method called printTree() is provided that prints the tree in a somewhat formatted method. This may be useful when debugging your code. Lastly, a simple recursive method that computes the height of the binary tree is provided as an example of recursion in trees.
-
-\subsection{BinarySearchTree.java}
-
-Next, you will implement a binary search tree. This class will extend the binary tree class from earlier, and thus inherit the print methods defined earlier. Your binary search tree should implement the provided Tree interface, shown below. 
-
-\begin{lstlisting}
-public interface Tree<T extends Comparable<T>> {
-	
-	public void insert(T data);
-	
-	public boolean find(T data);
-
-	public void remove(T data);
-}
-
-/* You BST implements the interface above */
-public class BinarySearchTree<T extends Comparable<T>>
-					extends BinaryTree<T> implements Tree<T>{
-
-		//TODO: Implement this class
-}
-\end{lstlisting}
-
-You may add other supporting methods to your binary search tree if you find that to be helpful. 
-
 \subsection{AVLTree.java}
 
-Lastly, you will implement an AVL tree that inherits from your binary search tree. An AVL tree can take advantage of the insert and remove methods from the class it inherits from (i.e., BinarySearchTree.java). Thus, to insert into an avl tree, you can call super.insert() and then simply check if the current node needs to be balanced. Some of this implementation is provided for you, but you will have to implement the following methods yourself:
+You will implement an AVL tree that inherits from your binary search tree. An AVL tree can take advantage of the insert and remove methods from the class it inherits from (i.e., BinarySearchTree.java). Thus, to insert into an avl tree, you can call super.insert() and then simply check if the current node needs to be balanced. Some of this implementation is provided for you, but you will have to implement the following methods yourself:
 
 \begin{lstlisting}
 public class AVLTree<T extends Comparable<T>>
@@ -172,9 +127,22 @@ public class AVLTree<T extends Comparable<T>>
 }
 \end{lstlisting}
 
+
+\subsection{Testing your code}
+
 Once you are done, you can look at the two provided tester files to check your implementation. As stated earlier, these files do not rigorously check your implementations, so you should be writing your own test cases in addition to the few provided.
 
-When you are done, submit your entire project as a zip file.
+You should submit \textbf{three files} for this homework: \textbf{BinaryTree.java}, \textbf{BinarySearchTree.java}, and \textbf{AVLTree.java}. The former two are resubmissions of your work from last week.
+
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+	\item Make sure you are only submitting the three requested files, and they are named \emph{BinaryTree.java}, \emph{BinarySearchTree.java}, and \emph{AVLTree.java} exactly.
+	\item Make sure you keep any \emph{package} statements in your code before submitting. The autograder expects your files to have the package statements that are provided in the downloaded project.
+	\item Make sure your output is in the correct format. You should not be printing ANYTHING else or the autograder will think your output is incorrect.
+\end{enumerate}
 
 %------------------------------------------------
 

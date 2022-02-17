@@ -17,8 +17,8 @@ Below you'll find a list of homeworks for the course. Programming assignments ar
 | 7 | 2/28 - 3/4 | LLs, Stacks, Queues | [Linked List and Queue Implementation](./LLStacksQueues/LLStacksQueues.pdf) | [Analysis](./LLStacksQueues/LLStackQueueAnalysis.pdf) |
 |  | 3/7 - 3/11 | Spring Break |  |  |
 | 8 | 3/14 - 3/18 | Big-Oh | [Big-Oh Coding](BigOh/bigOh.pdf) | [Big-Oh Analysis](./BigOh/bigOhAnalysis.pdf) |
-| 9 | 3/21 - 3/25 | Trees | *Coming Soon* | *Coming Soon* |
-| 10 | 3/28 - 4/1 |  | *Coming Soon* | *Coming Soon* |
+| 9 | 3/21 - 3/25 | Trees | [BST Implementation](BinarySearchTrees/BinarySearchTrees.pdf) |  |
+| 10 | 3/28 - 4/1 |  | [AVL Tree Implementation](BinarySearchTrees/AVLTrees.pdf) | [Tree Analysis](BinarySearchTrees/BSTAnalysis.pdf) |
 | 11 | 4/4 - 4/8 | Basic Sorts | [Basic Sorting Algorithms](BasicSorts/basicSorts.pdf) | |
 | 12 | 4/11 - 4/15 | Advanced Sorts | [Advanced Sorting Algorithms](AdvancedSorts/advancedSorts.pdf) | [Analyzing Sorting Algorithms](AdvancedSorts/sortingAnalysis.pdf) |
 | 13 | 4/18 - 1/22 | Hash Tables | [HT Implementation](HashTables/hashTables.pdf) | [HT Analysis](HashTables/hashTableAnalysis.pdf) |
