@@ -15,13 +15,13 @@ This page contains the daily course schedule for the entire semester, as well as
 | |5|	Friday|1/28/2022|<span class="c1">|Fizz-Buzz and other live coding problems|[Floryan](./BasicJava1/4-fizzBuzz.html)<br>[Basit](./Basit/Day5-LiveCoding.pdf)<br>[Extra: Python vs Java](./Basit/Day5-PythonVsJava.pdf)|||||
 |3|6|	Monday|1/31/2022|<span class="c2">Basic Java 2|References|[Floryan](./BasicJava2/1-references.html)<br>[Basit](./Basit/Day6-References.pdf)|<span class="c1">Basic Java 1||||
 | |7|	Wednesday|2/2/2022|<span class="c2">|Methods and Parameters|[Floryan](./BasicJava2/2-methodsParams.html)<br>[Basit](./Basit/Day7-MethodsParameters.pdf)||<span class="c1">Basic Java 1 (Min and Max)|||
-| |8|	Friday|2/4/2022|<span class="c2">|Methods / Parameters Live Coding Problems|SLIDES TBD|||<span class="c1">Basic Java 1 (Four Functions)|
+| |8|	Friday|2/4/2022|<span class="c2">|Methods / Parameters Live Coding Problems|NO NEW SLIDES|||<span class="c1">Basic Java 1 (Four Functions)|
 |4|9|	Monday|2/7/2022|<span class="c3">Basic Java 3|Classes and Enums|[Floryan](./BasicJava3/1-ClassesEnums.html)<br>[Basit](./Basit/Day9-10-11-BasicJava3-Classes.pdf)|<span class="c2">Basic Java 2|||<span class="c1">Basic Java 1 (Quiz)|
 | |10|	Wednesday|2/9/2022|<span class="c3">|Example Class|[Floryan](./BasicJava3/2-ExampleClass.html)<br>[Basit](./Basit/Day9-10-11-BasicJava3-Classes.pdf)||<span class="c2">Basic Java 2 (Roomba)|||
 | |11|	Friday|2/11/2022|<span class="c3">|More Classes; How to use the Java API|[Floryan](./BasicJava3/3-JavaAPI.html)<br>[Basit](./Basit/Day9-10-11-BasicJava3-Classes.pdf)|||<span class="c2">Basic Java 2 (Roomba Report)||
 |5|12|	Monday|2/14/2022|<span class="c1">Lists: Vectors|What is a list, Interfaces, and Polymorphism.|[Floryan](./Vectors/1-ListIntro.html)<br>[Basit](./Basit/Day12-List-Interfaces-Poly.pdf)|<span class="c3">Basic Java 3|||<span class="c2">Basic Java 2 (Quiz)|
-| |13|	Wednesday|2/16/2022|<span class="c1">|Vectors|[Floryan](./Vectors/2-Vectors.html)<br>[Basit](./Basit/Day13-IntroToVectors.pdf)||<span class="c3">Basic Java 3 (Blackjack)|||
-| |14|	Friday|2/18/2022|<span class="c1">|Java Generics (In the context of Vectors)|[Floryan](./Vectors/3-Generics.html)|||<span class="c3">Basic Java 3 (BlackJack Report||
+| |13|	Wednesday|2/16/2022|<span class="c1">|Vectors|[Floryan](./Vectors/2-Vectors.html)<br>[Basit](./Basit/Day13-IntroToVectors.pdf)<BR>[Extra: Object Types](./Basit/Day14-Reference-ObjectTypes.pdf)||<span class="c3">Basic Java 3 (Blackjack)|||
+| |14|	Friday|2/18/2022|<span class="c1">|Java Generics (In the context of Vectors)|[Floryan](./Vectors/3-Generics.html)<BR>[Basit](./Basit/Day14-Generis.pdf)|||<span class="c3">Basic Java 3 (BlackJack Report||
 |6|15|	Monday|2/21/2022|<span class="c2">LLs / Stacks / Queues|	Linked Lists and Iterators|[Floryan](./LLStackQueue/1-LLs.html)|<span class="c1">Vectors|||<span class="c3">Basic Java 3 (Quiz)|
 | |16|	Wednesday|2/23/2022|<span class="c2">|Stacks|[Floryan](./LLStackQueue/2-Stacks.html)||<span class="c1">Vectors (Coding)|||
 | |17|	Friday|2/25/2022|<span class="c2">|Queues|[Floryan](./LLStackQueue/3-Queues.html)|||<span class="c1">Vectors (Report)||
