@@ -24,17 +24,17 @@ This page contains the daily course schedule for the entire semester, as well as
 | |14|	Friday|2/18/2022|<span class="c1">|Java Generics (In the context of Vectors)|[Floryan](./Vectors/3-Generics.html)<BR>[Basit](./Basit/Day14-Generics.pdf)|||<span class="c3">Basic Java 3 (BlackJack Report||
 |6|15|	Monday|2/21/2022|<span class="c2">LLs / Stacks / Queues|	Linked Lists and Iterators|[Floryan](./LLStackQueue/1-LLs.html)<BR>[Basit](./Basit/Day15-LinkedLists.pdf)|<span class="c1">Vectors|||<span class="c3">Basic Java 3 (Quiz)|
 | |16|	Wednesday|2/23/2022|<span class="c2">|Stacks|[Floryan](./LLStackQueue/2-Stacks.html)||<span class="c1">Vectors (Coding)|||
-| |17|	Friday|2/25/2022|<span class="c2">|Queues|[Floryan](./LLStackQueue/3-Queues.html)|||<span class="c1">Vectors (Report)||
+| |17|	Friday|2/25/2022|<span class="c2">|Queues|[Floryan](./LLStackQueue/3-Queues.html)|||||
 |7|18|	Monday|2/28/2022|<span class="c3">Big-Oh / Recursion|Big-Oh, Big-Omega, Big-Theta|SLIDES TBD|<span class="c2">LL, Stacks, Queues|||<span class="c1">Vectors</span><br>**Quiz Retakes Modules 1-3 (Choose 1)**|
 | |19|	Wednesday|3/2/2022|<span class="c3">|More Big-Oh example problems|SLIDES TBD||<span class="c2">LL, Stacks Queues (Coding)|||
 | |20|	Friday|3/4/2022|<span class="c3">|Amortized Analysis|SLIDES TBD|||<span class="c2">LL, Stacks, Queues (Report)||
 | | |	Monday|3/7/2022|||	SLIDES TBD|	|	|||
 | | |	Wednesday|3/9/2022|UVA SPRING BREAK||SLIDES TBD||	|||
 | | |	Friday|3/11/2022|||	SLIDES TBD|	||||
-|8|21|	Monday|3/14/2022|<span class="c1">Trees|	Recursion + Examples|SLIDES TBD|<span class="c3">Big-Oh, Recursion|||<span class="c2">LL, Stacks, Queues (Quiz)|
-| |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|SLIDES TBD||<span class="c3">Big-Oh (Report)|||
-| |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|SLIDES TBD|||<span class="c3">Recursion (Coding)||
-|9|24|	Monday|3/21/2022|<span class="c1">|BST FindMin/Max, Remove, and Runtime Analysis|SLIDES TBD|<span class="c1">Trees (BST)|||<span class="c3">Big-Oh, Recursion (Quiz)|
+|8|21|	Monday|3/14/2022|<span class="c1">Trees|	Recursion + Examples|SLIDES TBD|<span class="c3">Big-Oh|||<span class="c2">LL, Stacks, Queues (Quiz)|
+| |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|SLIDES TBD||<span class="c3">Big-Oh (Coding)|||
+| |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|SLIDES TBD|||<span class="c3">Big-Oh (Report)||
+|9|24|	Monday|3/21/2022|<span class="c1">|BST FindMin/Max, Remove, and Runtime Analysis|SLIDES TBD|<span class="c1">Trees (BST)|||<span class="c3">Big-Oh (Quiz)|
 | |25|	Wednesday|3/23/2022|<span class="c1">|AVL Trees|	SLIDES TBD||<span class="c1">Trees (BST Coding)|||
 | |26|	Friday|3/25/2022|<span class="c1">|Inheritance (Red-Black Trees if time)|SLIDES TBD|||||
 |10|27| Monday|3/28/2022|<span class="c1">|Inheritance and Red-Black Trees|	SLIDES TBD|<span class="c1">Trees (AVL)|||**Quiz Retakes Modules 4-6 (Choose 1)**|
