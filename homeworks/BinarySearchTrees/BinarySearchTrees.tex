@@ -104,21 +104,24 @@ For this homework, you will be implementing two classes to create a working Bina
 
 \subsection{BinaryTree.java}
 
-To begin, implement the BinaryTree class. These are methods that are useful for ANY binary tree (whether balanced or not). You will need to implement the following methods:
+To begin, implement the BinaryTree class. These are methods that are useful for ANY binary tree (whether balanced or not). You will need to implement the following methods (\textbf{NOTE: These methods DO NO print anything, they return the traversals as a string.}):
 
 \begin{lstlisting}
 public class BinaryTree<T>{
-	//Prints the tree using in-order traversal
+	//Returns a string representing the tree nodes
+	//given as an in-order traversal
 	//All on one line, space separated
-	private void printInOrder(TreeNode<T> curNode);
+	private String printInOrder(TreeNode<T> curNode);
 	
-	//Prints the tree using pre-order traversal
+	//Returns a string representing the tree nodes
+	//given as an in-order traversal
 	//All on one line, space separated
-	private void printPreOrder(TreeNode<T> curNode);
+	private String printPreOrder(TreeNode<T> curNode);
 	
-	//Prints the tree using post-order traversal
+	//Returns a string representing the tree nodes
+	//given as an in-order traversal
 	//All on one line, space separated
-	private void printPostOrder(TreeNode<T> curNode);
+	private String printPostOrder(TreeNode<T> curNode);
 }
 \end{lstlisting}
 
