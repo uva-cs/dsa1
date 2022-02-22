@@ -26,5 +26,11 @@ public interface Tree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public void remove(T data);
+	
+	/**
+	 * Finds the maximum element in the tree
+	 * @return
+	 */
+	public T findMax();
 
 }

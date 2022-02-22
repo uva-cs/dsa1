@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  17 FEB 2022 13:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  22 FEB 2022 12:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -601,7 +601,7 @@ Package: fancyhdr 2016/09/06 3.8 Extensive control of page headers and footers
 \f@ncyO@olf=\skip69
 \f@ncyO@orf=\skip70
 )
-No file AVLTrees.aux.
+(./AVLTrees.aux)
 \openout1 = `AVLTrees.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
@@ -618,6 +618,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
 LaTeX Font Info:    ... okay on input line 82.
 LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 82.
 LaTeX Font Info:    Try loading font information for FML+futm on input line 82.
+
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/fmlfutm.fd
 File: fmlfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futm.
@@ -698,6 +699,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 82.
 LaTeX Info: Redefining \pageref on input line 82.
 LaTeX Info: Redefining \nameref on input line 82.
+
+(./AVLTrees.out) (./AVLTrees.out)
 \@outlinefile=\write3
 \openout3 = `AVLTrees.out'.
 
@@ -748,14 +751,23 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 109.
- [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 152.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 152.
 
-(./AVLTrees.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 152.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 152.
+Overfull \hbox (2.73065pt too wide) in paragraph at lines 113--114
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (2.73065pt too wide) in paragraph at lines 114--117
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
+ [3]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
+ (./AVLTrees.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 155.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
 
 
 Package rerunfilecheck Warning: File `AVLTrees.out' has changed.
@@ -763,15 +775,15 @@ Package rerunfilecheck Warning: File `AVLTrees.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `AVLTrees.out':
-(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             Before: 79CB0BF7CCAAF14FE9B15D12163D5BDB;232
 (rerunfilecheck)             After:  700206DFE4E40AD9BDA90E71C3FA12D2;228.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 152.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 155.
  ) 
 Here is how much of TeX's memory you used:
- 11038 strings out of 492995
- 170840 string characters out of 6132704
- 456469 words of memory out of 5000000
- 14376 multiletter control sequences out of 15000+600000
+ 11057 strings out of 492995
+ 171094 string characters out of 6132704
+ 458573 words of memory out of 5000000
+ 14386 multiletter control sequences out of 15000+600000
  82134 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,11n,51p,8819b,1005s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -781,10 +793,10 @@ live/2017/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/20
 17/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2017/texmf-dist
 /fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on AVLTrees.pdf (3 pages, 85890 bytes).
+Output written on AVLTrees.pdf (3 pages, 86369 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
- 36 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 96 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
+ 39 named destinations out of 1000 (max. 500000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

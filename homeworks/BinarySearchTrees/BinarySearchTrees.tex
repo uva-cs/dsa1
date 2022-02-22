@@ -111,25 +111,25 @@ public class BinaryTree<T>{
 	//Returns a string representing the tree nodes
 	//given as an in-order traversal
 	//All on one line, space separated
-	private String printInOrder(TreeNode<T> curNode);
+	private String getInOrder(TreeNode<T> curNode);
 	
 	//Returns a string representing the tree nodes
 	//given as an in-order traversal
 	//All on one line, space separated
-	private String printPreOrder(TreeNode<T> curNode);
+	private String getPreOrder(TreeNode<T> curNode);
 	
 	//Returns a string representing the tree nodes
 	//given as an in-order traversal
 	//All on one line, space separated
-	private String printPostOrder(TreeNode<T> curNode);
+	private String getPostOrder(TreeNode<T> curNode);
 }
 \end{lstlisting}
 
-The Binary Tree contains a few methods that are implemented for you. This includes the main print functions, that simply call the helper functions described above on the root to give off the recursive prints. In addition, a method called printTree() is provided that prints the tree in a somewhat formatted method. This may be useful when debugging your code. Lastly, a simple recursive method that computes the height of the binary tree is provided as an example of recursion in trees.
+The Binary Tree contains a few methods that are implemented for you. This includes the main traversal functions, that simply call the helper functions described above on the root to kick off the recursive traversals. In addition, a method called printTree() is provided that prints the tree in a somewhat formatted method. This may be useful when debugging your code. Lastly, a simple recursive method that computes the height of the binary tree is provided as an example of recursion in trees.
 
 \subsection{BinarySearchTree.java}
 
-Next, you will implement a binary search tree. This class will extend the binary tree class from earlier, and thus inherit the print methods defined earlier. Your binary search tree should implement the provided Tree interface, shown below. 
+Next, you will implement a binary search tree. This class will extend the binary tree class from earlier, and thus inherit the traversal methods defined earlier. Your binary search tree should implement the provided Tree interface, shown below. 
 
 \begin{lstlisting}
 public interface Tree<T extends Comparable<T>> {

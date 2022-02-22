@@ -1,35 +1,36 @@
 package tree;
 
+
 public class BinaryTree<T> {
 
 	protected TreeNode<T> root = null;
 	
-	/* Print methods */
-	public void printInOrder() {
-		printInOrder(root);
-		System.out.println();
+	/* Traversal methods */
+	public String getInOrder() {
+		return getInOrder(root);
 	}
-	private void printInOrder(TreeNode<T> curNode) {
-		//TODO: Implement this method
-	}
-	
-	public void printPreOrder() {
-		printPreOrder(root);
-		System.out.println();
-	}
-	private void printPreOrder(TreeNode<T> curNode) {
-		//TODO: Implement this method
+	private String getInOrder(TreeNode<T> curNode) {
+		//TODO: return the in order traversal of this tree, space separated
 	}
 	
-	public void printPostOrder() {
-		printPostOrder(root);
-		System.out.println();
+	public String getPreOrder() {
+		return getPreOrder(root);
 	}
-	private void printPostOrder(TreeNode<T> curNode) {
-		//TODO: Implement this method
+	private String getPreOrder(TreeNode<T> curNode) {
+		//TODO: return the pre order traversal of this tree, space separated
+	}
+	
+	public String getPostOrder() {
+		return getPostOrder(root);
+	}
+	private String getPostOrder(TreeNode<T> curNode) {
+		//TODO: return the post order traversal of this tree, space separated
 	}
 
-	/* CODE BELOW IS IMPLEMENTED FOR YOU */
+	//------------------------------------------------------------------------
+	//EVERYTHING BELOW THIS POINT IS IMPLEMENTED FOR YOU
+	//YOU SHOULD STILL LOOK AT THIS CODE
+	//------------------------------------------------------------------------
 	
 	/* A somewhat more pretty print method for debugging */
 	public void printTree() {
@@ -47,12 +48,14 @@ public class BinaryTree<T> {
 		printTree(curNode.right, indentLev+1);
 	}
 	
-	/* Computes the height of the tree on the fly */
+	//TODO: Look at these methods and think about how they might be useful for this assignment
 	public int height() {
 		return height(root);
 	}
-	private int height(TreeNode<T> curNode) {
-		if(curNode == null) return 0;
-		else return Math.max(height(curNode.left), height(curNode.right))+1;
+	
+	/* Computes the height of the tree on the fly */
+	protected int height(TreeNode<T> node) {
+		if(node == null) return 0;
+		return node.height;
 	}
 }

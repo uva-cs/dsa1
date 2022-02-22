@@ -19,7 +19,10 @@ public class AVLTreeTester {
 		 *	AVL In: 1 2 3 4 5 6 7 8 9 
 		 *	AVL Post: 1 3 2 5 7 6 9 8 4 
 		 */
-		AVLTree<Integer> avl = new AVLTree<Integer>();
+
+		//You can comment this line back in next week
+		//AVLTree<Integer> avl = new AVLTree<Integer>();
+		
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		
 		int[] toInsert = {5,4,3,2,1,9,8,7,6};
@@ -30,13 +33,14 @@ public class AVLTreeTester {
 		}
 		
 		/* Print out pre, in, and post-order */
-		System.out.print("BST Pre: "); bst.printPreOrder();
-		System.out.print("BST In: "); bst.printInOrder();
-		System.out.print("BST Post: "); bst.printPostOrder();
+		System.out.print("BST Pre: " + bst.getPreOrder());
+		System.out.print("BST In: " + bst.getInOrder());
+		System.out.print("BST Post: " + bst.getPostOrder());
 		
-		System.out.print("AVL Pre: "); avl.printPreOrder();
-		System.out.print("AVL In: "); avl.printInOrder();
-		System.out.print("AVL Post: "); avl.printPostOrder();
+		// You can comment these lines in next week as well
+		// System.out.print("AVL Pre: " + avl.getPreOrder());
+		// System.out.print("AVL In: " + avl.getInOrder());
+		// System.out.print("AVL Post: " + avl.getPostOrder());
 		
 	}
 }

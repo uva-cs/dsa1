@@ -9,7 +9,7 @@ package tree;
 public class TreeNode<T>{
 		protected TreeNode<T> left = null;
 		protected TreeNode<T> right = null;
-		protected int height = 0;
+		protected int height = 1;
 		protected T data = null;
 		
 		public TreeNode(T data) {
@@ -20,4 +20,5 @@ public class TreeNode<T>{
 			this(data);
 			this.height = height;
 		}
+		
 }

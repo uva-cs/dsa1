@@ -25,7 +25,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> imp
 	
 	private boolean find(T data, TreeNode<T> curNode) {
 		//TODO: Implement this method
-		return false;
+		return null;
 	}
 
 	@Override
@@ -34,6 +34,17 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> imp
 	}
 	
 	protected TreeNode<T> remove(T data, TreeNode<T> curNode) {
+		//TODO: Implement this method
+		return null;
+	}
+	
+	/**
+	 * Returns the max item in the given subtree
+	 */
+	public T findMax() {
+		return findMax(this.root);
+	}
+	private T findMax(TreeNode<T> curNode) {
 		//TODO: Implement this method
 		return null;
 	}

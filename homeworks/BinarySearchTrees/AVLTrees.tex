@@ -109,7 +109,10 @@ You will implement an AVL tree that inherits from your binary search tree. An AV
 public class AVLTree<T extends Comparable<T>>
 					extends BinarySearchTree<T>{
 
-	//Insert and remove are partially coded for you already
+	//Insert and remove
+	protected TreeNode<T> insert(T data, TreeNode<T> curNode);
+	protected TreeNode<T> remove(T data, TreeNode<T> curNode);
+
 
 	//figures out whether a double or single rotation is
 	//needed and in which direction(s)

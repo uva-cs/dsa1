@@ -13,13 +13,8 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		this.root = insert(data, this.root);
 	}
 	protected TreeNode<T> insert(T data, TreeNode<T> curNode) {
-		curNode = super.insert(data, curNode);
-		
-		if(curNode == null) return null;
-		
-		//TODO: Update the height of curNode if necessary and call balance
-		
-		return curNode;
+		//TODO: Implement this method
+		return null;
 	}
 
 	@Override
@@ -27,20 +22,14 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		this.root = remove(data, this.root);
 	}
 	protected TreeNode<T> remove(T data, TreeNode<T> curNode) {
-		/* Call BST remove before balancing */
-		curNode = super.remove(data,  curNode);
-		
-		if(curNode == null) return null;
-		
-		//TODO: Update the height of curNode if necessary and call balance
-		
-		return curNode;
+		//TODO: Implement this method
+		return null;
 	}
 	
 	/**
 	 * Balances the given node. Assumes it is the lowest unbalanced node if unbalanced
 	 * @param node
-	 * @return the new root of this subtree
+	 * @return
 	 */
 	private TreeNode<T> balance(TreeNode<T> curNode) {
 		//TODO: Implement this method
@@ -49,7 +38,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 	
 	private TreeNode<T> rotateRight(TreeNode<T> curNode) {
 		//TODO: Implement this method
-		return null
+		return null;
 	}
 	
 	private TreeNode<T> rotateLeft(TreeNode<T> curNode){
@@ -58,12 +47,9 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 	}
 	
 	private int balanceFactor(TreeNode<T> node) {
-		return height(node.right) - height(node.left);
+		//TODO: Implement this method
+		return 0;
 	}
 	
-	/* height method that checks for the null case */
-	private int height(TreeNode<T> node) {
-		if(node == null) return 0;
-		return node.height;
-	}
+	
 }
