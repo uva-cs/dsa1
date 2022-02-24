@@ -25,9 +25,9 @@ This page contains the daily course schedule for the entire semester, as well as
 |6|15|	Monday|2/21/2022|<span class="c2">LLs / Stacks / Queues|	Linked Lists and Iterators|[Floryan](./LLStackQueue/1-LLs.html)<BR>[Basit](./Basit/Day15-LinkedLists.pdf)|<span class="c1">Vectors|||<span class="c3">Basic Java 3 (Quiz)|
 | |16|	Wednesday|2/23/2022|<span class="c2">|Stacks|[Floryan](./LLStackQueue/2-Stacks.html)<BR>[Basit](./Basit/Day16-Stacks.pdf)||<span class="c1">Vectors (Coding)|||
 | |17|	Friday|2/25/2022|<span class="c2">|Queues|[Floryan](./LLStackQueue/3-Queues.html)|||||
-|7|18|	Monday|2/28/2022|<span class="c3">Big-Oh / Recursion|Big-Oh, Big-Omega, Big-Theta|SLIDES TBD|<span class="c2">LL, Stacks, Queues|||<span class="c1">Vectors</span><br>**Quiz Retakes Modules 1-3 (Choose 1)**|
-| |19|	Wednesday|3/2/2022|<span class="c3">|More Big-Oh example problems|SLIDES TBD||<span class="c2">LL, Stacks Queues (Coding)|||
-| |20|	Friday|3/4/2022|<span class="c3">|Amortized Analysis|SLIDES TBD|||<span class="c2">LL, Stacks, Queues (Report)||
+|7|18|	Monday|2/28/2022|<span class="c3">Big-Oh / Recursion|Big-Oh, Big-Omega, Big-Theta|[Floryan](./BigOh/1-bigoh.html)|<span class="c2">LL, Stacks, Queues|||<span class="c1">Vectors</span><br>**Quiz Retakes Modules 1-3 (Choose 1)**|
+| |19|	Wednesday|3/2/2022|<span class="c3">|More Big-Oh example problems|[Floryan](./BigOh/2-bigoh.html)||<span class="c2">LL, Stacks Queues (Coding)|||
+| |20|	Friday|3/4/2022|<span class="c3">|Amortized Analysis|[Floryan](./BigOh/3-amortized.html)|||<span class="c2">LL, Stacks, Queues (Report)||
 | | |	Monday|3/7/2022|||	SLIDES TBD|	|	|||
 | | |	Wednesday|3/9/2022|UVA SPRING BREAK||SLIDES TBD||	|||
 | | |	Friday|3/11/2022|||	SLIDES TBD|	||||
