@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Linked Lists, Stacks, Queues</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Big Oh Analysis
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Orders of Growth](#/growth)  
+  </script></section>
+
+  <section>
+
+<section id="growth" data-markdown class="center"><script type="text/template">
+### Orders of Growth
+    </script></section>
+
+<section data-markdown><script type="text/template">
+### Motivation
+
+- __Goal__: Measure the *quality* of an algorithm or method in a data structure
+  - e.g., is find() in Linked Lists faster than find() in array
+  - what about get(index n)? 
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some first attempts
+
+- __attempt 1__: Use a stopwatch and time each algorithm
+  - Ok, but a bunch of confounding factors here (cpu speed, cache hits, other processes running, etc.)
+  - High variability even with one algorithm / method
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some first attempts
+
+- __attempt 2__: Count the number of lines of code / operations
+  - Good! But some issues still
+  - Some operations much faster than others, maybe not a big deal unless using them a lot
+  - How do we account for loops? Really running those lines over and over.
+  - If data structure / input is small, 10 operations versus 8 doesn't really matter
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Some first attempts
+
+- __attempt 3__: Count operations and measure how they scale up!!
+  - Not perfect, but very useful theoretical measure of an operation's efficiency
+  - Count the operations as a function of how big the input is.
+  - Example: find() in a Linked List. How many operations? Depends on size of the list!
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Asymptotic growth rate
+
+- __asymptotic growth rate__: Mathematical concept (i.e., on its own, has nothing to do with code / cs but we use it in cs). Describes the growth rate of something as a function. 
+  - e.g., n<sup>2</sup> is quadratic. grows faster than n (linear)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Classifying functions by their Asymptotic Growth Rates
+- Asymptotic growth rate or asymptotic order
+  - Comparing and classifying functions that ignores constant factors and small inputs. 
+- The sets are <span class='red'>big-omega</span>, big-theta, and <span class='skyblue'>big-oh</span>:
+  - <span class='red'>&Omega;</span>(*g*): functions that grow ***at least as fast*** as g
+  - &Theta;(*g*): functions that grow ***at the same rate*** as g
+  - <span class='skyblue'>O</span>(*g*): functions that grow ***no faster than*** g
+</script></section>
+
+    <section data-markdown><script type="text/template">
+### Why do we care?
+- Some data structures are faster than others
+  - Each data structure has some operations that are fast, and some operations that are slow
+- We need a way to compare them
+- This allows us to:
+  - Better choose the data structures that we will use
+  - Better design additional data structures
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Input sizes
+- Your algorithm does not matter if you have 10 elements
+  - A [bogosort](http://en.wikipedia.org/wiki/Bogosort) will work just fine
+- Consider big input sizes:
+  - UVa's e-mail probably has about 100,000 e-mail addresses
+  - [OpenStreetMap](http://www.openstreetmap.org), for driving routes, has over 3.2 billion nodes and 5.1 million GPS points ([ref](http://www.openstreetmap.org/stats/data_stats.html)) (as of Feb 2016)
+    </script></section>
+
+<section data-markdown><script type="text/template">
+### Even for smaller input sizes...
+- All times are in ms (1/1000<sup>th</sup> of a second)
+
+| Data Structure | Total time | Insert time | Search time | Delete time |
+|----------------|------------|-------------|-------------|-------------|
+| Vector         | 17,311     | 30          | 12,620      | 4,661       |
+| ArrayList      | 17,281     | 28          | 12,609      | 4,644       |
+| LinkedList     | 24,255     | 54          | 17,934      | 6,267       |
+| HashSet        | 122        | 103         | 9           | 10          |
+
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Assumptions
+- We have measured the running time of our program with different input sizes, and that result is encapsulated in some function *f*(*n*)
+  - *n* is the input size, and is always a positive integer
+- We have some other function *g* that we want to compare our program to
+- So we will compare *f*(*n*) to *g*(*n*), such as:
+  - *f*(*n*) &isin; O(*g*(*n*))
+  - *f*(*n*) &notin; &Omega;(*g*(*n*))
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Worst-case Scenario
+- We always analyze the ***worst case*** run-time
+  - It makes no sense to analyze the best case, as that is rarely likely to happen
+  - And the *average* case (if you could even define what that is) may not be representative and is not used in these analyses either
+- A more formal definition of *worst case*, should you be interested, can be found [here](http://en.wikipedia.org/wiki/Worst_case)
+    </script></section>
+
+    <section>
+<h2>The Sets O(<i>g</i>), &Theta;(<i>g</i>), &Omega;(<i>g</i>)</h2>
+<ul>
+<li>Let <i>f</i> and <i>g</i> be a functions from the non-negative integers into the positive real numbers</li>
+<li>For some real constant <i>c</i> > 0 and some non-negative integer constant <i>n</i><sub>0</sub><ul>
+  <li>O(<i>g</i>) is the set of functions <i>f</i>, such that:<ul>
+    <li><i>f</i>(<i>n</i>) <span class='red'>&le;</span> c * <i>g</i>(<i>n</i>) for all <i>n</i> &ge; <i>n</i><sub>0</sub></li></ul></li>
+  <li>&Omega;(<i>g</i>) is the set of functions <i>f</i>, such that:<ul>
+    <li><i>f</i>(<i>n</i>) <span class='red'>&ge;</span> c * <i>g</i>(<i>n</i>) for all <i>n</i> &ge; <i>n</i><sub>0</sub></li></ul></li>
+  <li>&Theta;(<i>g</i>) = O(<i>g</i>) &cap; &Omega;(<i>g</i>)<ul>
+    <li>&Theta;(<i>g</i>) is the asymptotic order of g or the <i>order</i> of g</li>
+</ul></li>
+</ul>
+<script type="text/javascript">insertCanvas();</script>
+    </section>
+
+    <section data-markdown><script type="text/template">
+## Asymptotic Bounds
+- For the sets big-oh O(*g*), big-theta &Theta;(*g*), and big-omega &Omega;(*g*), remember these meanings:
+  - O(*g*): functions that grow ***no faster than*** *g*, or ***asymptotic upper bound***
+  - &Omega;(*g*): functions that grow ***at least as fast as*** *g*, or ***asymptotic lower bound***
+  - &Theta;(*g*): functions that grow ***at the same rate as*** *g*, or ***asymptotic tight bound***
+    </script></section>
+
+    <section>
+<h2>Big-Oh Examples</h2>
+<p><i>f</i>(<i>n</i>) &isin; O(<i>g</i>(<i>n</i>)) means that there are positive constants <i>c</i> and <i>n</i><sub>0</sub> such that <i>f</i>(<i>n</i>) &le; <i>c</i>*<i>g</i>(<i>n</i>) for all values <i>n</i> &ge; <i>n</i><sub>0</sub></p>
+&nbsp;
+<ul>
+<li>Is <i>n</i> &isin; O(<i>n</i><sup>2</sup>)?
+  <ul><li class="fragment">Yes, <i>c</i> = 1, <i>n</i><sub>0</sub> = 2 works fine</li></ul></li>
+<li>Is 10<i>n</i> &isin; O(<i>n</i>)?
+  <ul><li class="fragment">Yes, <i>c</i> = 11, <i>n</i><sub>0</sub> = 2 works fine</li></ul></li>
+<li>Is <i>n</i><sup>2</sup> &isin; O(<i>n</i>)?
+  <ul><li class="fragment">No; no matter what values for <i>c</i> and <i>n</i><sub>0</sub> we pick, <i>n</i><sup>2</sup> &gt; <i>c</i>*<i>n</i> for big enough <i>n</i></li></ul></li>
+</ul>
+<script type="text/javascript">insertCanvas();</script>
+    </section>
+
+    <section>
+<h2>Given <i>f</i> &isin; O(<i>h</i>) and <i>g</i> &notin; O(<i>h</i>),<br>which of these are true?</h2>
+<ol>
+<li>For <b><i>all</i></b> positive integers <i>m</i>, <i>f</i>(<i>m</i>) &lt; <i>g</i>(<i>m</i>).</li>
+<li>For <b><i>some</i></b> positive integer <i>m</i>, <i>f</i>(<i>m</i>) &lt; <i>g</i>(<i>m</i>).</li>
+<li>For <b><i>some</i></b> positive integer <i>m</i><sub>0</sub>, and <b><i>all positive</i></b> integers <i>m</i> > <i>m</i><sub>0</sub>,  <i>f</i>(<i>m</i>) &lt; <i>g</i>(<i>m</i>).</li>
+<li>1 and 2</li>
+<li>2 and 3</li>
+<li>1 and 3</li>
+</ol>
+<script type="text/javascript">insertCanvas();</script>
+    </section>
+
+    <section data-markdown><script type="text/template">
+### Lower Bound: &Omega; (Omega)
+- *f*(*n*) &isin; &Omega; (*g*(*n*)) means:
+  - There are positive constants *c* and *n*<sub>0</sub> such that *f*(*n*) <span class='red'>&ge;</span> *c*\*g*(*n*) for all *n* &ge; *n*<sub>0</sub> 
+  - The difference from big-oh is the &ge; in big-omega versus &le; in big-oh
+- This is a *lower* bound
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Theta ("Order of")
+- Intuition: the set &Theta;(*f*) is the set of functions that grow ***as fast as*** *f*
+- Definition: *f*(*n*) &isin; &Theta;(*g*(*n*)) if and only if both: 
+  1. *f*(*n*) &isin; O (*g*(*n*))
+  2. *f*(*n*) &isin; &Omega; (*g*(*n*))
+- Note that we do not have to pick the same *c* and *n*<sub>0</sub> values for cases 1 and 2
+- When we say, "*f* is order *g*" that means *f*(*n*) &isin; &Theta; (*g*(*n*))
+    </script></section>
+
+   
+
+
+<!---------------------------------------------- -->
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Linked Lists, Stacks, Queues</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Big Oh Analysis
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Orders of Growth](#/growth)  
+[Determining Running Times](#/runningtimes)  
+  </script></section>
+
+  <section>
+
+<section id="growth" data-markdown class="center"><script type="text/template">
+### Orders of Growth
+    </script></section>
+
+
+
+    <section data-markdown><script type="text/template">
+### Little-oh
+- Let *f*(*n*) &isin; <span class='red'>o</span>(*g*(*n*))
+  - Any function that is o(*g*) is also O(*g*)
+    - So both act as an upper bound
+  - But a O(*g*) bound can also be &Omega;(*g*) and thus &Theta;(*g*)
+    - Meaning the big-oh bound can be tight
+  - Little-oh means the bound can not be tight
+    - Thus, it's O(*g*) but not &Theta;(*g*)
+    - Or, that *f*(*n*) will ***always*** be ***strictly*** less than *g*(*n*):
+      - *f*(*n*) <span class='red'>&lt;</span> *c* \* *g*(*n*) for all *n* &ge; *n*<sub>0</sub>, for some constants *c* and *n*<sub>0</sub>
+  - Rarely used in computer science...
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Little-omega
+- Analogous to little-oh
+  - It's a lower bound that cannot be a tight lower bound
+  - If something is &omega;(*g*), then it's &Omega;(*g*) but not &Theta;(*g*)
+- Rarely used in computer science...
+- What does this mean for little-theta?
+    </script></section>
+
+    <section>
+<h3>Another Way to Define Order Classes</h3>
+<ul>
+<li>Comparing <i>f</i>(<i>n</i>) and <i>g</i>(<i>n</i>) as <i>n</i> approaches infinity...</li>
+<li>If limit as n approaches infinity of f(n)/g(n) is:
+<ul>
+  <li>&lt; &infin;, including the case in which the limit is 0, then <i>f</i> &isin; O(<i>g</i>)</li>
+  <li>&gt; 0, including the case in which the limit is &infin;, then <i>f</i> &isin; &Omega;(<i>g</i>)</li>
+  <li>= <i>c</i> and 0 &lt; <i>c</i> &lt; &infin; then <i>f</i> &isin; &Theta;(<i>g</i>)</li>
+  <li>= 0  then <i>f</i> &isin; o(<i>g</i>)<ul><li>read as &quot;little-oh of <i>g</i>&quot;</li></ul></li>
+  <li>= &infin;  then <i>f</i> &isin; &omega;(<i>g</i>)<ul><li>read as &quot;little-omega of <i>g</i>&quot;</li></ul></li>
+</ul></li></ul>
+    </section>
+
+    <section data-markdown><script type="text/template">
+### A note about notation
+- Stating *f*(*n*) = O(*g*(*n*)) implies an equality
+  - This is a bit of an abuse of the notation, as O(*g*(*n*)) is a ***set***
+  - It should be *f*(*n*) &isin; O(*g*(*n*))
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Some Properties of O(*g*), &Theta;(*g*), &Omega;(*g*)
+- Reversing big-oh: *f* &isin; O(*g*) &hArr; *g* &isin; &Omega;(*f*)
+- Adding big-oh: O(*f* + *g*) = O(max(*f*, *g*)) 
+  - Similar equations hold for &Omega; and &Theta;
+- Transitive: If *f* &isin; O(*g*) and *g* &isin; O(*h*), then *f* &isin; O(*h*)
+  - Big-Oh is transitive, as are all the others (big-theta, big-omega, little-oh, and little-omega)
+    </script></section>
+
+  <section data-markdown><script type="text/template">
+### Some Properties of O(*g*), &Theta;(*g*), &Omega;(*g*)
+- Reflexive: *f* &isin; &Theta;(*f*)
+  - As are big-oh and big-omega
+- Symmetric: If *f* &isin; &Theta;(*g*), then *g* &isin; &Theta;(*f*)
+  - Big-Oh is not symmetric!  (neither are &Omega;, o, or &omega;)
+- &Theta; defines an ***equivalence relation*** on the functions
+  - Each set &Theta;(*f*) is an equivalence class (complexity class)
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Classification of functions
+- &Theta;(1) denotes the set of functions bounded by a constant (for large *n*)
+  - *f* &isin; &Theta;(log *n*) means *f* is logarithmic
+  - *f* &isin; &Theta;(*n*) means *f* is linear
+  - *f* &isin; &Theta;(*n* log *n*) means *f* is log-linear
+  - *f* &isin; &Theta;(*n*<sup>2</sup>) means *f* is quadratic
+  - *f* &isin; &Theta;(*n*<sup>3</sup>) means *f* is cubic
+  - *f* &isin; &Theta;(2<sup>*n*</sup>) means *f* is exponential
+- *n*<sup>*k*</sup> &isin; <span class='red'>o</span>(*c*<sup>*n*</sup>) for any *k* > 0 and any *c* > 1
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### A note about logs
+- The difference between log<sub>10</sub>*n* and log<sub>2</sub>*n* is always a constant
+  - Specifically, about 3.322
+  - Since we don't care about constants in these analyses, we'll ignore the log base
+- Most things in computer science are log base 2 anyway...
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Typical Growth Rates
+
+| Function | Name |
+|----------|------|
+| *c* | constant |
+| log *n* | logarithmic |
+| log<sup>2</sup>*n* | log-squared |
+| *n* | linear |
+| *n* log *n* | log-linear |
+| *n*<sup>2</sup> | quadratic |
+| *n*<sup>3</sup> | cubic |
+| 2<sup>*n*</sup> | exponential |
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Does Order Class Matter?
+- No, not for small inputs
+- Yes, for many real problems
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### General Rules for Running<br>Time Calculations (Big-Oh)
+- For loops
+  - The number of times the for loop runs times the total running time of the statements inside the for loop
+- Nested loops
+  - Analyze from inside to out
+    - Runtime of the statement \* product of the sizes of the loops
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### General Rules for Running<br>Time Calculations (Big-Oh)
+- Consecutive statements
+  - Additive (remember that we remove constants!)
+- if/else
+  - Time for the test plus the longer of the runtimes
+    </script></section>
+
+  </section>
+
+
+  <section>
+
+    <section id="runningtimes" data-markdown class=center><script type="text/template">
+### Determining Running Times
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### How to tell the running time...
+- You need to imagine how long the algorithm would run given varying input sizes
+  - We will assume our input size is *n*
+- You should ask yourself...
+  - How long will this algorithm take when *n* = 1?
+  - When *n* = 100?
+  - When *n* = 1,000,000,000?
+- Recall that we always analyze the worst case!
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Running time: constant
+- Constant (&Theta;(1)) time means that the running time does NOT depend on the size of the input
+- Examples:
+  - Getting a vector's size
+  - Linked list insert or delete (at the known end)
+  - Finding the k<sup>th</sup> element in an array or vector
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Running time: logarithmic
+- Logarithmic (&Theta;(log *n*)) running time is when the search space is cut in half in each iteration
+  - Or when you are iterating up or down a data structure, such as a tree, that has &Theta;(log *n*) height
+- Examples:
+  - Binary search in a sorted array or vector
+  - Search (or insert or delete) with a balanced tree
+    - Balanced tree means an AVL tree or Red-black tree
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Running time: linear
+- Linear (&Theta;(*n*)) running time means that we have to process each element, and there is one step (or a constant number of steps) for each one
+- Examples:
+  - Printing (or otherwise iterating through) a list
+  - Finding an element in an unsorted array or vector
+  - Finding an element in a sorted or unsorted linked list
+  - Doubling the size of a vector's underlying array
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Running time: Log-linear
+- Log-linear (&Theta;(*n* log *n*)) typically occurs when you are going to take a linear number of steps, but each one takes log *n* time
+  - Or log *n* steps, each one of which takes *n* time
+- Examples:
+  - Fast sorts: merge sort and heap sort
+  - Quicksort, on a good day (but this is not guaranteed!)
+  - Inserting *n* elements into a data structure where each insert takes log *n* time
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Running time: quadratic
+- A quadratic (&Theta;(*n*<sup>2</sup>)) running time occurs when, for each input, you have to search through the entire input again
+  - (among other ways it can occur)
+- Examples:
+  - Slow sorts: insertion sort, bubble sort, selection sort
+  - Quicksort, on a bad day
+  - Doubly nested for loops (where each loop goes 1 to *n*)
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Running time: exponential
+- An exponential (&Theta;(2<sup>*n*</sup>)) running time typically means you are going to try every possible solution, and there are 2<sup>*n*</sup> of them
+- Examples (we have not seen any yet)
+  - Trying to crack a binary combination lock by trying every single possibility
+  - Traveling salesperson problem (we'll see that later this semester)
+  - Satisfiability of a Boolean expression
+    </script></section>
+
+  </section>
+
+<!---------------------------------------------- -->
+
+
+<!---------------------------------------------- -->
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
