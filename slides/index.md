@@ -28,9 +28,9 @@ This page contains the daily course schedule for the entire semester, as well as
 |7|18|	Monday|2/28/2022|<span class="c3">Big-Oh / Recursion|Big-Oh, Big-Omega, Big-Theta|[Floryan](./BigOh/1-bigoh.html)<BR>[Basit](./Basit/Day18-19-BigOh.pdf)|<span class="c2">LL, Stacks, Queues|||<span class="c1">Vectors</span><br>**Quiz Retakes Modules 1-3 (Choose 1)**|
 | |19|	Wednesday|3/2/2022|<span class="c3">|More Big-Oh example problems|[Floryan](./BigOh/2-bigoh.html) and<BR>[Basit 1](./Basit/Day18-19-BigOh.pdf)<BR>[Basit 2](./Basit/Day19-01-Complexity Classes.pdf); [Basit 3](./Basit/Day19-02-Complexity Examples.pdf)||<span class="c2">LL, Stacks Queues (Coding)|||
 | |20|	Friday|3/4/2022|<span class="c3">|Amortized Analysis|[Floryan and Basit](./BigOh/3-amortized.html)|||<span class="c2">LL, Stacks, Queues (Report)||
-| | |	Monday|3/7/2022|||	SLIDES TBD|	|	|||
-| | |	Wednesday|3/9/2022|UVA SPRING BREAK||SLIDES TBD||	|||
-| | |	Friday|3/11/2022|||	SLIDES TBD|	||||
+| | |	Monday|3/7/2022|||Enjoy the||	|||
+| | |	Wednesday|3/9/2022|UVA SPRING BREAK||Spring||	|||
+| | |	Friday|3/11/2022|||Break!|	||||
 |8|21|	Monday|3/14/2022|<span class="c1">Trees|	Recursion + Examples|SLIDES TBD|<span class="c3">Big-Oh|||<span class="c2">LL, Stacks, Queues (Quiz)|
 | |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|SLIDES TBD||<span class="c3">Big-Oh (Coding)|||
 | |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|SLIDES TBD|||<span class="c3">Big-Oh (Report)||
