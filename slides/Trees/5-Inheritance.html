@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Vectors</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Trees
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Inheritance](#/inh)  <br />
+[Red-Black Trees](#/rbt)  <br />
+[Applications of Trees](#/app)  <br />
+</script></section>
+
+  
+
+
+<section>
+
+<section id="inh" data-markdown class="center"><script type="text/template">
+## Basic Inheritance
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### Motivation
+
+- Sometimes we want to create objects that naturally share a lot of functionality.
+  - e.g., avl trees and BST both store and use binary nodes
+  - e.g., find() in avl and BST works the same way
+
+- __Goal 1__: Reduce the amount of code that needs to be duplicated
+- __Goal 2__: Allow for polymorphism between types that have shared attributes
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### Concrete Motivation
+
+- Suppose we are writing some code for a car website (e.g., carmax)
+- We might have some objects like:
+  - Car: contains make, model, price, year
+  - Motorcycle: contains make, model, ..., 
+  - Truck: contains make, model, price, towing capacity
+
+- __Problem 1:__ A LOT of duplicate code
+- __Problem 2:__ Have to process Cars / Motorcycles / Trucks as totally seperate types of variables
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+#### Inheritance
+
+- Java provides __inheritance__ as a mechanism for organizing your classes more succinctly.
+- __Inheritance__: Is a property of a class in which it has a parent class. The child class inherits the fields and the methods of the parent class.
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Inheritance Idea
+
+- In figure below: Many fields are duplicated in the two classes
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  A["Car : Make, model, price, horsepower"]
+  B[Truck : Make, model, price, tow power]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Inheritance Idea
+
+- Using inheritance, all vehicles has some shared properties, and cars / trucks have some unique ones too.
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  C[Vehicle : Make, model, price]
+  C --> A[Car : horsepower]
+  C --> B[Truck : tow power]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Inheritance Idea
+
+- Behavior can be duplicated as well
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  C["Vehicle : sell(), increasePrice()"]
+  C --> A["Car : race()"]
+  C --> B["Truck : installTowHitch()"]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+
+<section data-markdown><script type="text/template">
+#### Inheritance in Java
+
+- Java allows you to use inheritance with the __extends__ keyword (see next slide)
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Vehicle{
+  String make;
+  String model;
+  double price;
+
+  //constructor
+  public Vehicle(String make, String model, double price){
+    this.make = make;
+    this.model = model;
+    this.price = price;
+  }
+
+  public void sell(){/*CODE HERE*/}
+
+  public void increasePrice(double amount){
+    this.price += amount;
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Inheritance in Java
+
+- Java allows you to use inheritance with the __extends__ keyword (see next slide)
+- __extends__ means the class automatically gets all public fields and methods of its parent.
+
+<pre><code class="hljs" data-trim contenteditable>
+//get everything in vehicle for free!
+public class Car extends Vehicle{
+  int horsepower;
+
+  public void race(){/*DO STUFF*/}
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Inheritance in Java
+
+- Use __super__ to access fields and methods in parent
+- super() will also call the constructor of the parent class
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Car extends Vehicle{
+  int horsepower;
+
+  //constructor
+  public Car(String make, String model, double price, int horsepower){
+    super(make, model, price);
+    this.horsepower = horsepower;
+  }
+
+  public void race(){
+    /*DO RACING STUFF*/
+    super.sell(); //done with this car now?
+  }
+}
+</code></pre>
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+#### Practical Example: Trees
+
+- There are some things that ALL trees have/do:
+  - Store tree nodes
+  - All tree nodes have left and right child
+  - All nodes have height
+  - You can insert into any tree (though different mechanism)
+- Inheritance is perfect for this
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Practical Example: Trees
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  A[Binary Tree] --> B[BST]
+  B --> C[AVL]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown><script type="text/template">
+#### Practical Example: Trees
+
+- __Binary Tree__
+  - Stores BinaryTreeNode root
+  - pre-order, post-order, in-order traversal methods
+- __BST__
+  - Does everything Binary Tree does
+  - Inserts in sorted order, removes nodes
+  - Find()
+- __AVL__
+  - Does everything a BST does.
+  - Adds tree rotation methods
+  - Inserts and removes same way then rotates
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: Trees
+
+- __Binary Tree__: things ALL trees have/do
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BinaryTree< T > {
+
+  protected TreeNode< T > root = null;
+  
+  /* IMPLEMENT THESE METHODS FOR LAB */
+  public void printInOrder();
+  public void printPreOrder();
+  public void printPostOrder();
+}
+</code></pre>
+
+<pre><code class="hljs" data-trim contenteditable>
+public class TreeNode< T >{
+    protected T data = null;
+    protected TreeNode< T > left = null;
+    protected TreeNode< T > right = null;
+    protected int height = 0;
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: BST
+
+- __Binary Search Tree__: things only BSTs do
+- What is this "T extends Comparable thing"?
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BinarySearchTree< T extends Comparable< T > >
+                extends BinaryTree< T > implements Tree< T >{
+  
+  public void insert(T data){...}
+
+  public boolean find(T data){...}
+
+  public void remove(T data){...}
+  
+  public TreeNode< T > findMax(TreeNode< T > curNode){...}
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: AVL Tree
+
+- __AVL Tree__: things only AVLs do
+- Notice that we have insert again??
+
+<pre><code class="hljs" data-trim contenteditable>
+public class AVLTree< T extends Comparable< T >>
+                extends BinarySearchTree< T >{
+  
+  @Override
+  public void insert(T data){...}
+
+  @Override
+  public void remove(T data){...}
+  
+  private TreeNode< T > balance(TreeNode< T > curNode){...}
+  private TreeNode< T > rotateRight(TreeNode< T > curNode){...}
+  private TreeNode< T > rotateLeft(TreeNode< T > curNode){...}
+  
+  private int balanceFactor(TreeNode< T > node){...}
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: AVL Tree
+
+- Notice that AVL Tree and BST both had an __insert()__ method with the same parameters.
+- This is called overriding a method.
+- The parent class implemented the method already, but the child class wants to __override__ that implementation, and reimplement it slightly differently.
+  - Sometimes child will use __super.methodHere()__ to call the parent version and then add more functionality on top
+  - Sometimes child class will totally rewrite the method.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Practical Example: AVL Tree
+
+- How does java know which insert() method to actually execute?
+- Jave uses __Dynamic Dispatch__, meaning the run-time type of the object is examined, and the method in that class is automatically invoked.
+
+<pre><code class="hljs" data-trim contenteditable>
+BinarySearchTree< Integer > myTree = new AVLTree< Integer >();
+/* ... */
+myTree.insert(5); //AVLTree.insert() is called.
+</code></pre>
+</script></section>
+
+</section>
+
+  <section>
+
+    <section id="rbt" data-markdown class="center"><script type="text/template">
+## Red-black Trees
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Red-black trees
+- Each node has a color attribute, which is either (wait for it...) red or black
+- Animation site is [here](http://www.qmatica.com/DataStructures/Trees/BST.html) ([mirror](http://webdiis.unizar.es/asignaturas/EDA/AVLTree/avltree.html))
+
+![red black tree 1](https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Red-black_tree_example.svg/500px-Red-black_tree_example.svg.png)
+
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Red-black tree properties
+All of these properties must hold for a red-black tree
+
+1. A node is either red or black
+2. The root is black
+3. All leaves are black
+   - The leaves may be the `NULL` children
+4. Both children of every red node are black
+   - Therefore, a black node is the only possible parent for a red node
+5. Every simple path from a node to any descendant leaf contains the same number of black nodes
+   - Counting or not counting the `NULL` black nodes; it doesn't make a difference as long as you are consistent
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Insert
+- Insert the node as for a normal BST
+  - And color it red
+- 5 possible cases:
+  1. The new node is the root node
+  2. The new node's parent is black
+  3. Both the parent and uncle (aunt?) are red
+  4. Parent is red, uncle is black, new node is the right child of parent
+  5. Parent is red, uncle is black, new node is the left child of parent
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Removal
+- Do a normal BST remove
+  - Find next highest/lowest value, put its value in the node to be deleted, remove that highest/lowest node
+    - Note that that node won't have 2 children!
+  - We replace the node to be deleted with its left child
+    - This child is N, its sibling is S, its parent is P
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Removal cases
+- A total of 6 cases!
+  1. N is the new root
+  2. S is red
+  3. P, S, and S's children are black
+  4. S and S's children are black, but P is red
+  5. S is black, S's left child is red, S's right child is black, and N is the left child of its parent
+  6. S is black, S's right child is red, and N is the left child of parent P
+- We won't see them in detail, though, but you can find details [here](http://en.wikipedia.org/wiki/Red_black_trees)
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Why a red-black versus AVL?
+- AVL trees are more rigidly balanced than red-black trees
+  - Thus, more rotations are required during the operations in the worst case
+- Time-critical applications will see a performance boost
+- Functional programming languages used red-black trees for associative arrays (hashes)
+  - The tree can be a persistent data structure
+    - A data structure that retains a "memory" of its mutations
+    </script></section>
+
+  </section>
+
+
+<section>
+
+    <section id="app" data-markdown class="center"><script type="text/template">
+## Applications
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### When are trees not good to use?
+- Trees are fast -- so when would we not want to use them?
+  - When the items do not have a sorted order
+    - A list of todo tasks
+  - When we want less complexity
+    - A stack or a queue
+  - When we want an &Theta;(1) operation on retrieves
+    - Vector get()
+  - When we want an &Theta;(1) time for *all* operations
+    - Hash tables can (almost) achieve that
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Applications of Trees: Programs
+- Any program can be represented as a tree; consider the following program (no external source code):
+
+```
+int z;
+
+int foo (int x) {
+    for ( int y = 0; y < x; y++ )
+        cout << y << endl;
+}
+
+int main() {
+    int z = 5;
+    cout << "enter x" << endl;
+    cin >> z;
+    foo(z);
+}
+```
+- Note that there are two `int z` declarations; this will be relevant shortly
+    </script></section>
+
+    <section>
+<h3>The program tree</h3>
+<img class="stretch" src="../images/05-trees/program-tree-1.svg" alt="program tree">
+    </section>
+
+    <section data-markdown><script type="text/template">
+#### Notes on the program tree
+- Called a "abstract syntax tree" or a "parse tree"
+- Each node can be a different type
+  - Having different properties and different number of children
+    - A `for` loop node has four children (for init, for expression, for update, body)
+    - A function node has at least three children (parameters, variables, body)
+      - (we are ignoring other possible children of a function node here)
+    - A body node has a variable number children
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Notes on the program tree
+- Called an "abstract syntax tree" or a "parse tree"
+- A compiler will build such a tree in memory
+  - And trasverse it many times
+  - For example, to figure out which 'z' is used in the main() function
+  - Or to do code generation
+    - Each node has an overridden method to generate the code for that node
+  - Or to do type checking
+  - Or to do code optimization
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Comparing two programs
+- What if we read in two programs...
+  - ... and build parse trees for each
+  - ... and compare their structure?
+- We would be able to compare two programs while ignoring such things as:
+  - Function/method order
+  - Variable renaming
+  - Different comments
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+#### Measure of Structural Similarity
+- "A System for Detecting Software Plagiarism" ([website](http://theory.stanford.edu/~aiken/moss/))
+  - The paper the site is based on can be found [here](http://theory.stanford.edu/~aiken/publications/papers/sigmod03.pdf)
+- It will load up all the programs for a class
+- And do all *n*<sup>2</sup> comparisons
+- And display the most similar programs
+    </script></section>
+
+  </section>
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

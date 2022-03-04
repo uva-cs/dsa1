@@ -64,11 +64,9 @@
 	 <section data-markdown class="center"><script type="text/template">
 ### Contents
 &nbsp;  
-[Amortized Analysis](#/amortized)  
+[Amortized Analysis](#/amortized) <br/>
+[Binary Search](#/binarysearch)  
   </script></section>
-
-
-
 
 <!---------------------------------------------- -->
 
@@ -113,6 +111,68 @@
   </section>
 
 <!---------------------------------------------- -->
+
+<!---------------------------------------------- -->
+
+  <section>
+
+    <section id="binarysearch" data-markdown class=center><script type="text/template">
+### Binary Search
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Motivation
+- Searching for an item in a list. 
+- Searching through every element is SLOW (Theta(n) time)
+- BUT...if the data is **sorted**, we can do something better!!
+
+- Question: How do you find an word in a dictionary?
+    </script></section>
+
+ <section data-markdown><script type="text/template">
+### Binary Search (Overview)
+- Look in the middle of list, three cases:
+  - You found the item!
+  - item you are looking for is LESS than middle item
+    - Search in the first half only!!
+  - item you are looking for is GREATER than middle item
+    - Search in the second half only!!
+    </script></section>
+
+   <section data-markdown><script type="text/template">
+### Binary Search (Psuedo-code)
+- Psuedo code:
+
+```
+BinarySearch(list[] numbers, target):
+  start = 0;
+  end = numbers.length-1;
+
+  while (start <= end) //why?
+    middle = (start+end) / 2
+    if(numbers[middle] == target)
+      return true; //found it!!
+    else if(target < numbers[middle])
+      end = middle-1;
+    else if(target > numbers[middle])
+      start = middle+1;
+
+  return false //didn't find it
+```
+    </script></section>
+
+<section data-markdown><script type="text/template">
+### How fast is Binary Search
+- Consider a list of 16 elements
+  - Linear Search worst case is 16 items searched
+  - Binary Search worst case is 4 items searched
+- Consider 1024 elements
+  - Linear Search worst case is 1024 items searched
+  - Binary Search worst case is 10 items searched
+- Consider 8 billion elements
+  - Linear search worst case is 8 billion
+  - Binary search is about 32 items searched
+    </script></section>
 
 
 <!-- EXTRA STUFF FOR SLIDE LIBRARY -->

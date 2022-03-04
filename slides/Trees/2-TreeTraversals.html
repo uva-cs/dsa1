@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Vectors</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Trees
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Introduction](#/intro)  <br />
+[Tree Traversals](#/trav) <br />
+</script></section>
+
+  <section>
+
+<section id="intro" data-markdown class="center"><script type="text/template">
+## Introduction
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Data Structures
+- If we have a good list implementation, do we need any other data structures?
+- For computing: ***no***
+  - We can compute everything with just lists (actually even less).  The underlying machine memory can be thought of as a list
+- For thinking: ***yes***
+  - Lists are a very limited way of thinking about problems
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+## List Limitations
+
+<span class="diagram-data" style="display:none;">
+  graph LR
+    A[50]
+    A --> B[27]
+    B --> C[101]
+    C --> D[67]
+  </span><div class="diagram-display"></div>
+
+- In a list, every element has direct relationships with only two others: the predecessor and the successor
+- Access time: &Theta;(*n*)
+- Goal: &Theta;(log *n*)
+    </script></section>
+
+    <section>
+<h3><a href="http://commons.wikimedia.org/wiki/File:IndoEuropeanTree.svg">Complex Relationships: Language Tree</a></h2>
+<img alt="language tree" class="stretch" src="../images/05-trees/IndoEuropeanTree.svg" style="background-color:white">
+    </section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+### List &rarr; Tree
+- List: each element has relationships with up to 2 other elements
+- Binary Tree: each element has relationships with up to ***3*** other elements
+  - A tree is a special case of a list
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[50]
+    A --> B[12]
+    A --> C[99]
+  </span><div class="diagram-display"></div>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Tree Terms
+- *Root*: node with no parent; there is only one root
+- *Leaf*: a node with no children
+- *Siblings*: two nodes with the same parent
+- *Height* of a node: length of the ***longest*** path from that node to a leaf
+  - Thus, all leaves have height of zero
+  - *Height of a tree*: maximum depth of a node in that tree = height of the root
+- *Depth* of a node: length of the path from the root to that node
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### More Tree Terms
+- *Path*:  sequence of nodes *n*<sub>1</sub>, *n*<sub>2</sub>, ..., *n*<sub>*k*</sub> such that *n*<sub>*i*</sub> is parent of *n*<sub>*i*+1</sub> for 1 &le; *i* &le; *k*
+- *Length*: number of edges in the path
+- *Internal path length*: sum of the depths of all the nodes
+    </script></section>
+
+
+<section>
+
+<h2>Other Examples of Trees</h2>
+<table class="transparent"><tr><td class="top" style="width:60%">
+<ul><li>Files and folders on a computer</li>
+<li>Compilers: parse tree<pre><code class="avrasm">a = (b+c) * d;</code></pre></li>
+<li>Genealogy trees<ul>
+<li>These become complicated with some complex family relationships</li></ul></li>
+</ul>
+</td>
+</tr></table>
+    </section>
+
+</h3></section>
+
+  <section>
+
+<section id="trav" data-markdown class="center"><script type="text/template">
+## Tree Traversals
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Problem: Traversing a Tree
+
+- If I ask you to print out a tree, not obvious what order to print things.
+- With a list, the order is obvious.
+- For a tree, we can use various types of __tree traversals__
+- A __tree traversal__ is a strategy / order for visiting the nodes.
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+<span class="diagram-data" style="display:none;">
+  graph TD
+    / --> A[\*]
+    / --> B[*]
+    A --> C[+]
+    A --> D[-]
+    C --> 1
+    C --> 2
+    D --> 3
+    D --> 4
+    B --> 5
+    B --> 6
+  </span><div class="diagram-display"></div>
+
+- Pre-order: `/ * 5 6 * + 1 2 - 3 4`
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+<span class="diagram-data" style="display:none;">
+  graph TD
+    / --> A[\*]
+    / --> B[*]
+    A --> C[+]
+    A --> D[-]
+    C --> 1
+    C --> 2
+    D --> 3
+    D --> 4
+    B --> 5
+    B --> 6
+  </span><div class="diagram-display"></div>
+
+- In-order: `(5+6) / ((1+2)*(3-4))`
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+<span class="diagram-data" style="display:none;">
+  graph TD
+    / --> A[\*]
+    / --> B[*]
+    A --> C[+]
+    A --> D[-]
+    C --> 1
+    C --> 2
+    D --> 3
+    D --> 4
+    B --> 5
+    B --> 6
+  </span><div class="diagram-display"></div>
+
+- Post-order: `5 6 * 1 2 + 3 4 - * /`
+</script></section>
+
+    <section data-markdown><script type="text/template">
+## Pre-order Traversal
+- Pre-order: node first, then children (this is pseudo-code):
+
+<pre><code class="hljs" data-trim contenteditable>
+public class Tree{
+  private Node root;
+
+  public void printTree(){
+    printTree(root);
+  }
+
+  private void printTree(Node curNode) {
+      if(curNode == null) return;
+
+      System.out.println(curNode.value + " ");
+      printTree(curNode.left);
+      printTree(curNode.right);
+  }
+}
+</code></pre>
+</script></section>
+
+    <section data-markdown><script type="text/template">
+## In-order Traversal
+- In-order: left node first, then self, then right node:
+
+<pre><code class="hljs" data-trim contenteditable>
+  private void printTree(Node curNode) {
+      if(curNode == null) return;
+
+      printTree(curNode.left);
+      System.out.println(curNode.value + " ");
+      printTree(curNode.right);
+  }
+</code></pre>
+      </script></section>
+
+    <section data-markdown><script type="text/template">
+## Post-order Traversal
+- Post-order: children first, then node
+  - This method counts the number of nodes
+
+<pre><code class="hljs" data-trim contenteditable>
+  private void numNodes(Node root) {
+      if(root == null) return 0;
+
+      int sum = numNodes(root.left) + numNodes(root.right);
+      return sum+1;
+  }
+</code></pre>
+    </script></section>
+
+    </section>
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

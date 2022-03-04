@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Vectors</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Trees
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[AVL Trees](#/avl)  <br />
+</script></section>
+
+
+  <section>
+
+<section id="avl" data-markdown class="center"><script type="text/template">
+## AVL Trees
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Animation Tools
+- A good AVL tree animation tool is [here](http://www.qmatica.com/DataStructures/Trees/BST.html)
+  - A mirror that also contains the animation tool is [here](http://webdiis.unizar.es/asignaturas/EDA/AVLTree/avltree.html)
+- We'll be using this website throughout this slide set
+</script></section>
+
+    <section data-markdown><script type="text/template">
+### AVL Trees
+- Motivation: to ***guarantee*** &Theta;(log *n*) running time on find, insert, and remove
+- Idea: Keep tree balanced after each operation
+- Solution:  AVL trees
+  - Named after the inventors, Adelson-Velskii and Landis
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### AVL Tree Structure Property
+For every node in the tree, the *height* of the left and right sub-trees differs at most by 1
+    </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Tree
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> B[ ]
+    2 --> 4
+    10 --> A[ ]
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### NOT an AVL Tree
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> B[ ]
+    2 --> 4
+    10 --> A[ ]
+    10 --> 13
+    13 --> 11
+    13 --> C[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+    <section data-markdown><script type="text/template">
+### AVL balance factor
+- Each node of a BST holds:
+  - The data
+  - Left and right child references
+- An AVL tree also holds a balance factor
+  - The height of the *right* subtree minus the height of the *left* subtree
+  - Can be computed on the fly, as well, but that's VERY slow
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### AVL tree balance
+- "Balanced" trees
+  - 0 means balanced
+  - 1 means the right subtree is one longer than the left subtree
+  - -1 means the left subtree is one longer than the right subtree
+- "Unbalanced" trees
+  - A balance factor of -2 or 2
+  - We'll fix the tree
+- Will we ever hit -3 or 3?
+    </script></section>
+
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Tree with balance factors
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A["5 (0)"] --> B["2 (1)"]
+    A --> C["10 (1)"]
+    B --> D[ ]
+    B --> F["4 (0)"]
+    C --> E[ ]
+    C --> G["13 (0)"]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+    <section data-markdown><script type="text/template">
+## AVL Trees: find, insert
+- find: same as BST find
+- insert: same as BST insert, except might need to "fix" the AVL tree after the insert (via rotations)
+- Runtime analysis:
+  - &Theta;(*d*), where *d* is the depth of the node being found/inserted
+- What is the maximum height of an n-node AVL tree?
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## AVL tree operations
+- Perform the operation (insert, delete)
+- Move back up to the root, updating the balance factors
+  - Why only those nodes?
+  - Because those are the only ones who have had their subtrees altered
+- Do tree rotations where the balance factors are 2 or -2
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## How many times to "fix" the tree?
+- Any single insert will only modify the balance factor by one
+  - So we fix the lowest off-balance nodes
+  - Then everything above it is then balanced
+- This means that we will have to only look at the bottom two unbalanced nodes
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## AVL insert
+- Let *x* be the *deepest* node where imbalance occurs
+- Four cases where the insert happened:
+  1. In the left subtree of the left child of x
+  2. In the right subtree of the left child of x
+  3. In the left subtree of the right child of x
+  4. In the right subtree of the right child of x
+- Cases 1 & 4: perform a single rotation
+- Cases 2 & 3: perform a double rotation
+    </script></section>
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation
+
+- 5 imbalanced, so we will rotate on 5
+  - See next slide for result
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 3
+    5 --> A[ ]
+    3 --> 1
+    3 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation
+
+- Notice that the old right subtree of 3 becomes new left subtree of 5
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    3 --> 5
+    3 --> 1
+    5 --> A[ ]
+    5 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation General Case
+
+- General Case for a right rotation
+- __Before Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    I --> LC
+    I --> RC
+    LC --> LLC
+    LC --> LRC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Right Rotation General Case
+
+- General Case for a right rotation
+- __AFTER Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    LC --> LLC
+    LC --> I
+    I --> LRC
+    I --> RC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation
+
+- 5 imbalanced, so we will rotate on 5
+  - See next slide for result
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> B[ ]
+    5 --> A[7]
+    A --> C[ ]
+    A --> 25
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation
+
+- 5 imbalanced, so we will rotate on 5
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    7 --> 5
+    7 --> 25
+    5 --> A[ ]
+    5 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation General Case
+
+- General Case for a left rotation
+- __Before Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    I --> LC
+    I --> RC
+    RC --> RLC
+    RC --> RRC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### AVL Single Left Rotation General Case
+
+- General Case for a left rotation
+- __AFTER Picture__
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    RC --> I
+    RC --> RRC
+    I --> LC
+    I --> RLC
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Cases 2 and 3
+
+- Attempt a single rotation on the following
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    10 --> 5
+    10 --> A[ ]
+    5 --> B[ ]
+    5 --> 7
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Cases 2 and 3
+
+- Attempt a single rotation on the following
+  - What happened?? Still imbalanced!!!!
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    C[5] --> A[ ]
+    C --> D[10]
+    D --> E[7]
+    D --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown><script type="text/template">
+#### Double Rotation
+
+- A __double rotation__ is used to get around this problem.
+- __double right rotation__: 
+  - rotate left on the left child of imbalanced node
+  - then rotate right on the imbalanced node.
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double rotation example
+
+- double right rotate on 10
+  - rotate left on 5, then right on 10
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  10 --> 5
+  10 --> A[ ]
+  5 --> B[ ]
+  5 --> 7
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double rotation example
+
+- double right rotate on 10
+  - rotate left on 5, then right on 10
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  10 --> 7
+  10 --> A[ ]
+  7 --> 5
+  7 --> B[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double rotation example
+
+- double right rotate on 10
+  - rotate left on 5, then right on 10
+
+<span class="diagram-data" style="display:none;">
+graph TD
+  7 --> 5
+  7 --> 10
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Double left rotation
+
+- Analogous to the other one
+  - rotate right on the right child
+  - then rotate left on imbalanced node
+
+</script></section> 
+   
+
+    <section data-markdown><script type="text/template">
+## AVL insert, again
+- Let *x* be the *deepest* node where imbalance occurs
+- Four cases where the insert happened:
+  1. In the left subtree of the left child of x
+  2. In the right subtree of the left child of x
+  3. In the left subtree of the right child of x
+  4. In the right subtree of the right child of x
+- Cases 1 & 4: perform a single rotation
+- Cases 2 & 3: perform a double rotation
+    </script></section>
+
+
+
+    <section>
+<h2><a href="http://en.wikipedia.org/wiki/File:Tree_Rebalancing.gif">All the tree rotations</a></h2>
+<img class="stretch" alt="tree rotations" src="../images/05-trees/1024px-Tree_Rebalancing.gif">
+    </section>
+
+    <section data-markdown><script type="text/template">
+## AVL Tree: Runtime Analysis
+- Find: &Theta;(log *n*) time: height of tree is always &Theta;(log *n*)
+- Insert: &Theta;(log *n*) time: find() takes &Theta;(log *n*), then may have to visit every node on the path back up to root to perform up to 2 single rotations
+- Remove: &Theta;(log *n*): left as an exercise
+- Print: &Theta;(*n*): no matter the data structure, it will still take *n* steps to print *n* elements
+    </script></section>
+
+  </section>
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
