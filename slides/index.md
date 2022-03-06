@@ -8,7 +8,7 @@ This page contains the daily course schedule for the entire semester, as well as
 
 | Week | Day #| Day | Date | Module | Topic | Slides | Lab Topic (Mon) | HW1<br>Due Wed. at 11:59pm | HW2<br>Due Fri. at 11:59pm | Quiz Topic (Mon) |
 |-|---|-----|-------|--------|--------------|------|--------|---------|---------|---------|
-|1|1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|[Floryan](./00-introduction.html)<br>[Basit](./Basit/Day1-Basit.pdf)|||||
+|1|1|	Wednesday|1/19/2022|Introduction to Course|Course Introduction, Syllabus, etc.|[Floryan](./00-introduction.html)<br>[Basit](./Basit/Day1-Welcome-Basit.pdf)|||||
 | |2|	Friday|1/21/2022| <span class="c1">Basic Java 1 |Hello World; Primitive Data Types; Using Simple Objects|[Floryan](./BasicJava1/1-intro.html)<br>[Basit](./Basit/Day2-Basit.pdf)|||||
 |2|3|	Monday|1/24/2022|<span class="c1">|Writing Functions; Using Arrays|[Floryan](./BasicJava1/2-functions.html)<br>[Basit](./Basit/Day3-Basit-FunctionsArrays.pdf)|<span class="c1">Basic Java 1||||	
 | |4|	Wednesday|1/26/2022|<span class="c1">|Control-Flow|[Floryan](./BasicJava1/3-controlFlow.html)<br>[Basit](./Basit/Day4-ControlFlow.pdf)||<span class="c1">Basic Java 1 (Java Warmup - Power Function)|||
