@@ -89,14 +89,14 @@ showstringspaces=false}
 
 \section{Summary}
 
-For this homework, you will be implementing two more sorting algorithms.
+For this homework, you will be implementing two more sorting algorithms: \emph{Merge Sort} and \emph{Quick Sort}
 
 \begin{enumerate}
 	\item Download the provided starter code.
 	\item Implement two sorting algorithms.
 	\item Use the provided tester to check if each methods are working correctly.
 	\item \textbf{FILES TO DOWNLOAD:} \href{https://github.com/uva-cs/dsa1/blob/master/homeworks/AdvancedSorts/code/AdvancedSorts.zip?raw=true}{AdvancedSorts.zip}
-	\item \textbf{FILES TO SUBMIT:} AdvancedSorts.zip
+	\item \textbf{FILES TO SUBMIT:} AdvancedSorts.java
 \end{enumerate}
 
 %------------------------------------------------
@@ -125,12 +125,23 @@ private static<T extends Comparable<T>> void
 								quickSort(T[] list, int i, int j);
 \end{lstlisting}
 
-You may add additional helper methods that might be useful in implementing these sorting algorithms. Some methods that may be useful, but are optional, include swapping two elements given indices $i$ and $j$, merging two sorted lists into a single sorted list, partitioning a list around a pivot, etc. 
+You may add additional helper methods that might be useful in implementing these sorting algorithms. Some methods that may be useful, but are optional, include swapping two elements given indices $i$ and $j$, merging two sorted lists into a single sorted list, partitioning a list around a pivot, etc. You'll notice the starter code provides method headers for two important helper methods: \emph{partition()} and \emph{merge()}
 
-The provided tester (main method) will call each of your sorting methods one at a time. Above the main method is a variable you can change to increase or decrease the size of the lists to sort while testing. The tester will call each of your two sorting methods one at a time. For each, it will take the result and check if 1) the sizes of the unsorted and sorted lists are still the same, 2) the elements in the sorted list are indeed in sorted order, and 3) the sorted list contains the same elements in total that the original list does. If any of these checks fail, you should get a notification to that effect.
+The provided tester (main method inside of \emph{Tester.java}) can be used to test your code. The method takes in two values as input: the size of the array to sort and which method to use (1 = merge sort and 2 = quicksort). The tester will call the appropriate sorting method on a list of the given size. It will take the result and check if 1) the sizes of the unsorted and sorted lists are still the same, 2) the elements in the sorted list are indeed in sorted order, and 3) the sorted list contains the same elements in total that the original list does. If any of these checks fail, you should get a notification to that effect.
 
 %------------------------------------------------
 
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+  \item Make sure you are only submitting one file, and it is called \emph{AdvancedSorts.java} exactly.
+  \item Make sure you keep the package statement at the top of the file (package sorting;).
+  \item Your code should \textbf{NOT contain any additional import statements}
+  \item Make sure you \textbf{DO NOT} submit a \emph{main method} in your file.
+  \item Make sure your file is \textbf{NOT printing anything to the console}. Your methods should simply return the correct results.
+\end{enumerate}
 
 
 %----------------------------------------------------------------------------------------
