@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Lists - Vectors</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Trees
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Binary Search Trees](#/bst)  <br />
+</script></section>
+
+
+
+    <section>
+
+<section id="bst" data-markdown class="center"><script type="text/template">
+## Binary Search Trees
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Binary Trees
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BinaryNode{
+  int value;
+  BinaryNode left;
+  BinaryNode right;
+}
+</code></pre>
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    1 --> 2
+    1 --> 3
+    2 --> 4
+    2 --> 5
+    3 --> 6
+    3 --> A[ ]
+  </span><div class="diagram-display"></div>
+
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Binary Trees
+
+- In reality, any arrow not shown is a null pointer
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    1 --> 2
+    1 --> 3
+    2 --> 4
+    2 --> 5
+    3 --> 6
+    3 --> A[ ]
+  </span><div class="diagram-display"></div>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Binary Search Trees (BST)
+- Each node has a *key* value that can be compared
+- Binary search tree property:
+  - For a given node, which we will call the *root*...
+  - Every node in left subtree has a key whose value is *less* than the root's key value, AND
+  - Every node in right subtree has a key whose value is *greater* than the root's key value
+- We assume that duplicate values are not allowed
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: Example
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+
+</script></section>
+
+     <section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: Counter-Example
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 3
+    10 --> 13
+</span><div class="diagram-display"></div>
+
+</script></section>
+
+      <section data-markdown><script type="text/template">
+## The difference
+- Both binary trees and binary search trees have zero, one, or two children per node
+- But a binary search tree is *sorted*
+- However, most people, when they say "binary tree", really mean a "binary search tree"
+- Note that we assume that we can *NOT* have duplicate elements in a BST
+      </script></section>
+
+      <section data-markdown><script type="text/template">
+## BST: find
+- Basic idea:
+  - Compare value to be found to key of the root of the tree
+    - If they are equal, then done
+    - If not equal, recurse depending on which half of tree the value should be in if it is in tree
+    - If you hit a `NULL` pointer, then you have "run off" the bottom of the tree, and the value is not in the tree
+      </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: Find Example
+
+- Try to find(6)
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+#### BST: Find
+
+<pre><code class="hljs" data-trim contenteditable>
+boolean find(int x, BSTNode curNode){
+  if(curNode == null) return false; //off end of tree
+  
+  else if(x < curNode.value)
+    return find(x, curNode.left);
+  
+  else if(x > curNode.value) 
+    return find(x, curNode.right);
+  
+  else return true; //found it!
+}
+</code></pre>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### BST: Find
+
+- How to do this if you are storing objects in Java?
+  - __Solution__: Use the compareTo() function
+
+<pre><code class="hljs" data-trim contenteditable>
+private boolean find(T data, BSTNode< T > curNode) {
+  if(curNode == null) return false;
+
+  else if (data.compareTo(curNode.data) < 0)
+    return find(data, curNode.left);
+  
+  else if (data.compareTo(curNode.data) > 0) 
+    return find(data, curNode.right);
+  
+  else
+    return true; 
+}
+</code></pre>
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+#### BST: Find
+
+- Programmers using your tree don't know what curNode is.
+  - Helper function hides this.
+
+<pre><code class="hljs" data-trim contenteditable>
+public boolean find(T data){
+  return find(data, rootNode); //start at root of tree
+}
+
+private boolean find(T data, BSTNode< T > curNode) {
+  if(curNode == null) return false;
+  else if (data.compareTo(curNode.data) < 0)
+    return find(data, curNode.left);
+  else if (data.compareTo(curNode.data) > 0) 
+    eturn find(data, curNode.right);
+  return true; 
+}
+</code></pre>
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### BST: Insert
+
+- Idea: Move down tree like in find to discover location
+  - Make and put the new node there
+
+<pre><code class="hljs" data-trim contenteditable>
+public void insert(T data) {
+  this.root = insert(data, root);
+}
+
+private BSTNode< T > insert(T data, BSTNode< T > curNode) {
+  if(curNode == null) return new BSTNode< T >(data);
+  
+  else if (data.compareTo(curNode.data) < 0)
+    curNode.left = insert(data, curNode.left);
+  
+  else if (data.compareTo(curNode.data) > 0)
+    curNode.right = insert(data, curNode.right);
+  
+  else ; //duplicate, ignoring the insert
+  return curNode; //curNode still the root of this subtree
+}
+</code></pre>
+
+</script></section>
+  
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST: findMax(), findMin()
+
+- To find max element, traverse right forever
+- similarly down left for findMin
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+
+      <section data-markdown><script type="text/template">
+#### BST - remove
+
+- Disrupts the tree structure
+
+- Basic idea: 
+  - Find node to be removed
+  - Three cases:
+    - Node has no children
+    - Node has one child
+    - Node has two children
+      </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(13)
+
+- No children so just remove the node
+  - Make sure parent pointer now points to NULL
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(13)
+
+- No children so just remove the node
+  - Make sure parent pointer now points to NULL
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> A[ ]
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(10)
+
+- One child: Make parent pointer point to child
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> A[ ]
+</span><div class="diagram-display"></div>
+</script></section>  
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(10)
+
+- One child: Make parent pointer point to child
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> A[ ]
+    5 -.-> 6
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(10)
+
+- One child: Make parent pointer point to child
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 6
+    2 --> 1
+    2 --> 4
+    6 --> B[ ]
+    6 --> A[ ]
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(5)
+
+- __STEP 1:__ Find successor
+- Max val in left subtree (4) OR min in right subtree (6)
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(5)
+
+- __STEP 2:__ Replace deleting node with succesor
+- Deleted node (5) overwritten with successor (6)
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[6] --> 2
+    A[6] --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Remove: remove(5)
+
+- __STEP 3:__ Delete successor
+- recursively call remove(6)
+  - successor will ALWAYS have 0 or 1 child. Why?
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[6] --> 2
+    A[6] --> 10
+    2 --> 1
+    2 --> 4
+    10 --> B[ ]
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section> 
+
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Height
+
+- __Worst Case Height__: Linear. Just a straight line
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    9 --> 7
+    9 --> A[ ]
+    7 --> B[ ]
+    7 --> 4
+    4 --> C[1]
+    4 --> D[ ]
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### BST Height
+
+- __Best Case Height__: log(n) where n is num nodes
+- Why?
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section> 
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Perfect Binary Tree
+
+- A perfect binary tree has all leaves at same depth.
+- Every node has 0 or 2 children
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    5 --> 2
+    5 --> 10
+    2 --> 1
+    2 --> 4
+    10 --> 6
+    10 --> 13
+</span><div class="diagram-display"></div>
+</script></section>  
+
+  </section>
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
