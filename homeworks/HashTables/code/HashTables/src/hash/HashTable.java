@@ -1,58 +1,48 @@
 package hash;
 
+
 /**
- * Hash Table implementation.
+ * Hash Table implementation. Uses linear probing to resolve collisions.
+ * @author Mark Floryan
  *
+ * @param <K>
+ * @param <V>
  */
 public class HashTable<K,V> implements Map<K,V>{
 
-	private static final int INITIAL_CAPACITY = 100;
-	private int size = 0;
+	/* The array of objects and related things */
+	private HashNode<K,V>[] table;
 	
-	/* Max allowed load factor */
-	private double maxLoad = 0.75;
+	/* YOU WILL LIKELY WANT MORE PRIVATE VARIABLES HERE */
 	
-	/* Sentinel value for removes */
-	private HashNode<K,V> sentinel = new HashNode<K,V>(null, null);
 	
 	public HashTable() {
 		this(INITIAL_CAP);
 	}
 	
 	public HashTable(int initialCapacity) {
-		//TODO: Write this method
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	@Override
 	public void insert(K key, V value) {
-		//TODO: Write this method
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 
 	@Override
 	public V retrieve(K key) {
-		//TODO: Write this method
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 
 	@Override
 	public boolean contains(K key) {
-		//TODO: Write this method
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 
 	@Override
 	public void remove(K key) {
-		//TODO: Write this method
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
-	private void resize() {
-		//TODO: Write this method
-	}
-
-	/**
-	 * Getting and setting the maxLoad field
-	 * @return
-	 */
-	public double getMaxLoad() {return maxLoad;}
-	public void setMaxLoad(double maxLoad) {this.maxLoad = maxLoad;}
 	
-
 }

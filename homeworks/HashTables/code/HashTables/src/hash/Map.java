@@ -2,9 +2,10 @@ package hash;
 
 /**
  * Interface for a generic key-value pair data-structure
+ * @author Mark Floryan
  *
  * @param <K> The key
- * @param <V> The value
+ * @param <V> The values
  */
 public interface Map<K,V> {
 
