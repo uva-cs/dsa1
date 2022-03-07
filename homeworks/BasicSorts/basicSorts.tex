@@ -89,14 +89,14 @@ showstringspaces=false}
 
 \section{Summary}
 
-For this homework, you will be implementing two sorting algorithms.
+For this homework, you will be implementing two sorting algorithms: \emph{Bubble Sort} and \emph{Insertion Sort}.
 
 \begin{enumerate}
 	\item Download the provided starter code.
 	\item Implement two sorting algorithms.
 	\item Use the provided tester to check if each method is working correctly.
 	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/BasicSorts/code/BasicSorts.zip}{BasicSorts.zip}
-	\item \textbf{FILES TO SUBMIT:} BasicSorts.zip
+	\item \textbf{FILES TO SUBMIT:} BasicSorts.java
 \end{enumerate}
 
 %------------------------------------------------
@@ -117,11 +117,23 @@ public static<T extends Comparable<T>> void bubbleSort(T[] list);
 public static<T extends Comparable<T>> void insertionSort(T[] list);
 \end{lstlisting}
 
-You may add additional helper methods that might be useful in implementing these sorting algorithms. Some methods that may be useful, but are optional, include swapping two elements given indices $i$ and $j$.
+You may add additional helper methods that might be useful in implementing these sorting algorithms. Some methods that may be useful, but are optional, include swapping two elements given indices $i$ and $j$. We've provided the header for an optional \emph{swap()} method should you want it.
 
-The provided tester (main method) will call each of your sorting methods one at a time. Above the main method is a variable you can change to increase or decrease the size of the lists to sort while testing. The tester will call each of your sorting methods one at a time. For each, it will take the result and check if 1) the sizes of the unsorted and sorted lists are still the same, 2) the elements in the sorted list are indeed in sorted order, and 3) the sorted list contains the same elements in total that the original list does. If any of these checks fail, you should get a notification to that effect.
+The provided tester (\emph{Tester.java}) will read in an integer from the keyboard (\emph{size}). Then, a list of numbers of this size is created and the tester will call each of your sorting methods one at a time. The tester will call each of your sorting methods one at a time. For each, it will take the result and check if 1) the sizes of the unsorted and sorted lists are still the same, 2) the elements in the sorted list are indeed in sorted order, and 3) the sorted list contains the same elements in total that the original list does. If any of these checks fail, you should get a notification to that effect.
 
 %------------------------------------------------
+
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+  \item Make sure you are only submitting one file, and it is called \emph{BasicSorts.java} exactly.
+  \item Make sure you keep the package statement at the top of the file (package sorting;).
+  \item Your code should \textbf{NOT contain any additional import statements}
+  \item Make sure you \textbf{DO NOT} submit a \emph{main method} in your file.
+  \item Make sure your file is \textbf{NOT printing anything to the console}. Your methods should simply return the correct results.
+\end{enumerate}
 
 
 
