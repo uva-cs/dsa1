@@ -94,17 +94,17 @@ For this homework, you will be building a custom MinHeap class as discussed in c
 \begin{enumerate}
 	\item Download the provided \href{https://uva-cs.github.io/dsa1/homeworks/PriorityQueues/code/heaps.zip}{starter code}.
 	\item Implement the MinHeap.java class.
-	\item Implement the heapSort() method.
-	\item Test the correctness of your hash table using the provided tester.
+	\item Implement the heapSort() method inside the file \emph{HeapSort.java}.
+	\item Test the correctness of your Min-Heap using the provided tester.
 	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/PriorityQueues/code/heaps.zip}{heaps.zip}
-	\item \textbf{FILES TO SUBMIT:} heaps.zip
+	\item \textbf{FILES TO SUBMIT:} MinHeap.java, HeapSort.java
 \end{enumerate}
 
 %------------------------------------------------
 
 \subsection{MinHeap.java}
 
-First, you will be implementing the MinHeap.java class, which implements the following PriorityQueue interface:
+First, you will be implementing the \emph{MinHeap.java} class, which implements the following PriorityQueue interface:
 
 \begin{lstlisting}
 public interface PriorityQueue<T extends Comparable<T>> {
@@ -124,7 +124,6 @@ public interface PriorityQueue<T extends Comparable<T>> {
 	public int size();
 	
 }
-
 \end{lstlisting}
 
 Your MinHeap class will also have a few extra supporting methods necessary to make it work. You heap MUST be a heap implementation, as discussed in class, using an array (no linked list / tree like implementations). The other methods necessary are: 
@@ -153,8 +152,20 @@ Once you are done, you can test your implementation using the provided tester. R
 
 \subsection{Heap Sort}
 
-Heap Sort is an algorithm that sorts a list using the methods from a MinHeap or MaxHeap. In the provided tester file, you'll find a method called heapSort(). Implement this method so that it uses the MinHeap you built to sort the provided list of numbers. Once you are done, you can re-run the provided tester to confirm that it seems to work.
+Heap Sort is an algorithm that sorts a list using the methods from a MinHeap or MaxHeap. In the provided \emph{HeapSort.java} file, you'll find a method called heapSort(). Implement this method so that it uses the MinHeap you built to sort the provided list of numbers. Once you are done, you can re-run the provided tester to confirm that it seems to work. \emph{Note: This method returns void and is meant to alter the provided list of numbers so that it changes to be sorted. You will not be returning anything here.}
 %------------------------------------------------
+
+
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+  \item Make sure you are only submitting two files, and they are called \emph{MinHeap.java} and \emph{HeapSort.java} exactly.
+  \item Make sure you keep the package statement at the top of the files.
+  \item Your code should \textbf{NOT contain any additional import statements}.
+  \item Make sure your file is \textbf{NOT printing out anything extra to the console}. This will confuse the Gradescope autograder.
+\end{enumerate}
 
 
 
