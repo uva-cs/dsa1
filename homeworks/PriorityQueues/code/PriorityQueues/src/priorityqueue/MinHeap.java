@@ -8,45 +8,44 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	private ArrayList<T> heap;
 	
 	public MinHeap() {
-		//TODO: WRITE THIS METHOD
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	public MinHeap(ArrayList<T> data) {
-		//TODO: WRITE THIS METHOD
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	private void heapify() {
-		//TODO: WRITE THIS METHOD
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	private void percolateUp(int index) {
-		//TODO: WRITE THIS METHOD
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	private void percolateDown(int index) {
-		//TODO: WRITE THIS METHOD
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	@Override
 	public void push(T data) {
-		//TODO: WRITE THIS METHOD
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 
 	@Override
 	public T poll() {
-		//TODO: WRITE THIS METHOD
-		return null;
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 
 	@Override
 	public T peek() {
-		//TODO: WRITE THIS METHOD
-		return null;
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
 	
 	@Override
 	public int size() {
-		//TODO: WRITE THIS METHOD
-		return 0;
+		/* TODO: IMPLEMENT THIS METHOD */
 	}
+	
+	
 }

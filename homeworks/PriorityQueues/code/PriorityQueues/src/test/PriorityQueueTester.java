@@ -3,18 +3,12 @@ package test;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import priorityqueue.HeapSort;
 import priorityqueue.MinHeap;
 
 public class PriorityQueueTester {
 	
-	public static <T extends Comparable<T>> void heapSort(ArrayList<T> list) {
-		//TODO: WRITE THIS METHOD
-	}
 
-
-	//EVERYTHING BELOW IS USED FOR TESTING
-	//----------------------------------------
-	
 	public static <T extends Comparable<T>> boolean checkSorted(ArrayList<T> data) {
 		for(int i=1; i<data.size(); i++) {
 			if(data.get(i-1).compareTo(data.get(i)) > 0) return false;
@@ -43,7 +37,7 @@ public class PriorityQueueTester {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		
-		int NUM_TESTS = 1000000;
+		int NUM_TESTS = 40000;
 		
 		//TEST 1: TESTING PUSH AND POLL
 		
@@ -73,8 +67,12 @@ public class PriorityQueueTester {
 		if(list.size() == NUM_TESTS && checkSorted(list) && checkSameElements(list, list2)) {
 			System.out.println("LOOKS GOOD");
 		}
-		else
+		else {
 			System.out.println("ERROR...Something went wrong");
+			if(list.size() == NUM_TESTS) System.out.println("size is fine");
+			if(checkSorted(list)) System.out.println("sorted is fine");
+			if(checkSameElements(list, list2)) System.out.println("Same elements in there");
+		}
 		
 		
 		//TEST 2: TESTING HEAPIFY
@@ -118,7 +116,13 @@ public class PriorityQueueTester {
 		list2 = (ArrayList<Integer>)list.clone();
 		
 		System.out.print("Calling heapSort...");
-		heapSort(list);
+		Integer[] toSort = new Integer[list.size()];
+		for(int i=0; i<list.size(); i++) toSort[i] = list.get(i);
+			
+		HeapSort.heapSort(toSort);
+		
+		list.clear();
+		for(Integer i : toSort) list.add(i);
 		System.out.println("DONE");
 		
 		System.out.print("Checking if same elements came out sorted...");
