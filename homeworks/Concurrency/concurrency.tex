@@ -89,21 +89,21 @@ showstringspaces=false}
 
 \section{Summary}
 
-For this homework, you will be implementing a simple concurrent queue. For this assignment, we are going to focus on correctness (i.e., the queue must work with multiple threads without crashing). Optimizing the speed of your concurrent queue is optional.
+For this homework, you will be implementing a simple concurrent queue. For this assignment, we are going to focus on correctness (i.e., the queue must work with multiple threads without crashing). Optimizing the speed of your concurrent queue is recommended, but ultimately optional.
 
 \begin{enumerate}
 	\item Download the provided starter code
 	\item Implement the ConcurrentQueue class
 	\item Run the main in MainTester.java to ensure your queue works correctly
 	\item \textbf{FILES TO DOWNLOAD:} \href{https://uva-cs.github.io/dsa1/homeworks/Concurrency/code/concurrency.zip}{concurrency.zip}
-	\item \textbf{FILES TO SUBMIT:} concurrentQueue.zip
+	\item \textbf{FILES TO SUBMIT:} ConcurrentQueue.java
 \end{enumerate}
 
 %------------------------------------------------
 
 \subsection{ConcurrentQueue.java}
 
-To begin, implement the *ConcurrentQueue* class inside the ConcurrentQueue.java file. The methods you are responsible for are listed below. This Queue \textbf{must be a linked-list based queue}. You may use Java's built-in Linked List (import java.util.LinkedList) or you may use your own implementation from the previous homeworks.
+To begin, implement the *ConcurrentQueue* class inside the ConcurrentQueue.java file. The methods you are responsible for are listed below. This Queue \textbf{must be a linked-list based queue}. You may use Java's built-in Linked List (import java.util.LinkedList) or you may use your own implementation from the previous homeworks. \emph{You may NOT import Java's built-in Queues}.
 
 \begin{lstlisting}
 	public class Queue<T>{
@@ -131,6 +131,16 @@ When you are done, submit your entire project as a zip file to Collab.
 
 %------------------------------------------------
 
+\subsection{Gradescope}
+
+You should submit your code to \emph{Gradescope}. If you are having trouble with your submission, you should double check the following common problems:
+
+\begin{enumerate}
+  \item Make sure you are only submitting one file, and it is called \emph{ConcurrentQueue.java} exactly.
+  \item Make sure you keep the package statement at the top of the file.
+  \item Your \emph{ConcurrentQueue.java} should \textbf{NOT contain any imports of any of Java's built-in Queue data structures}.
+  \item Make sure your file is \textbf{NOT printing anything extra to the console}.
+\end{enumerate}
 
 
 
