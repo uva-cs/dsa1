@@ -31,9 +31,9 @@ This page contains the daily course schedule for the entire semester, as well as
 | | |	Monday|3/7/2022|||Enjoy the||	|||
 | | |	Wednesday|3/9/2022|UVA SPRING BREAK||Spring||	|||
 | | |	Friday|3/11/2022|||Break!|	||||
-|8|21|	Monday|3/14/2022|<span class="c1">Trees|	Recursion + Examples|[Floryan](./Trees/1-Recursion.html)|<span class="c3">Big-Oh|||<span class="c2">LL, Stacks, Queues (Quiz)|
-| |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|[Floryan](./Trees/2-TreeTraversals.html)||<span class="c3">Big-Oh (Coding)|||
-| |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|[Floryan](./Trees/3-BST.html)|||<span class="c3">Big-Oh (Report)||
+|8|21|	Monday|3/14/2022|<span class="c1">Trees|	Recursion + Examples|[Floryan](./Trees/1-Recursion.html)<BR>[Basit](./Basit/Day21-Recursion.pdf)|<span class="c3">Big-Oh|||<span class="c2">LL, Stacks, Queues (Quiz)|
+| |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|[Floryan](./Trees/2-TreeTraversals.html)<BR>[Basit](./Basit/Day22-Trees-and-TreeTraversals.pdf)||<span class="c3">Big-Oh (Coding)|||
+| |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|[Floryan](./Trees/3-BST.html)<BR>[Basit](./Basit/Day23-BSTs.pdf)|||<span class="c3">Big-Oh (Report)||
 |9|24|	Monday|3/21/2022|<span class="c1">|BST FindMin/Max, Remove, and Runtime Analysis|[Floryan](./Trees/3-BST.html)|<span class="c1">Trees (BST)|||<span class="c3">Big-Oh (Quiz)|
 | |25|	Wednesday|3/23/2022|<span class="c1">|AVL Trees|[Floryan](./Trees/4-AVLTrees.html)||<span class="c1">Trees (BST Coding)|||
 | |26|	Friday|3/25/2022|<span class="c1">|Inheritance (Red-Black Trees if time)|[Floryan](./Trees/5-Inheritance.html)|||||
