@@ -141,11 +141,11 @@ Many of you have probably not seen \textbf{binary search} before (we may go over
 \begin{lstlisting}
 binarySearch(int[] a, int item){
 	set variables min=0 and max=a.length-1
-	continue while min is less than max
+	continue while min is less than or equal to max
 		middle = middle element between min and max
 		if middle element is item, then found!
 		if item is less than middle element
-			repeat search between min and middle
+			repeat search between min and middle-1
 		if item is more than middle element
 			repeat search between middle+1 and max
 
