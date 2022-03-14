@@ -81,6 +81,8 @@
 - __Recursion__ is a very common programming technique in a which a method invokes itself to solve a problem. A solution thus, is defined as a function of a solution to a slightly smaller version of the problem.
 
 - Why do we care? Trees use recursion ALL OF THE TIME. So we need to know it.
+
+- **Very** common way to solve a wide-array of computing problems
 </script></section>
 
 <section data-markdown class="center"><script type="text/template">
@@ -156,6 +158,30 @@ private void printList(int[] list, int curIndex){
 - General approach, test first and last character only
   - If they match AND
   - Everything inside is also a palindrome, then true!
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Another Example: Palindrome
+
+- Test to see if a given string is a palindrome
+- This is the **iterative** version
+
+<pre><code class="hljs" data-trim contenteditable>
+
+public boolean isPalindrome(String s){
+  int l = 0;
+  int r = s.size() - 1;
+
+  while(l<=r){
+    if(s.charAt(l) != s.charAt(r)) return false;
+
+    l++;
+    r--;
+  }
+
+  return true;
+}
+</code></pre>
 </script></section>
 
 <section data-markdown><script type="text/template">
