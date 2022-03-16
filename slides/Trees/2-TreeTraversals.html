@@ -63,10 +63,54 @@
 	</script></section>
 	 <section data-markdown class="center"><script type="text/template">
 ### Contents
-&nbsp;  
+&nbsp; 
+[Recursion Practice Problem](#/rec)  <br /> 
 [Introduction](#/intro)  <br />
 [Tree Traversals](#/trav) <br />
 </script></section>
+
+  <section>
+
+<section id="rec" data-markdown class="center"><script type="text/template">
+## Recursion Practice Problem
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Practice Problem!
+- Given a list of numbers:
+  - Return the sum of "even" numbers in the list
+  - Solution MUST be recursive
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+## Practice Problem Solution
+
+<pre><code class="hljs" data-trim contenteditable>
+public static int evenSum(int[] numbers){
+  return evenSum(numbers, curIndex);
+}
+
+private static int evenSum(int[] numbers, int curIndex){
+  
+  //Base Case: Stop when we run off end of list
+  if(curIndex >= numbers.length) return 0;
+
+  //Add 0 or the number at index if it is even
+  int s = 0;
+  if(numbers[curIndex] % 2 == 0)
+    s = numbers[curIndex];
+
+  //answer is "s" plus the evenSum of the rest of list
+  return s + evenSum(numbers, curIndex+1);
+}
+</code></pre>
+
+</script></section>
+
+</section>
+
+
+<!--------------------------------------->
 
   <section>
 
