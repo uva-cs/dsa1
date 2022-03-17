@@ -51,6 +51,7 @@ public static void main(String[] args) {
 				System.out.println("Calling binarySearch() with a random number.");
 				Arrays.sort(a);
 				int rand = (int)(Math.random()*a[a.length-1]);
+				t1 = System.currentTimeMillis();
 				System.out.println("Result of binarySearch(): " + BigOh.binarySearch(a, rand));
 				break;
 			case 2:
