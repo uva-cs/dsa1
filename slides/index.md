@@ -35,7 +35,7 @@ This page contains the daily course schedule for the entire semester, as well as
 | |22|	Wednesday|3/16/2022|<span class="c1">|Introduction to Trees + Tree Traversals|[Floryan](./Trees/2-TreeTraversals.html)<BR>[Basit](./Basit/Day22-Trees-and-TreeTraversals.pdf)||<span class="c3">Big-Oh (Coding)|||
 | |23|	Friday|3/18/2022|<span class="c1">|BST Structure, Find, Insert|[Floryan](./Trees/3-BST.html)<BR>[Basit](./Basit/Day23-BSTs.pdf)|||<span class="c3">Big-Oh (Report)||
 |9|24|	Monday|3/21/2022|<span class="c1">|BST FindMin/Max, Remove, and Runtime Analysis|[Floryan](./Trees/3-BST.html)<BR>[Basit](./Basit/Day24-BSTs-Pt2.pdf)|<span class="c1">Trees (BST)|||<span class="c3">Big-Oh (Quiz)|
-| |25|	Wednesday|3/23/2022|<span class="c1">|AVL Trees|[Floryan](./Trees/4-AVLTrees.html)||<span class="c1">Trees (BST Coding)|||
+| |25|	Wednesday|3/23/2022|<span class="c1">|AVL Trees|[Floryan](./Trees/4-AVLTrees.html)<BR>[Basit](./Basit/Day25-AVL-Trees.pdf)||<span class="c1">Trees (BST Coding)|||
 | |26|	Friday|3/25/2022|<span class="c1">|Inheritance (Red-Black Trees if time)|[Floryan](./Trees/5-Inheritance.html)|||||
 |10|27| Monday|3/28/2022|<span class="c1">|Inheritance and Red-Black Trees|[Floryan](./Trees/5-Inheritance.html)|<span class="c1">Trees (AVL)|||**Quiz Retakes Modules 4-6 (Choose 1)**|
 | |28|	Wednesday|3/30/2022|<span class="c2">Basic Sorts|Introduction to Sorting, Comparable, compareTo, and  Bubble Sort|SLIDES TBD||<span class="c1">Trees (AVL Coding)|||
