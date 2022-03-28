@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Advanced Sorts</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Sorting
+  </script></section>
+   <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Quicksort](#/quick)  <br />
+[Lower Bound Proof](#/lb2)  <br />
+[Other Sorting Algorithms](#/other)  <br />
+</script></section>
+
+
+<section>
+<section id="quick" data-markdown class="center"><script type="text/template">
+## Quicksort
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Introduction
+
+- Similar to __mergesort__, except the "work" is done during the dividing instead of in the merging.
+- Still recursive
+- Still divide-and-conquer
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Overall Idea
+
+- __Idea:__ Select an item in the list to be a __pivot__ value. 
+- Divide the list into two halves
+  - Items less than pivot and recursively sort
+  - Items greater than pivot and recursively sort
+- "merge" by concatenating lessList,pivot,greaterList
+- return
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort
+
+![Proof](https://upload.wikimedia.org/wikipedia/commons/a/af/Quicksort-diagram.svg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Psuedo-code
+
+<pre><code class="hljs" data-trim contenteditable>
+quickSort(list, i, j)
+  /* BASE CASE GOES HERE */
+
+  //partition list and return index of pivot
+  int pivot = partition(list, i, j);
+  quickSort(list, i, pivot-1)
+  quickSort(list, pivot+1, j)
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Partition
+
+- Partition is responsible for:
+  - Selecting a pivot value
+  - re-arranging list so that
+    - pivot in correct place
+    - items less than pivot are below
+    - likewise for items greater than pivot
+- Two appraoches:
+  - Hoare's Partition
+  - Lomuto's Partition
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Lomuto's Partition
+
+![lom](./images/05-sorting/lomuto.png)
+
+- __Strategy:__
+  - Increment k, look at A[k]
+  - If A[k] > pivot, all is well
+  - Otherwise, h++ and swap k and h
+  - When done, swap h and pivot to place pivot in correct spot
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Quicksort: Hoare's Partition
+
+![lom](./images/05-sorting/hoare.png)
+
+- __Strategy:__
+  - move low up until something > pivot found
+  - move high down until something <= pivot found
+  - swap items at low and high
+  - when done, swap items at high and pivot to put pivot in place
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Analysis of Quicksort
+
+- is __in-place__ (if you don't count the recursive bookkeeping)
+  - doesn't use scratch array like mergesort usually does
+- Same runtime analysis as mergesort
+  - T(n) = 2*T(n/2)+n = &Theta;(n*log(n))
+  - Caveat to this: See next slide
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Analysis of Quicksort: Worst case
+
+- Technically, we could pick a very bad __pivot__ every time.
+  - bad pivot means list not split in half. Worst case split into sizes 0 and n-1
+- So T(n) = T(n-1) + n = &Theta;(n<sup>2</sup>)
+- This is NOT VERY LIKELY
+  - In addition, some advanced techniques can be used to ensure it never happens.
+</script></section>
+
+</section>
+
+
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Advanced Sorts</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Sorting
+	</script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Mergesort](#/merge)  <br />
+</script></section>
+
+
+<section>
+<section id="merge" data-markdown class="center"><script type="text/template">
+## Mergesort
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Intro
+
+- General sorting algorithm
+- is recursive
+- example of a __divide-and-conquer__ algorithm
+- is o(n<sup>2</sup>)
+- is faster than the adjacent sorts in most situations
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Aside: Divide-and-conquer
+
+- A divide-and conquer algorithm usually has the following structure
+- Runtime is equal to time to divide + recurse + time to merge
+
+<pre><code class="hljs" data-trim contenteditable>
+solveProblem(input)
+  if input is small, then brute-force
+  else if input is big
+    divide problem into n smaller problems
+    recursively invoke solveProblem on smaller problems
+    merge solutions to small problems into bigger solution
+    return bigger solution
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort: Overall Idea
+
+- If list is one element, then already sorted so just return
+- Otherwise, divide into two halves left and right
+- recursively sort left and right
+- merge the two sorted lists into one sorted list
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort: Overall Idea
+
+![Merge](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort: Acting it Out
+
+- Let's act it out and sort a list
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Merge: Pseudo-code
+
+- Most of the work done in merge
+- Most implementations use a "scratch array"
+  - An extra array of size n which is then copied back into
+
+<pre><code class="hljs" data-trim contenteditable>
+merge(left, right)
+  l = 0, r = 0
+  pos = 0
+  while(pos < left.len + right.len)
+    if(l < left.len AND (r >= right.len OR left[l] < right[r]))
+      merged[pos] = left[l]
+      l++
+    else
+      merged[pos] = right[r]
+      r++
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Analysis
+
+- What is the runtime?
+  - Divide the list (constant)
+  - Two recursive sorts
+  - Merge (linear)
+- Total: __T(n) = 2*T(n/2) + n = &Theta;(n*log(n))__
+  - Uhhhhh...why?
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Analysis
+
+- How to tell that this is true?
+- __T(n) = 2*T(n/2) + n = &Theta;(n*log(n))__
+  - Solve for a closed form (will see in dsa2)
+  - Draw out tree and count (do on board)
+  - Master theorem (nice...will see in dsa2)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Mergesort Method Signature
+
+- Typically mergesort is done like this instead:
+
+```
+//Sort the list between indices i and j
+public void mergeSort(T[] list, int i, int j);
+```
+
+- And recursive calls done like this
+  - Doesn't make new arrays when dividing
+  - Just ask mergesort to only work on one portion of interest
+  - merge() still uses scratch array, copies back to list
+
+```
+int mid = (j+i)/2;
+mergeSort(list, i, mid);
+mergeSort(list, mid+1, j);
+```
+</script></section>
+
+</section>
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

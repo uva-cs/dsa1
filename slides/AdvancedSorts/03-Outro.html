@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Advanced Sorts</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2501
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/markfloryan/dsa1](http://github.com/markfloryan/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Sorting
+  </script></section>
+   <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Lower Bound Proof](#/lb2)  <br />
+[Other Sorting Algorithms](#/other)  <br />
+</script></section>
+
+<section>
+<section id="lb2" data-markdown class="center"><script type="text/template">
+## Lower Bound Proof
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Best sorting algorithm: decision tree
+
+![Proof](https://www2.hawaii.edu/~nodari/teaching/s17/Notes/Topic-10/decision-tree-insertion-sort.jpg)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Best sorting algorithm: decision tree
+
+- The "best" decision tree must exist (i.e., there is SOME best algorithm)
+- The number of leaves __L >= n!__
+  - Because list has n! permutations
+- So, the height of the "best" decision tree is the best possible runtime for a sorting algorithm.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Best sorting algorithm: decision tree
+
+- For a binary tree, __L <= 2<sup>h</sup>__
+  - L is number of leaves
+  - h is height of tree
+- Solve for h:
+  - h >= log<sub>2</sub>(n!)
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Getting rid of that factorial
+
+- For now, just trust me...but:
+  - log(n!) = &Theta;(n*log(n))
+- Thus, any algorithm that sorts by comparing keys must be &Omega;(n*log(n))
+</script></section>
+
+</section>
+
+<section>
+<section id="other" data-markdown class="center"><script type="text/template">
+## Other Sorting Algorithms
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Hybrid Sorts
+
+- Some sorting algorithms (like Java's internal one) will look at properties of the list and call different algorithms depending on the situation.
+- For example:
+  - Insertion sort is faster than merge/quick on smaller lists
+  - Insertion faster on almost sorted lists
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Hybrid Sorts
+
+- Thus,
+  - Switch to insertion once recursive calls get small (~100-150 elements)
+  - Or don't recurse all the way in quicksort and use insertion at the end on the almost sorted list
+  - Usually leads to speedup
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Other sorting algorithms
+
+- __Heap Sort:__ We haven't seen this data structure, so we will study this a little later
+- __Radix Sort:__ Uses values of digits to sort numbers very quickly.
+- __TimSort:__ What Java Collections.sort() uses
+- ...and many others.
+</script></section>
+
+</section>
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
