@@ -39,8 +39,8 @@ This page contains the daily course schedule for the entire semester, as well as
 | |26|	Friday|3/25/2022|<span class="c1">|Inheritance (Red-Black Trees if time)|[Floryan](./Trees/5-Inheritance.html)<BR>[Basit](./Basit/Day26-Inheritance.pdf)|||||
 |10|27| Monday|3/28/2022|<span class="c1">|Inheritance and Red-Black Trees|[Floryan](./Trees/5-Inheritance.html)<BR>[Basit](./Basit/Day27-RedBlack-Trees-Applications.pdf)|<span class="c1">Trees (AVL)|||**Quiz Retakes Modules 4-6 (Choose 1)**|
 | |28|	Wednesday|3/30/2022|<span class="c2">Basic Sorts|Introduction to Sorting, Comparable, compareTo, and  Bubble Sort|[Floryan](./BasicSorts/01-IntroBubble.html)<BR>[Basit](./Basit/Day28-BasicSorts.pdf) ~ [Bubble Sort](./Basit/Day28-BubbleSort.gif)||<span class="c1">Trees (AVL Coding)|||
-| |29|	Friday|4/1/2022|<span class="c2">|Insertion Sort, Lower-Bounds Adjacent Proof|[Floryan](./BasicSorts/02-InsertionSort.html)<BR>[Basit](./Basit/Day28-BasicSorts2.pdf)|||<span class="c1">Trees (Report)||
-|11|30| Monday|4/4/2022|<span class="c3">Advanced Sorts|Mergesort|[Floryan](./AdvancedSorts/01-Mergesort.html)|<span class="c2">Basic Sorts|||<span class="c1">Trees (Quiz)|
+| |29|	Friday|4/1/2022|<span class="c2">|Insertion Sort, Lower-Bounds Adjacent Proof|[Floryan](./BasicSorts/02-InsertionSort.html)<BR>[Basit](./Basit/Day29-BasicSorts2.pdf)|||<span class="c1">Trees (Report)||
+|11|30| Monday|4/4/2022|<span class="c3">Advanced Sorts|Mergesort|[Floryan](./AdvancedSorts/01-Mergesort.html)<BR>[Basit](./Basit/Day30-AdvSorts.pdf) ~ [Mergesort](./Basit/Day30-Mergesort.gif)|<span class="c2">Basic Sorts|||<span class="c1">Trees (Quiz)|
 | |31|	Wednesday|4/6/2022|<span class="c3">|Quicksort|[Floryan](./AdvancedSorts/02-Quicksort.html)||<span class="c2">Basic Sorts (Coding)|||
 | |32|	Friday|4/8/2022|<span class="c3">|Lower-Bound Proof + Other Sorting Methods|[Floryan](./AdvancedSorts/03-Outro.html)|||||
 |12|33| Monday|4/11/2022|<span class="c1">Hash Tables|ADTs So Far / Maps and Sets in Java|SLIDES TBD|<span class="c3">Advanced Sorts|||<span class="c2">Basic Sorts (Quiz)|
