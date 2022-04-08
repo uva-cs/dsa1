@@ -42,7 +42,7 @@ This page contains the daily course schedule for the entire semester, as well as
 | |29|	Friday|4/1/2022|<span class="c2">|Insertion Sort, Lower-Bounds Adjacent Proof|[Floryan](./BasicSorts/02-InsertionSort.html)<BR>[Basit](./Basit/Day29-BasicSorts2.pdf)|||<span class="c1">Trees (Report)||
 |11|30| Monday|4/4/2022|<span class="c3">Advanced Sorts|Mergesort|[Floryan](./AdvancedSorts/01-Mergesort.html)<BR>[Basit](./Basit/Day30-AdvSorts.pdf) ~ [Mergesort](./Basit/Day30-Mergesort.gif)|<span class="c2">Basic Sorts|||<span class="c1">Trees (Quiz)|
 | |31|	Wednesday|4/6/2022|<span class="c3">|Quicksort|[Floryan](./AdvancedSorts/02-Quicksort.html)<BR>[Basit](./Basit/Day31-32-Quicksort.pdf)||<span class="c2">Basic Sorts (Coding)|||
-| |32|	Friday|4/8/2022|<span class="c3">|Lower-Bound Proof + Other Sorting Methods|[Floryan](./AdvancedSorts/03-Outro.html)<BR>[Basit](./Basit/Day31-32-Quicksort.pdf)|||||
+| |32|	Friday|4/8/2022|<span class="c3">|Lower-Bound Proof + Other Sorting Methods|[Floryan](./AdvancedSorts/03-Outro.html)<BR>[Basit](./Basit/Day31-32-Quicksort.pdf) [(links)](./Basit/Day31-32-Quicksort-Supplemental.pdf)|||||
 |12|33| Monday|4/11/2022|<span class="c1">Hash Tables|ADTs So Far / Maps and Sets in Java|SLIDES TBD|<span class="c3">Advanced Sorts|||<span class="c2">Basic Sorts (Quiz)|
 | |34|	Wednesday|4/13/2022|<span class="c1">|Hash Tables + Separate Chaining|SLIDES TBD||<span class="c3">Advanced Sorts (Coding)|||
 | |35|	Friday|4/15/2022|<span class="c1">|Open Addressing + Analysis|SLIDES TBD|||<span class="c3">Advanced Sorts (Report)||
