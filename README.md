@@ -1,4 +1,4 @@
-CS2501 - Data Structures and Algorithms I
+CS2100 - Data Structures and Algorithms I
 ===============================
 
 [Introduction](#introduction) | [Repository contents](#contents) | [Contributing to this repository](#contributing) | [Course description](#description) | [License](#license)
