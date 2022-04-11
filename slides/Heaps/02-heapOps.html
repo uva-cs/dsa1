@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Heaps</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Priority Queues / Heaps
+	</script></section>
+<section data-markdown><script type="text/template">
+# Contents
+&nbsp;  
+[Heap Operations](#heapops)  
+  </script></section>
+
+
+
+
+  <section>
+
+    <section id="heapops" data-markdown class="center"><script type="text/template">
+### Heap Operations
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Heap Operations
+- peek: just look at the root node
+- push(T data): Add data to priority queue
+  - Uses percolate up
+  - sometimes priority is given OR data is comparable
+- poll(): Remove next priority item
+  - Uses percolate down
+
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Heap: push(T data)
+Basic Idea: 
+
+1. Put data at "next" leaf position
+2. Repeatedly exchange node with its parent if needed
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### push(T data)
+
+- Note that `heap` is a vector, and `heap_size` is the number of *heap elements* inserted into that vector
+  - heap_size is NOT the capacity of the vector
+
+```
+push(data) {
+    // a vector push_back will resize as necessary
+    heap.insertAtEnd(data);
+    heap_size+=1
+
+    // move it up into the right position
+    percolateUp(heap_size);
+}
+```
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### percolateUp(int index)
+
+```
+percolateUp(int index) {
+    if(index <= 1) return;
+    
+    int pIndex = Floor(index/2);
+    
+    if(heap[index] < heap[pIndex]) {
+      swap(index, pIndex);
+      percolateUp(pIndex);
+    }
+}
+```
+    </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### push: example on board
+
+- Let's push __5__ into the heap below.
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[2] --> B[10]
+    A --> C[7]
+    B --> D[22]
+    B --> E[11]
+    C --> F[9]
+    C -->G[12]
+  </span><div class="diagram-display"></div>
+</script></section>
+
+    <section>
+<h4>push() expected running time</h4>
+<ul>
+<li>How far to move up?<ul>
+  <li>Half of the nodes are leaves, so half of the inserts will only move up one level</li>
+  <li>A quarter of the nodes are one level above the leaves, so one quarter of the inserts will move up two levels</li>
+  <li>One eighth will require moving up 3 levels</li>
+  <li>One sixteenth will require moving up 4 levels</li>
+<li>Expected running time:<br>&nbsp;</li>
+<ul>
+1/2 * 1 + 1/4 * 2 + 1/8 * 3 + ... = Sum((1/(2^i))*i = 2
+    </section>
+
+    <section data-markdown><script type="text/template">
+## Heap: poll
+Basic Idea: 
+
+1. Remove root (that is always the min!)
+2. Put "last" leaf node at root
+3. Find smallest child (why?)
+4. Swap node with smallest child if needed.
+5. Repeat steps 3 & 4 until no swaps needed.
+    </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### poll: which child to swap with
+
+- Consider this min-heap. 25 needs percolating, what to do?
+- What happens if we swap with the 10?
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[25] --> B[10]
+    A --> C[7]
+  </span><div class="diagram-display"></div>
+</script></section>
+
+   <section data-markdown class="diagram-slide"><script type="text/template">
+#### poll: percolateDown()
+
+- Let's percolate down on this heap
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[11] --> B[10]
+    A --> C[7]
+    B --> D[22]
+    B --> E[31]
+    C --> F[9]
+    C -->G[12]
+  </span><div class="diagram-display"></div>
+</script></section>
+
+    <section data-markdown><script type="text/template">
+### poll()
+
+- Consider the following psuedo-code
+
+```
+T poll() {
+    // make sure the heap is not empty
+    if ( heap_size == 0 )
+        return null;
+    
+    int ret = heap[1];
+    heap_size--;
+    heap[1] = heap[heap_size];
+    heap.removeLast();
+    percolateDown(1);
+    return ret;
+}
+```
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### percolateDown()
+
+- Left as an exercise (for lab)
+
+```
+percolateDown(index){
+    //move item at index down until 
+}
+```
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Other Possible Heap Operations
+- `decreaseKey(processID, amount)`: "raise" the priority of a process, percolate up
+- `increaseKey(processID, amount)`: "lower" the priority of a process, percolate down
+- `remove(processID)`: remove a process, move to top, then delete.    
+&nbsp;  
+- Worst case running time for all of these: &Theta;(*n*), because of the find() required
+- What about FindMax?
+- ExpandHeap: when heap fills, copy into new space.
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Heaps (Summary)
+- push: percolate up; &Theta;(log *n*) time worst case, but constant expected time
+- poll: percolate down; &Theta;(log *n*) time worst case; also logarithmic expected time
+- peek: &Theta;(1) time
+    </script></section>
+
+  </section>
+
+
+
+  <!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

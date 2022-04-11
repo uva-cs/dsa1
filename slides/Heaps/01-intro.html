@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Heaps</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Priority Queues / Heaps
+	</script></section>
+<section data-markdown><script type="text/template">
+# Contents
+&nbsp;  
+[Priority Queues](#priorityqueues)  
+[Binary Heaps](#heaps)  
+  </script></section>
+
+  <section>
+
+    <section class="center" id="priorityqueues" data-markdown><script type="text/template">
+## Priority Queues
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Motivation
+- Multiuser environment
+  - Operating system must choose which process to run on CPU 
+- Management of limited resources
+  - Bandwidth on network router
+    - Limited bandwidth, but want to give best possible performance
+    - Send traffic from highest priority queue first
+      - Example: VoIP
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Priority Queue ADT - Model
+- operations: 
+  - push
+    - inserts with a *priority*
+  - peek
+    - finds the minimum element
+  - poll
+    - finds, returns, and removes minimum element
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Priority Queue data structures
+
+| Data structure | push | peek | poll |
+|-|-|-|-|
+| Unsorted array | &Theta;(1) ammortized | &Theta;(*n*) | &Theta;(*n*) |
+| Unsorted linked list | &Theta;(1) | &Theta;(*n*) | &Theta;(*n*) |
+| Sorted array | &Theta;(*n*) | &Theta;(1) | &Theta;(1) |
+| Sorted linked list | &Theta;(*n*) | &Theta;(1) | &Theta;(1) |
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Priority Queue data structures
+
+| structure | push | peek | poll |
+|-|-|-|-|
+| BST | &Theta;(*n*) | &Theta;(*n*) | &Theta;(*n*) |
+| AVL / RB tree | &Theta;(log *n*) | &Theta;(log *n*) | &Theta;(log *n*) |
+| Hash table | ideally constant | &Theta;(*n*) | &Theta;(*n*) |
+
+- We would like:
+  - peek: always constant
+  - push: worst case &Theta;(log *n*), typical case constant
+  - poll: worst and average case &Theta;(log *n*)
+    </script></section>
+
+  </section>
+
+  <section>
+
+    <section class="center" id="heaps" data-markdown><script type="text/template">
+## Binary Heaps
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Binary Heap
+- A binary heap is a data structure that is one possible implementation of a priority queue
+- It's a binary tree (*not* a BST), with a different:
+  - structure property
+  - ordering property
+    </script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+### Definitions
+A *perfect* (or *complete*) binary tree has all leaf nodes at the same depth; all internal nodes have 2 children.
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+    C --> G
+  </span><div class="diagram-display"></div>
+</script></section>
+
+    <section data-markdown class="diagram-slide"><script type="text/template">
+### Heap Structure Property
+- A binary heap is an __almost complete__ binary tree. the tree is completely filled, except possibly the bottom level, which is filled left to right.
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+    C -->G[ ]
+  </span><div class="diagram-display"></div>
+</script></section>
+
+    <section>
+<h4>Almost complete binary tree of height <i>h</i></h4>
+<table class="transparent">
+<tr><td class="middle" style="text-align:left"><ul><li>For <i>h</i> = 0, just a single node</li></ul></td><td></td></tr>
+<tr><td class="middle" style="text-align:left"><ul><li>For <i>h</i> = 1, left child or two children</li></ul></td></tr>
+<tr><td colspan="3">
+<ul>
+<li>For <i>h</i> &ge; 2, either:<ul>
+    <li>the left subtree of the root is <i>complete</i> with height <i>h</i>-1 and the right is <i>almost complete</i> with height <i>h</i>-1, OR</li>
+    <li>the left is <i>almost complete</i> with height <i>h</i>-1 and the right is <i>complete</i> with height <i>h</i>-2</li></ul></li>
+</ul>
+</td></tr></table>
+    </section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Complete Binary Trees in Arrays
+
+- Stored in array: [-1, A, B, C, D, E, F]
+  - i*2 leads to left child, i*2+1 to right child
+  - Math.floor(i/2) leads to parent
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[1:A] --> B[2:B]
+    A --> C[3:C]
+    B --> D[4:D]
+    B --> E[5:E]
+    C --> F[6:F]
+    C -->G[ ]
+  </span><div class="diagram-display"></div>
+</script></section>
+
+    <section data-markdown><script type="text/template">
+### Why better than references?
+- Saves space
+  - No need to store parent/child references
+  - Arrays are more compact in memory
+- Saves time
+  - Arrays work better with cache
+  - \*2, /2, + operations are faster than dereferencing
+  - allocating objects slow compared to arrays
+- Parent easy to locate (i.e., free parent pointer)
+    </script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Heap Ordering Property
+
+- Heap ordering property: For every non-root node __X__, the key in the parent of __X__ is less than (or equal to) the key in __X__.  Thus, the tree is __partially__ ordered.
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[2] --> B[10]
+    A --> C[7]
+    B --> D[22]
+    B --> E[11]
+    C --> F[9]
+    C -->G[15]
+  </span><div class="diagram-display"></div>
+</script></section>
+
+<section data-markdown class="diagram-slide"><script type="text/template">
+#### Heap Ordering Property
+
+- This one is __NOT__ a heap. Why?
+
+<span class="diagram-data" style="display:none;">
+  graph TD
+    A[2] --> B[10]
+    A --> C[7]
+    B --> D[22]
+    B --> E[8]
+    C --> F[9]
+    C -->G[15]
+  </span><div class="diagram-display"></div>
+</script></section>
+  </section>
+
+
+
+
+  
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
