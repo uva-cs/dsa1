@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Hash Tables</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Hashing
+	</script></section>
+<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[ADTs Covered So Far](#/adtssofar)  
+[Maps and Sets](#/MapsAndSets)
+  </script></section>
+
+
+  <section>
+
+    <section id="adtssofar" data-markdown class="center"><script type="text/template">
+## ADTs Covered So Far
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Lists
+- Operations
+  - find
+  - insert
+  - remove
+  - findKth
+- Implementations
+  - Array (vector)
+  - Linked list
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Lists
+| | Array (vector) | Linked List |
+|-|-|-|
+| find | &Theta;(*n*) | &Theta;(*n*) |
+| insert | &Theta;(*n*) worst case,<br>but often &Theta;(1) | &Theta;(1) |
+| remove | &Theta;(*n*) | &Theta;(*n*) |
+| findKth | &Theta;(1) | &Theta;(*n*) |
+<center>The operations are *generally* linear-time operations</center>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Stacks
+- List with data handled last-in first-out
+- Operations:
+  - push
+  - pop
+  - top
+- Implementations
+  - Array (vector)
+  - Linked list
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Stacks
+| | Array (vector) | Linked List |
+|-|-|-|
+| push | &Theta;(*n*) worst case,<br>but often &Theta;(1) | &Theta;(1) |
+| pop | &Theta;(1) | &Theta;(1) |
+| top | &Theta;(1) | &Theta;(1) |
+<center>The operations are *generally* constant-time operations</center>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Queues
+- First-in first-out list
+- Operations:
+  - enqueue
+  - dequeue
+- Implementations
+  - Array (vector)
+  - Linked lists
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Queues
+| | Array (vector) | Linked List |
+|-|-|-|
+| enqueue | &Theta;(*n*) worst case,<br>but often &Theta;(1) | &Theta;(1) |
+| dequeue | &Theta;(1) | &Theta;(1) |
+<center>The operations are *generally* constant-time operations</center>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Trees
+- Goal is &Theta;(log *n*) runtime for most operations
+  - Binary search trees
+  - AVL Trees
+  - Red-black trees
+  - Splay trees
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Trees
+| | BST | AVL | Red-black |
+|-|-|-|-|
+| find | worst case &Theta;(*n*) | &Theta;(log *n*) | &Theta;(log *n*) |
+| insert | worst case &Theta;(*n*) | &Theta;(log *n*) | &Theta;(log *n*) |
+| remove | worst case &Theta;(*n*) | &Theta;(log *n*) | &Theta;(log *n*) |
+<center>Balanced trees are *generally* logarithmic-time operations</center>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Is There Anything Faster?
+- Fastest possible search using binary comparison: &Theta;(log *n*)
+- We can do better: (almost) constant (&Theta;(1)) is possible with *hash tables*
+- Hash tables (lookup table)
+  - Standard set of operations: find, insert, delete
+  - No ordering property!
+    - Thus, no findMin or findMax
+    </script></section>
+
+  </section>
+
+  <section>
+
+    <section id="MapsAndSets" data-markdown class="center"><script type="text/template">
+## ASIDE: Maps and Sets
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Two new abstract data types
+- *Set*: Any data structure that stores a bunch of elements
+  - Insert/retrieve done using the element itself (e.g., insert(data))
+  - No duplicate values allowed in sets
+- *Map*: Any data structure that stores key/value pairs
+  - insert and retrieve by key. e.g., insert("oranges", 2.95);
+  - retrieve("oranges") returns 2.95
+  - no duplicate keys allowed.
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Two new abstract data types
+- *Set*: Methods include:
+  - insert(data), find(data), remove(data)
+  - No real concept of indexing like a list
+- *implementation examples*:
+  - Trees (BST, etc.). Java has a TreeSet class
+  - Hash Tables. Java has a HashSet class
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Two new abstract data types
+- *Map*: Methods include:
+  - put(key, T data), T get(key), T remove(key)
+  - No real concept of indexing like a list
+- *implementation examples*:
+  - Trees (BST, etc.). Java has a TreeMap class
+  - Hash Tables. Java has a HashMap class
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Which ADT is hash table?
+- A hash table can be used to implement a Map or a Set
+- In this class, we will usually use the latter (easier to show examples) but sometimes use either.
+
+- Let's take a look at some of Java's sets and maps
+  - HashSet
+  - HashMap
+  - TreeSet
+  - TreeMap
+    </script></section>
+
+       <section data-markdown><script type="text/template">
+## Example
+- Let's implement mode() from module 1 in Java using HashMap
+    </script></section>
+
+  </section>
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

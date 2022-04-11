@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Hash Tables</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Hashing
+	</script></section>
+<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Hash Tables](#/hashtables)  
+[Separate Chaining](#/separatechaining)  
+  </script></section>
+
+  <section>
+
+    <section id="hashtables" data-markdown class="center"><script type="text/template">
+## Hash Tables
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Key-value pairs
+- Hash tables store key-value pairs
+  - Each value has a specific key associated with it
+  - Keys and values need not be the same type!
+- Example
+  - Definitions: "set", "v.tr. 1. To put in a specified position..."
+    </script></section>
+
+<section data-markdown><script type="text/template">
+### Hash Tables
+- Hash Table contains
+  - Fixed size array (like vector). Resized when necessary.
+- Keys
+  - Pass through a hash function
+  - Key is parameter, index into array is return value.
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Hash function
+- A hash function takes in a "thing"...
+  - In Java, any object
+  - and returns an *unsigned* integer value mod length of table
+- Three *required* properties
+  - Must be *deterministic*
+  - Must be *fast*
+  - Must be *evenly distributed*
+    </script></section>
+
+    <section>
+<h3>Hash functions KLA</h3>
+<ul>
+<li>I'm going hash all of you into 10 buckets (0-9) by your birthday</li>
+<li>The hash functions:<ul>
+<li class="fragment" data-fragment-index="1">By the decade of your birth year<ul>
+<li class="fragment" data-fragment-index="1"><i>hash</i>(<i>birthday</i>) = (<i>year</i>/10) % 10</li></ul></li>
+<li class="fragment" data-fragment-index="2">By the last digit of your birth year<ul>
+<li class="fragment" data-fragment-index="2"><i>hash</i>(<i>birthday</i>) = <i>year</i> % 10</li></ul></li>
+<li class="fragment" data-fragment-index="3">By the last digit of your birth month<ul>
+<li class="fragment" data-fragment-index="3"><i>hash</i>(<i>birthday</i>) = <i>month</i> % 10</li></ul></li>
+<li class="fragment" data-fragment-index="4">By the last digit of your birth day<ul>
+<li class="fragment" data-fragment-index="4"><i>hash</i>(<i>birthday</i>) = <i>day</i> % 10</li></ul></li>
+</ul></li></ul>
+    </section>
+
+ <section data-markdown><script type="text/template">
+## Hash functions in Java
+- Let's look at Java Object API
+- There is a method for this!!
+</script></section>
+
+    <section>
+<h4>Example: On Board</h4>
+<table  style="width:100%" class="transparent"><tr><td>
+<div style="font-size:60%">
+<ul>
+<li>Key space: integers<br>&nbsp;</li>
+<li>Table size: 10<br>&nbsp;</li>
+<li><i>hash</i>(<i>k</i>) = <i>k</i> mod 10<ul>
+    <li>Technically, <i>hash</i>(<i>k</i>) = <i>k</i>,<br>which is <i>then</i> mod'ed by<br>the table size of 10<br>&nbsp;</li>
+</ul></li>
+<li>Insert: 7, 18, 41, 34<br>&nbsp;</li>
+<li>How do we find them?</li>
+</ul></div>
+</td>
+</tr></table>
+    </section>
+
+    <section data-markdown><script type="text/template">
+## Table size issues...
+- Why not just have a table of size 100
+  - And map them directly to the location corresponding to their key?
+- We assume that the key space is too large
+  - Example: mapping social security numbers for students at UVa
+    - There are not 999,999,999 students at UVa, even if taken across all time
+- Do you see why find max and find min are not easy?
+  - We have not preserved any ordering info
+    </script></section>
+
+    <section>
+<h2>Another Example</h2>
+<table class="transparent"><tr><td>
+<div style="font-size:60%">
+<ul>
+<li>Key space: integers<br>&nbsp;</li>
+<li>Table size: 6<br>&nbsp;</li>
+<li><i>hash</i>(<i>k</i>) = <i>k</i> mod 6<br>&nbsp;</li>
+<li>Insert: 7, 18, 41, 34, <span class='red'>12</span><br>&nbsp;</li>
+<li>How do we find them?</li>
+</ul></div>
+</td></tr></table>
+    </section>
+
+    <section data-markdown><script type="text/template">
+## Hash Functions
+- Required properties described earlier
+  - Must be deterministic
+  - Must be fast
+  - Must be evenly distributed
+    - This implies avoiding of collisions
+- A perfect hash function has:
+  - No blanks (i.e., no empty cells)
+  - No collisions
+    </script></section>
+
+
+    <section data-markdown><script type="text/template">
+## Hash function notes
+- They should always return an *unsigned* int
+  - Otherwise your program will be trying to find a negative array index
+- Integer overflow is fine, as long as it overflows *deterministically*
+  - Meaning the same way each time
+  - This will especially be true with the last of the string hash functions presented on the previous slide
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Collision Resolution
+- Collision: when two keys map to the same location in the hash table
+- Two primary ways to resolve collisions:
+  1. Separate Chaining (make each spot in the table a 'bucket' or a collection)
+  2. Open Addressing, of which there are 3 types:
+     - Linear probing
+     - Quadratic probing
+     - Double hashing
+    </script></section>
+
+  </section>
+
+
+  <section>
+
+    <section id="separatechaining" data-markdown class="center"><script type="text/template">
+## Separate Chaining
+    </script></section>
+
+    <section>
+<h2>Separate Chaining</h2>
+<table class="transparent"><tr><td style="width:200px"></td><td class="top">
+<div style="font-size:60%;line-height:110%">
+<ul>
+<li>All keys that map to the same hash value are kept in a &quot;bucket&quot;<ul>
+  <li>This &quot;bucket&quot; is another data structure, typically a linked list</li></ul><br>&nbsp;</li>
+<li><i>hash</i>(<i>k</i>) = <i>k</i> mod 10<br>&nbsp;</li>
+<li>Insert: 10, 22, 107, 12, 42</li>
+</ul></div>
+</td></tr></table>
+<script type="text/javascript">insertCanvas();</script>
+    </section>
+
+    <section data-markdown><script type="text/template">
+## Analysis of find
+- Definition: The *load factor*, &lambda;, of a hash table is the ratio of the number of elements divided by the table size
+- For separate chaining, &lambda; is the average number of elements in a bucket
+  - Average time on unsuccessful find: &lambda;
+    - Average length of a list at *hash*(*k*)
+  - Average time on successful find: 1 + (&lambda;/2)
+    - One node, plus half the average length of a list (not including the item)
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Load factor
+- How big should we make the hash table?
+- Possible sizes for hash table with separate chaining
+  - &lambda; = 1
+    - Make hash table be the number of elements expected; average bucket size is 1
+  - &lambda; = 0.75
+    - Good trade-off between memory use and time
+  - &lambda; = 0.5
+    - Uses more memory, but fewer collisions
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Separate Chaining: find()
+- Note that we now have to keep each key in the chain, as well as the value!
+- What is the worst case?
+  - In the worst case, every key could hash to the same spot!
+    - This means it will be a &Theta;(*n*) algorithm to perform a find!
+- What is the "hopeful" case?
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### What data structure to use for the buckets?
+- AVL & red-black trees will give the best running time
+  - But that's a lot of overhead!
+- Vectors are easier, but take up a *lot* of space
+  - All those extra, unused, cells
+  - Don't *ever* use vectors for this!
+- Linked lists are easy, and take up very little space
+  - That's &Theta;(*n*)!
+  - Still faster *in practice* than trees due to having a very small number of items in the bucket
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+## Requirements for "Hopeful" Case
+- Our ideal hash function and hash table:
+  - Function *hash*(*k*) is well distributed for key space
+    - For a randomly selected *k* &isin; *K*,
+    - probability(*hash*(*k*) = i) = 1/*table_size*
+  - Size of table scales linearly with number of elements
+    - Expected bucket size is &Theta;(*num_elements* / *table_size*)
+- Finding a good hash function can be tough
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Separate chaining insert is &Theta;(1)
+- In an unsorted linked list, you can just put it on the front
+- So all inserts into a seprate chained hash table, that uses linked lists, are actually in constant time
+  - If you were to *sort* the linked list, that would be linear time
+  - And finds (and thus deletes) are still linear time
+    </script></section>
+
+  </section>
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

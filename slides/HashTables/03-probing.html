@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Hash Tables</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+	<section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Hashing
+	</script></section>
+<section data-markdown><script type="text/template">
+### Contents
+&nbsp;  
+[Open Addressing](#/openaddressing)  
+[Miscellaneous](#/miscellaneous)  
+  </script></section>
+
+
+  <section>
+
+    <section id="openaddressing" data-markdown class="center"><script type="text/template">
+## Open Addressing
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Saving Memory
+
+<center>Can we avoid the overhead of all those linked lists?</center>
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Three Types of Probing Strategies
+- The three types:
+  - Linear
+  - Quadratic
+  - Double hashing
+- The general idea with all of them is that, if a spot is occupied, to 'probe', or try, other spots in the table to use
+  - How we determine where else to probe depends on which strategy we are using
+    </script></section>
+
+    <section>
+<h2>Linear Probing</h2>
+<table class="transparent"><tr><td class="top">
+<ul>
+<li>Check spots in this order:<ul>
+    <li><i>hash</i>(<i>k</i>), <i>hash</i>(<i>k</i>)+1, <i>hash</i>(<i>k</i>)+2, etc.</li>
+</ul>&nbsp;</li>
+<li><i>hash</i>(<i>k</i>) = 3<i>k</i>+7<ul><li>Which is then mod'ed by the table size (10)</li><li>Result: <i>hash</i>(<i>k</i>) = (3<i>k</i>+7) mod 10</li></ul>&nbsp;</li>
+<li>Insert: 4, 27, 37, 14, 21<ul>
+    <li><i>hash</i>(<i>k</i>) values: 19, 88, 118, 49, 70, respectively</li>
+</ul></li>
+</ul>
+</td></tr></table>
+    </section>
+
+    <section data-markdown><script type="text/template">
+### Linear Probing
+- With all open addressing schemes, we examine ('probe') the cells in the order:
+  - *p*<sub>0</sub>(*k*), *p*<sub>1</sub>(*k*), *p*<sub>2</sub>(*k*), ...
+  - where: *p*<sub>i</sub>(*k*) = (*hash*(*k*) + *f*(*i*)) mod *table_size*
+- With *linear probing*, <span class="red">*f*(*i*) = *i*</span>
+  - After searching spot *hash*(*k*) in the array, look in:
+    - *hash*(*k*) + 1
+    - *hash*(*k*) + 2
+    - *hash*(*k*) + 3
+    - etc.
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Problems with Linear Probing
+- Primary clustering
+  - Large blocks of occupied cells
+  - As table fills, increased number of attempts required to solve collision
+    - And thus slower lookup times
+  - "Holes" when an element is removed
+    - We'll see how to solve this later
+  - When to stop looking?
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Quadratic Probing
+- With all open addressing schemes, we examine ('probe') the cells in the order:
+  - *p*<sub>0</sub>(*k*), *p*<sub>1</sub>(*k*), *p*<sub>2</sub>(*k*), ...
+  - where: *p*<sub>i</sub>(*k*) = (*hash*(*k*) + *f*(*i*)) mod *table_size*
+- With *quadratic probing*, <span class="red">*f*(*i*) = *i*<sup>2</sup></span>
+  - After searching spot *hash*(*k*) in the array, look in:
+    - *hash*(*k*) + 1
+    - *hash*(*k*) + 4
+    - *hash*(*k*) + 9
+    - etc.
+    </script></section>
+
+    <section>
+<h2>Quadratic Probing</h2>
+<table class="transparent"><tr><td class="top">
+<ul>
+<li>Check spots in this order:<ul>
+    <li><i>hash</i>(<i>k</i>)</li>
+    <li><i>hash</i>(<i>k</i>)+1<sup>2</sup> = <i>hash</i>(<i>k</i>)+1</li>
+    <li><i>hash</i>(<i>k</i>)+2<sup>2</sup> = <i>hash</i>(<i>k</i>)+4</li>
+</ul>&nbsp;</li>
+<li><i>hash</i>(<i>k</i>) = 3<i>k</i>+7<ul>
+<li>Insert: 4, 27, 14, 37, 22, 34<ul>
+    <li><i>hash</i>(<i>k</i>) values: 19, 88, 49, 118, 73, 109, respectively</li>
+</ul></li>
+</ul>
+</td></tr></table>
+    </section>
+
+    <section data-markdown><script type="text/template">
+### Double Hashing
+- With all open addressing schemes, order to probe:
+  - *p*<sub>0</sub>(*k*), *p*<sub>1</sub>(*k*), *p*<sub>2</sub>(*k*), ...
+  - where: *p*<sub>i</sub>(*k*) = (*hash*(*k*) + *f*(*i*)) mod *table_size*
+- With *double hashing*, <span class="red">*f*(*i*) = *i* \* hash<sub>2</sub>(*k*)</span>
+  - Which means we have to define a *secondary* hash function!
+  - After searching spot *hash*(*k*) in the array, look in:
+    - *hash*(*k*) + 1 \* *hash*<sub>2</sub>(*k*)
+    - *hash*(*k*) + 2 \* *hash*<sub>2</sub>(*k*)
+    - *hash*(*k*) + 3 \* *hash*<sub>2</sub>(*k*)
+    - etc.
+    </script></section>
+
+    <section>
+<h2>Double Hashing</h2>
+<table class="transparent"><tr><td class="top">
+<ul>
+<li>Check spots in this order:<ul>
+    <li><i>hash</i>(<i>k</i>)</li>
+    <li><i>hash</i>(<i>k</i>) + 1 * <i>hash</i><sub>2</sub>(<i>k</i>)</li>
+    <li><i>hash</i>(<i>k</i>) + 2 * <i>hash</i><sub>2</sub>(<i>k</i>)</li>
+</ul>&nbsp;</li>
+<li><i>hash</i>(<i>k</i>) = <i>k</i><ul>
+<li>Result: <i>hash</i>(<i>k</i>) = <i>k</i> mod 10</li></ul></li>
+<li><i>hash</i><sub>2</sub>(<i>k</i>) = 7 - (<i>k</i> mod 7)<br>&nbsp;</li>
+<li>Insert: 89, 18, 58, 49, 69, 60</li>
+</ul>
+</td></tr></table>
+    </section>
+
+    <section>
+<h2>Double Hashing Thrashing</h2>
+<table class="transparent"><tr><td class="top">
+<ul>
+<li><i>hash</i>(<i>k</i>) = <i>k</i> mod 10&nbsp;<ul>
+<li>Same as the previous slide</li>
+<li>Result: <i>hash</i>(<i>k</i>) = <i>k</i> mod 10</li></ul>&nbsp;</li>
+<li><i>hash</i><sub>2</sub>(<i>k</i>) = (<i>k</i> mod 5) +1<br>&nbsp;</li>
+<li>Insert: 10, 12, 14, 16, 18, <span class='red'>36</span></li>
+</ul>
+</td></tr></table>
+    </section>
+
+    <section data-markdown><script type="text/template">
+### Table size must be prime!
+- The table size must always be a prime number
+  - Thrashing will only occur when the double hash value is a *factor* of the table size
+  - The only factors of a prime number *p* are 1 and *p*
+  - It will provide better distribution of the hash keys into the table
+    - Less clustering, etc.
+- A prime number table size does not remove the need for a good hash function!
+    </script></section>
+
+  </section>
+
+
+  <section>
+
+    <section id="miscellaneous" data-markdown class="center"><script type="text/template">
+## Miscellaneous
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Rehashing
+- Problem: when the table gets too full, running time for operations increases
+- Solution: create a bigger table and hash all the items from the original table into the new table
+  - The position in a table is dependent on the table size, which means we have to *rehash* each value
+  - This means we have to re-compute the hash value for *each* element, and insert it into the new table!
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Rehashing
+- When to rehash?
+  - When half full (&lambda; = 0.5)
+  - When mostly full (&lambda; = 0.75)
+    - Java's hashtable does this by default
+  - When an insertion fails
+- Cost of rehashing
+  - We have to do *n* inserts so worst case &Theta;(*n*<sup>2</sup>) operation!
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Removing an element
+- How to handle this?
+- You could:
+  - Rehash upon each delete, which is *very* expensive
+  - Put in a 'placeholder' or 'sentinel' value
+    - But the table gets filled with these rather fast
+    - Perhaps rehashing after a certain number of deletes
+  - Disallow deletes entirely; Not recommended
+- Hash tables are not an ideal data structure if you need to perform a lot of deletions
+    </script></section>
+
+    <section data-markdown><script type="text/template">
+### Other uses of hashing
+- Storing passwords: increases security.
+- Security of downloads (SHA-2)
+- Cryptocurrencies (Hash functions used to verify transactions) 
+    </script></section>
+
+  </section>
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
