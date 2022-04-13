@@ -75,8 +75,12 @@
     </script></section>
 
     <section data-markdown><script type="text/template">
-## Key-value pairs
-- Hash tables store key-value pairs
+## What does a hash table store?
+- If implementing a set (like Java HashSet)
+  - Hash table stores the data correctly
+  - The data itself is the "key"
+- If implementing a map (like Java HashMap)
+  - Hash tables store key-value pairs 
   - Each value has a specific key associated with it
   - Keys and values need not be the same type!
 - Example
@@ -96,7 +100,8 @@
 ## Hash function
 - A hash function takes in a "thing"...
   - In Java, any object
-  - and returns an *unsigned* integer value mod length of table
+  - and returns an integer value mod length of table
+  - This value must be converted into something within the array range afterwards
 - Three *required* properties
   - Must be *deterministic*
   - Must be *fast*
@@ -121,8 +126,10 @@
 
  <section data-markdown><script type="text/template">
 ## Hash functions in Java
-- Let's look at Java Object API
-- There is a method for this!!
+- Java contains a built-in method for hashing (hashCode())
+
+- Notice that there is a contract between .equals and .hashCode in Java
+- if two objects are equal, they must return the same hashcode!!
 </script></section>
 
     <section>
@@ -182,11 +189,11 @@
 
     <section data-markdown><script type="text/template">
 ## Hash function notes
-- They should always return an *unsigned* int
+- They should always return an **unsigned** int and must end up in range of array indices
   - Otherwise your program will be trying to find a negative array index
+  - Java hashCode returns int, so make sure to take absolute value and mod by table size!!
 - Integer overflow is fine, as long as it overflows *deterministically*
   - Meaning the same way each time
-  - This will especially be true with the last of the string hash functions presented on the previous slide
     </script></section>
 
     <section data-markdown><script type="text/template">
@@ -283,6 +290,7 @@
 - So all inserts into a seprate chained hash table, that uses linked lists, are actually in constant time
   - If you were to *sort* the linked list, that would be linear time
   - And finds (and thus deletes) are still linear time
+- BUT...if you need to confirm that no **duplicates** exist, then may not be constant time anymore.
     </script></section>
 
   </section>
