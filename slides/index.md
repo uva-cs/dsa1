@@ -45,7 +45,7 @@ This page contains the daily course schedule for the entire semester, as well as
 | |32|	Friday|4/8/2022|<span class="c3">|Lower-Bound Proof + Other Sorting Methods|[Floryan](./AdvancedSorts/03-Outro.html)<BR>[Basit](./Basit/Day31-32-Quicksort.pdf) [(links)](./Basit/Day31-32-Quicksort-Supplemental.pdf)|||||
 |12|33| Monday|4/11/2022|<span class="c1">Hash Tables|ADTs So Far / Maps and Sets in Java|[Floryan](./HashTables/01-intro.html)<BR>[Basit](./Basit/Day33-ADTs-Sets-Maps.pdf)|<span class="c3">Advanced Sorts|||<span class="c2">Basic Sorts (Quiz)|
 | |34|	Wednesday|4/13/2022|<span class="c1">|Hash Tables + Separate Chaining|[Floryan](./HashTables/02-chaining.html)<BR>[Basit](./Basit/Day34-Hashing1.pdf)||<span class="c3">Advanced Sorts (Coding)|||
-| |35|	Friday|4/15/2022|<span class="c1">|Open Addressing + Analysis|[Floryan](./HashTables/03-probing.html)|||<span class="c3">Advanced Sorts (Report)||
+| |35|	Friday|4/15/2022|<span class="c1">|Open Addressing + Analysis|[Floryan](./HashTables/03-probing.html)<BR>[Basit](./Basit/Day35-Hashing2.pdf)|||<span class="c3">Advanced Sorts (Report)||
 |13|36| Monday|4/18/2022|<span class="c2">Priority Queues|Priority Queues + Binary Heap Structure|[Floryan](./Heaps/01-intro.html)|<span class="c1">Hash Tables|||<span class="c3">Advanced Sorts (Quiz)|
 | |37|	Wednesday|4/20/2022|<span class="c2">|Binary Heap Operations (Insert, DeleteMin, findMin)|[Floryan](./Heaps/02-heapOps.html)||<span class="c1">Hash Tables (Coding)|||
 | |38|	Friday|	4/22/2022|<span class="c2">|Heapsort|[Floryan](./Heaps/03-heapsort.html)|||<span class="c1">Hash Tables (Report)||
