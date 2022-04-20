@@ -47,7 +47,7 @@ This page contains the daily course schedule for the entire semester, as well as
 | |34|	Wednesday|4/13/2022|<span class="c1">|Hash Tables + Separate Chaining|[Floryan](./HashTables/02-chaining.html)<BR>[Basit](./Basit/Day34-Hashing1.pdf)||<span class="c3">Advanced Sorts (Coding)|||
 | |35|	Friday|4/15/2022|<span class="c1">|Open Addressing + Analysis|[Floryan](./HashTables/03-probing.html)<BR>[Basit](./Basit/Day35-Hashing2.pdf)|||<span class="c3">Advanced Sorts (Report)||
 |13|36| Monday|4/18/2022|<span class="c2">Priority Queues|Priority Queues + Binary Heap Structure|[Floryan](./Heaps/01-intro.html)<BR>[Basit](./Basit/Day36-BinaryHeaps1.pdf)|<span class="c1">Hash Tables|||<span class="c3">Advanced Sorts (Quiz)|
-| |37|	Wednesday|4/20/2022|<span class="c2">|Binary Heap Operations (Insert, DeleteMin, findMin)|[Floryan](./Heaps/02-heapOps.html)||<span class="c1">Hash Tables (Coding)|||
+| |37|	Wednesday|4/20/2022|<span class="c2">|Binary Heap Operations (Insert, DeleteMin, findMin)|[Floryan](./Heaps/02-heapOps.html)<BR>[Basit](./Basit/Day37-BinaryHeaps2.pdf)||<span class="c1">Hash Tables (Coding)|||
 | |38|	Friday|	4/22/2022|<span class="c2">|Heapsort|[Floryan](./Heaps/03-heapsort.html)|||<span class="c1">Hash Tables (Report)||
 |14|39| Monday|4/25/2022|<span class="c3">Concurrency|Basic Concurrency and Thread Example|SLIDES TBD|<span class="c2">Priority Queues|||<span class="c1">Hash Tables (Quiz)|
 | |40|	Wednesday|4/27/2022|<span class="c3">|Exception Handling, Shared Resources, Race Conditions	|SLIDES TBD||<span class="c2">Priority Queues (Coding)|||
