@@ -88,7 +88,7 @@ public class PriorityQueueTester {
 		list2 = (ArrayList<Integer>)list.clone();
 		
 		System.out.print("Creating heap from list...");
-		mh = new MinHeap<Integer>(list);
+		mh = new MinHeap<Integer>((ArrayList<Integer>)list.clone());
 		System.out.println("DONE");
 		
 		System.out.print("Removing elements...");
