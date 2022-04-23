@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Concurrency</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Concurrency
+  </script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Basics of Concurrency](#/intro)  <br />
+[Basic Thread Example](#/threads) <br />
+</script></section>
+
+<!-- NEW SECTION -->
+<!---------------------------------------------- -->
+<section>
+<section id="intro" data-markdown class="center"><script type="text/template">
+### Basics of Concurrency
+    </script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Motivation
+
+- __Idea__: Running code in sequence (i.e., one line of code after another) is fine, and easy. However, what if we could write code that runs *in parallel* instead?
+
+- Then, our code would get way faster right? Running code segment 1 and 2 in parallel better than executing code 1, then code 2.
+  - __Answer__: Well, yes sometimes but not always.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Some definitions
+
+- __Process__: A program that is running on a machine (e.g., MS Word, Browser, etc.). These processes usually run in parallel.
+- __Thread__: A *thread* is a piece of code that runs in parallel within a single process.
+  - e.g., Browser may have one thread that handles input from the user and another thread that fetches images to display on the current webpage in parallel.
+  - The process has control over all of its threads.
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Some definitions
+
+- __CPU (Core)__: A CPU is a chip that runs code. If your machine is a quad-core machine, then you have four computers in your laptop (good for you!). 
+- __Resource__: A thing (variable, object, file) that a thread wants to interact with
+  - Short version: If threads want to use the same resource, then we have problems.
+</script></section>
+
+<section class="diagram-slide">
+<h4>Single Core Concurrency</h4>
+<span class="diagram-data" style="display:none;">
+  sequenceDiagram
+    Thread 1 ->> CPU: Execute
+    CPU --> Thread 1: Done
+    Thread 2 ->> CPU: Execute
+    CPU --> Thread 2: Done
+    Thread 1 ->> CPU: Execute
+    CPU --> Thread 1: Done
+    Thread 3 ->> CPU: Execute
+    CPU --> Thread 3: Done
+</span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h4>Multiple Core Concurrency</h4>
+<span class="diagram-data" style="display:none;">
+  sequenceDiagram
+    Thread 1 ->> CPU 1: Execute
+    CPU 1 --> Thread 1: Done
+    Thread 2 ->> CPU 2: Execute
+    CPU 2 --> Thread 2: Done
+</span><div class="diagram-display"></div>
+</section>
+
+</section>
+
+<!---------------------------------------------- -->
+
+<!-- NEW SECTION -->
+<!---------------------------------------------- -->
+<section>
+<section id="threads" data-markdown class="center"><script type="text/template">
+### Basic Thread Example
+    </script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Threads in Java
+
+- Typically, a Java program is a process with one thread.
+- But, Java provides a nice way to create new threads that run in parallel.
+- In comes the Java __Thread__ class and __Runnable__ interface
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Making a Thread in Java
+
+<pre><code class="hljs" data-trim contenteditable>
+public interface Runnable{
+  void run();
+}
+
+/* To make a thread, first make a runnable class */
+public class MyRunnable implements Runnable{
+  public void run(){
+    /* Code for this thread goes here */
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Running a thread
+
+<pre><code class="hljs" data-trim contenteditable>
+/* Somewhere else in your main program */
+MyRunnable r = new MyRunnable();
+Thread t = new Thread(r);
+t.start() //schedules run() to be invoked
+</code></pre>
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Some notes on threads
+
+- A __Thread Scheduler__ runs each thread for a short amount of time (time slice)
+- There is no guarantee about which thread runs first, or what order threads run in.
+- No gaurantee about where in code a thread is paused while another takes over.
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Another example: Sorting two lists
+
+- Suppose I have two large lists and I need to sort both
+
+<pre><code class="hljs" data-trim contenteditable>
+public class SortAList implements Runnable{
+  public int[] listToSort;
+
+  public void sort(){
+    /* Omitted, sorts the listToSort */
+  }
+
+  public void run(){
+    sort(); //just sort the list
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Another example: Sorting two lists
+
+- Suppose I have two large lists and I need to sort both
+
+<pre><code class="hljs" data-trim contenteditable>
+/* This is NOT threaded. Will sort one list, then the other */
+sortTwoLists(int[] list1, int[] list2){
+  SortAList s1 = new SortAList();
+  s1.listToSort = list1;
+
+  SortAList s2 = new SortAList();
+  s2.listToSort = list2;
+
+  s1.run();
+  s2.run();
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Another example: Sorting two lists
+
+<pre><code class="hljs" data-trim contenteditable>
+/* This IS threaded.*/
+sortTwoLists(int[] list1, int[] list2){
+  SortAList s1 = new SortAList();
+  s1.listToSort = list1;
+
+  SortAList s2 = new SortAList();
+  s2.listToSort = list2;
+
+  Thread t1 = new Thread(s1);
+  Thread t2 = new Thread(s2);
+
+  t1.start();
+  t2.start();
+
+  /* join waits until that thread is done */
+  t1.join();
+  t2.join();
+  System.out.println("Both are sorted");
+}
+</code></pre>
+</script></section>
+
+<section data-markdown class="center"><script type="text/template">
+### Terminating a thread
+
+- A thread terminates when the *run()* method is complete
+- Or, you can call:
+
+```
+t.interrupt()
+```
+
+- Does not stop the thread, just sets a boolean
+  - run method should check for this interrupt periodically
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Interrupting a Thread
+
+<pre><code class="hljs" data-trim contenteditable>
+public void run(){
+  for(int i=0; i<=REPETITIONS && !Thread.interrupted(); i++){
+    //DO STUFF
+  }
+  //Clean up if necessary
+}
+</code></pre>
+</script></section>
+
+</section>
+<!---------------------------------------------- -->
+
+
+
+<!---------------------------------------------- -->
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>

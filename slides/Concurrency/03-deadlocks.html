@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 2100: Concurrency</title>
+    <meta name="description" content="Slides for a Data Structures and Algorithms Course">
+    <meta name="author" content="Mark Floryan">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css" id="theme">
+   <!-- <link rel="stylesheet" href="../css/pdr.css">-->
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <!---->
+    <script type="text/javascript" src="../js/dhtmlwindow.js"></script>
+    <script type="text/javascript" src="../js/canvas.js"></script>
+    <script src="../node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    var config = {
+        startOnLoad:true,
+        theme:"neutral",
+        flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+    };
+    mermaid.initialize(config);
+</script>
+    <link rel="stylesheet" href="../css/dhtmlwindow.css" type="text/css">
+    
+  </head>
+
+  <body onload="canvasinit()">
+    <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+  <section data-markdown><script type="text/template">
+&nbsp;
+## CS2100
+### Data Structures and Algorithms 1
+&nbsp;
+<center><small>[Mark Floryan](http://www.cs.virginia.edu/~mrf8t) / [mrf8t@virginia.edu](mailto:mrf8t@virginia.edu)</small></center>
+<center><small>Repository: [github.com/uva-cs/dsa1](http://github.com/uva-cs/dsa1) / [&uarr;](index.html) </small></center>
+&nbsp;
+### Concurrency
+  </script></section>
+	 <section data-markdown class="center"><script type="text/template">
+### Contents
+&nbsp;  
+[Shared Resources and Race Conditions](#/race) <br />
+[Locks](#/locks) <br />
+[Avoiding Deadlocks](#/deadlocks) <br />
+[Blocking Queue](#/blockingqueue) <br />
+</script></section>
+
+
+
+<!-- NEW SECTION -->
+<!---------------------------------------------- -->
+<section>
+<section id="race" data-markdown class="center"><script type="text/template">
+### Shared Resources and Race Conditions
+    </script></section>
+
+<section data-markdown><script type="text/template">
+#### Race Condition Example
+
+- Consider the following program that contains __two threads__
+  - Variable int __amount__ in an account
+  - __Thread 1:__ repeatedly deposits $100 into the account (n times)
+  - __Thread 2:__ repeatedly withdraws $100 out of account (n times)
+
+- What would happen? We should end up with $0 right?
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### BankAccount.Java
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BankAccount {
+  private double balance;
+
+  public BankAccount(){
+    balance = 0;
+  }
+
+  public void deposit(double amount){
+    System.out.print("Depositing " + amount);
+    double newBalance = balance + amount;
+    System.out.println(", new balance is " + newBalance);
+    balance = newBalance;
+  }
+
+  public void withdraw(double amount){
+    System.out.print("Withdrawing " + amount);
+    double newBalance = balance - amount;
+    System.out.println(", new balance is " + newBalance);
+    balance = newBalance;
+  }
+  
+  public double getBalance(){ return balance; }
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Deposit Thread
+
+<pre><code class="hljs" data-trim contenteditable>
+public class DepositRunnable implements Runnable {
+  /* Initialize stuff, etc. */
+  
+  public void run(){
+    try{
+      for(int i = 1; i <= count; i++){
+        account.deposit(amount);
+        Thread.sleep(DELAY);
+      }
+    }
+    catch(InterruptedException exception){
+      
+    }
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Withdraw Thread
+
+<pre><code class="hljs" data-trim contenteditable>
+public class WithdrawRunnable implements Runnable{
+  /* Initialize stuff, etc. */
+  
+  public void run(){
+    try{
+      for(int i = 1; i <= count; i++){
+        account.withdraw(amount);
+        Thread.sleep(DELAY);
+      }
+    }
+    catch(InterruptedException exception){
+      
+    }
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Results?
+
+- Output:
+```
+...
+Depositing 100.0Withdrawing 100.0, new balance is
+100.0, new balance is -100.0
+```
+
+- Why? This is called a __race condition__!
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Race Conditions
+
+- A __race condition__ is a situation in which the order that threads execute alters the result of the execution. 
+  - i.e., the threads are racing and the output depends on which one is faster.
+- Race conditions can occur when there are __shared resources__: variables or objects that multiple threads are interacting with at once.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Why does this happen?
+
+- The code below...
+
+<pre><code class="hljs" data-trim contenteditable>
+  double newBalance = balance + amount;
+</code></pre>
+
+- Is turned into (by the compiler) something like this:
+
+<pre><code class="hljs" data-trim contenteditable>
+  #I don't expect you to fully understand this
+  mov rax, balance
+  mov rax, amount
+  mov balance, rax
+</code></pre>
+
+- This means that a thread may have calculated that the new balance is 100+100 = 200 BEFORE storing that result (200) back into the variable balance.
+- If the thread is interrupted at that point, then bad things could happen.
+</script></section>
+
+<section class="diagram-slide">
+<h4>What we hope happens</h4>
+
+<span class="diagram-data" style="display:none;">
+sequenceDiagram
+    Withdraw --> Balance:  
+    Note right of Balance: balance=100
+    Balance ->> Deposit: 100
+    Note right of Deposit: Dep = 100+100 = 200
+    Deposit ->> Balance: 200
+    Note right of Balance: balance=200
+    Balance ->> Withdraw: 200
+    Note left of Withdraw: Wit = 200-100 = 100
+    Withdraw ->> Balance: 100
+    Note right of Balance: balance=200
+</span><div class="diagram-display"></div>
+</section>
+
+<section class="diagram-slide">
+<h4>What might very well happen instead</h4>
+
+<span class="diagram-data" style="display:none;">
+sequenceDiagram
+    Withdraw --> Balance:  
+    Note right of Balance: balance=100
+    Balance ->> Deposit: balance: 100
+    Note right of Deposit: Dep = 100+100 = 200
+    Balance ->> Withdraw: balance: 100
+    Note right of Withdraw: Wit = 100-100 = 0
+    Withdraw ->> Balance: set: 0
+    Note right of Balance: balance=0
+    Deposit ->> Balance: 200
+    Note right of Balance: balance=200
+</span><div class="diagram-display"></div>
+</section>
+
+</section>
+<!---------------------------------------------- -->
+
+
+
+<!-- NEW SECTION -->
+<!---------------------------------------------- -->
+<section>
+<section id="locks" data-markdown class="center"><script type="text/template">
+### Locks
+    </script></section>
+
+<section data-markdown><script type="text/template">
+#### Fixing Race Conditions
+
+- To eliminate a race condition, we use some kind of __lock__ object.
+- A __lock__ is a resource that only one thread is allowed to "hold" at a single time.
+  - Forces threads to "take turns"
+  - But also usually slows execution down because one thread may have to wait on the other.
+- Many types of locks out there, we will use Java's __ReentrantLock__.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Locks
+
+- When there is a shared resource, we usually instantiate a lock:
+
+<pre><code class="hljs" data-trim contenteditable>
+  private Lock balanceChangeLock;
+
+  public BankAccount(){
+    balanceChangeLock = new ReentrantLock();
+  }
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Locks
+
+- Then, when we use the shared resource, we grab the lock first
+
+<pre><code class="hljs" data-trim contenteditable>
+  balanceChangeLock.lock();
+  balance = balance + amount;
+  balanceChangeLock.unlock();
+</code></pre>
+
+- If lock() called and another thread has the lock, this thread will wait.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Locks
+
+- If an exception is thrown while lock acquired, the unlock never occurs.
+
+<pre><code class="hljs" data-trim contenteditable>
+  balanceChangeLock.lock();
+  balance = balance + amount;
+  /* Exception thrown here */
+  balanceChangeLock.unlock();
+</code></pre>
+
+- Use a try/catch instead
+
+<pre><code class="hljs" data-trim contenteditable>
+  balanceChangeLock.lock();
+  try{
+    balance = balance + amount;
+    /* Exception maybe thrown here */
+  }
+  catch{ /* Stuff here */ }
+  finally{
+    balanceChangeLock.unlock();
+  }
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Final Deposit Code
+
+<pre><code class="hljs" data-trim contenteditable>
+public void deposit(double amount){
+  balanceChangeLock.lock();
+  try{
+    System.out.print("Depositing: " + amount);
+    double newBalance = balance + amount;
+    System.out.println(", new balance is " + newBalance);
+    balance = newBalance;
+  }
+  finally{
+    balanceChangeLock.unlock();
+  }
+}
+</code></pre>
+
+- ...and similar code for withdraw!
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Final Notes on Locks
+
+- When a thread calls lock, in __owns the lock__ until unlock is called
+- Another thread that calls lock() will be deactivated by the scheduler so that it "waits" for the lock.
+  - Occassionally activated so it can see if the lock is now available.
+- Eventually (hopefully) waiting thread can acquire the lock.
+</script></section>
+
+</section>
+<!---------------------------------------------- -->
+
+
+
+<!-- NEW SECTION -->
+<!---------------------------------------------- -->
+<section>
+<section id="deadlocks" data-markdown class="center"><script type="text/template">
+### Avoiding Deadlocks
+    </script></section>
+
+
+<section data-markdown><script type="text/template">
+#### Deadlocks
+
+- A __Deadlock__ is a problem that occurs when no thread can proceed because each is waiting on another.
+  - e.g., thread A is waiting on B which is waiting on C which is waiting on A
+  - No progress is made and the program freezes forever.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Banking Example
+
+<pre><code class="hljs" data-trim contenteditable>
+public void withdraw(double amount){
+  balanceChangeLock.lock();
+  try{
+    while(balance < amount)
+      /* Wait for balance to grow */
+      //...
+  }
+  finally{
+    balanceChangeLock.unlock();
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Banking Example
+
+- How to wait for the balance to grow?
+  - Cannot just wait, because thread owns the balanceChangeLock!
+  - Thus, no other thread can deposit because they will be blocked by withdraw
+  - Withdraw will never finish because deposit cannot happen
+  - Deadlock!!!!
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Overcoming Deadlocks
+
+- Java contains a __condition object__.
+- These allow a thread to temporarily release a lock until a condition is met and then reacquire the lock.
+- This is done autonomously, so no race conditions within this acquisition step.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Condition Objects
+
+<pre><code class="hljs" data-trim contenteditable>
+public class BankAccount{
+  private Lock balanceChangeLock;
+  private Condition sufficientFundsCondition;
+
+  public BankAccount(){
+    balanceChangeLock = new ReentrantLock();
+    sufficientFundsCondition = 
+                balanceChangeLock.newCondition();
+    /* ... */
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Condition Objects
+
+<pre><code class="hljs" data-trim contenteditable>
+public void withdraw(double amount){
+  balanceChangeLock.lock();
+  try{
+    while(balance < amount){
+      sufficientFundsCondition.await();
+    }
+    //...
+  }
+  finally{
+    balanceChangeLock.unlock();
+  }
+}
+</code></pre>
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Condition Objects
+
+- await makes the current thread wait and allows other threads to grab the lock while waiting. 
+- To unblock the waiting thread, you need to call:
+
+```
+sufficientFundsCondition.signalAll();
+```
+
+- This lets other threads know that the condition might now be met for the waiting thread. Gives control back to waiting threads.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Signalling
+
+<pre><code class="hljs" data-trim contenteditable>
+public void deposit(double amount)
+{
+  balanceChangeLock.lock();
+  try{
+    System.out.print("Depositing " + amount);
+    double newBalance = balance + amount;
+    System.out.println(", new balance is " + newBalance);
+    balance = newBalance;
+    sufficientFundsCondition.signalAll(); // money added!
+  }
+  finally{ balanceChangeLock.unlock(); }
+}
+</code></pre>
+</script></section>
+
+</section>
+<!---------------------------------------------- -->
+
+
+<!-- NEW SECTION -->
+<!---------------------------------------------- -->
+<section>
+<section id="blockingqueue" data-markdown class="center"><script type="text/template">
+### Blocking Queue
+    </script></section>
+
+
+<section data-markdown><script type="text/template">
+#### Concurrent Queue
+
+- Suppose we have a linked-list backed __queue__ and we want to be able to access the queue with multiple threads.
+- Doesn't seem too bad, should be able to enqueue at front at same time as dequeueing at back. 
+- This is your pre-lab assignment this week.
+</script></section>
+
+<section data-markdown><script type="text/template">
+#### Blocking Concurrent Queue
+
+- Enqueue - Lock the queue, then add the element
+- Dequeue - Lock the queue, then delete the element
+  - If no nodes to delete, then await a signal that something has been added
+  - This is the "blocking" part because the queue will wait until it can delete something
+- Note that there are more efficient ways to implement this, but this is sufficient for our lab.
+</script></section>
+
+</section>
+
+
+<!---------------------------------------------- -->
+
+
+
+<!-- EXTRA STUFF FOR SLIDE LIBRARY -->
+
+ 
+      </div>
+
+    </div>
+
+    <div id="calibratediv" style="display:none">
+      <div id="calibratecanvasdiv">
+        <canvas id="calibratecanvas" width="300" height="300">Your browser does not support the canvas tag</canvas>
+      </div>
+      <p style="text-align:center">Click the center of the target<br><a href="#" onClick="calibratewin.close(); return false">Close window</a></p>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <!--<script src="js/settings.js"></script>-->
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/search/search.js', async: true },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'https://d3js.org/d3.v4.min.js' },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true },
+          { src: '../reveal.js/plugin/mermaid/mermaid.js'}
+        ]
+      });
+    </script>
+
+  </body>
+</html>
