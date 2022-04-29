@@ -51,7 +51,7 @@ This page contains the daily course schedule for the entire semester, as well as
 | |38|	Friday|	4/22/2022|<span class="c2">|Heapsort|[Floryan](./Heaps/03-heapsort.html)<BR>[Basit](./Basit/Day38-Heapsort.pdf)|||<span class="c1">Hash Tables (Report)||
 |14|39| Monday|4/25/2022|<span class="c3">Concurrency|Basic Concurrency and Thread Example|[Floryan](./Concurrency/01-intro.html)<BR>[Basit](./Basit/Day39-Concurrency1.pdf)|<span class="c2">Priority Queues|||<span class="c1">Hash Tables (Quiz)|
 | |40|	Wednesday|4/27/2022|<span class="c3">|Exception Handling	|[Floryan](./Concurrency/02-exceptions.html)<BR>[Basit](./Basit/Day40-Concurrency2-ExceptionHandling.pdf)||<span class="c2">Priority Queues (Coding)|||
-| |41|	Friday|4/29/2022|<span class="c3">|Locks, Deadlocks|[Floryan](./Concurrency/03-deadlocks.html)|||<span class="c2">Priority Queues (Report)||
+| |41|	Friday|4/29/2022|<span class="c3">|Locks, Deadlocks|[Floryan](./Concurrency/03-deadlocks.html)<BR>[Basit](./Basit/Day41-Concurrency3.pdf)|||<span class="c2">Priority Queues (Report)||
 |15|42| Monday|5/2/2022|<span class="c3">|Course Conclusion|SLIDES TBD|<span class="c3">Concurrency|<span class="c3">Concurrency (Coding)||<span class="c2">Priority Queues<br>**Retakes Modules 7-10 (Choose 2)**|
 
 
