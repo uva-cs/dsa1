@@ -25,6 +25,7 @@ public class Tester {
 			if(!it1.next().equals(it2.value())) return false;
 			it2.moveForward();
 		}
+		if(it2.isPastEnd() && it1.hasNext()) return false;
 		
 		//check backwards
 		it1 = list1.descendingIterator();
@@ -33,6 +34,8 @@ public class Tester {
 			if(!it1.next().equals(it2.value())) return false;
 			it2.moveBackward();
 		}
+		if(it2.isPastBeginning() && it1.hasNext()) return false;
+
 		return true;
 	}
 	
